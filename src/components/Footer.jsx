@@ -1,3 +1,4 @@
+// 공통 푸터
 import styled from "styled-components";
 
 const FooterWrapper = styled.footer`
@@ -13,7 +14,7 @@ const FooterWrapper = styled.footer`
 export default function Footer() {
   return (
     <FooterWrapper>
-      <p>&copy; 2026. All rights reserved.</p>
+      <p>&copy; 2026 LikeLion INU. All rights reserved.</p>
     </FooterWrapper>
   );
 }

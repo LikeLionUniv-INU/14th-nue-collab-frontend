@@ -1,3 +1,4 @@
+// 공통 헤더
 import styled from "styled-components";
 
 const HeaderWrapper = styled.header`
@@ -13,10 +14,10 @@ const HeaderWrapper = styled.header`
   }
 `;
 
-export default function Header({ title = "App Name" }) {
+export default function Header() {
   return (
     <HeaderWrapper>
-      <h1>{title}</h1>
+      <h1>헤더 영역</h1>
     </HeaderWrapper>
   );
 }
