@@ -9,6 +9,7 @@ const Background = styled.div`
   padding: 0;
   display: flex;
   justify-content: center;
+  flex-direction: column;
   align-items: center;
 `;
 
@@ -18,11 +19,25 @@ const TextBox = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
+`;
+
+const Grandimg = styled.div`
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 `;
 
 export default function IntroPage() {
   return (
     <Background>
+      <Grandimg>
+        <img src="임시할아버지.png" />
+      </Grandimg>
+      <br />
       <TextBox>
         <img src="말풍선.png" />
       </TextBox>
