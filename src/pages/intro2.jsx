@@ -1,4 +1,4 @@
-//인트로(1) 페이지
+//인트로(2) 페이지
 
 import { useNavigate } from "react-router-dom";
 
@@ -14,27 +14,6 @@ const Background = styled.div`
   justify-content: center;
   flex-direction: column;
   align-items: center;
-`;
-
-const TextBox = styled.div`
-  margin: 15px;
-  padding: 15px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  background-color: #eedbc6;
-  border-radius: 10px;
-  //font-family:
-`;
-
-const Grandimg = styled.div`
-  margin: 0;
-  padding: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
 `;
 
 const Scroll = styled.div`
@@ -57,25 +36,57 @@ const Content = styled.div`
   align-items: center;
 `;
 
+const Grandimg = styled.div`
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+`;
+
+const TextBox = styled.div`
+  margin: 15px;
+  padding: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: #eedbc6;
+  border-radius: 10px;
+  //font-family:
+`;
+
+const Logo = styled.div`
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  height: auto;
+`;
+
 export default function IntroPage() {
   const navigate = useNavigate();
 
   return (
-    <Background onClick={() => navigate("/intro2")}>
+    <Background>
       <Scroll>
         <img src="두루마리.png" />
         <Content>
+          <TextBox>어르신이 분석중!</TextBox>
+
           <Grandimg>
             <img src="임시할아버지.png" />
           </Grandimg>
-          <br />
-          <br />
-          <TextBox>
-            사주 삶이란 인연의 시작점이라 할 수 있지
-            <br />
-            <br />
-            너의 인연은 어떤지 한번 들여다 보자꾸나.
-          </TextBox>
+
+          <TextBox>시작하기</TextBox>
+
+          <Logo>
+            <img src="로고.png" />
+          </Logo>
         </Content>
       </Scroll>
     </Background>
