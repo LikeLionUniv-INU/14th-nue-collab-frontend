@@ -1,5 +1,6 @@
 // 인트로(1) 페이지
 import styled from "styled-components";
+import Scroll from "../components/Scroll.jsx";
 
 // ---------------------공통 레이아웃-----------------------------
 const Background = styled.div`
@@ -66,6 +67,7 @@ const SpeechBubble = styled.div`
 export default function TemplatePage() {
   return (
     <Background>
+      <Scroll />
       <ScrollArea>
         <ScrollImage src="/두루마리.png" />
 

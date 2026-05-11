@@ -75,38 +75,22 @@ const SpeechBubble = styled.div`
   }
 `;
 
-const Logo = styled.div`
-  margin: 0;
-  padding: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  width: 10%;
-  height: 10%;
-`;
-
-export default function IntroPage() {
-  const navigate = useNavigate();
+// -----------------------------------------------------------
 
 export default function TemplatePage() {
   return (
     <Background>
-      <ScrollArea>
-        <ScrollImage src="/두루마리.png" />
-        <Content>
-          <TextBox>어르신이 분석중!</TextBox>
+    <ScrollArea>
+      <ScrollImage src="/두루마리.png" />
 
-          <Grandimg>
-            <img src="임시할아버지.png" />
-          </Grandimg>
-
-          <TextBox>시작하기</TextBox>
-
-          <Logo>
-            <img src="로고.png" style={{ width: "300%", height: "auto" }} />
-          </Logo>
-        </Content>
+      <Content>
+        <SpeechBubble>어르신이 분석 중!</SpeechBubble>
+        <img src="/임시할아버지.png" alt="할아버지" style={{ width: "150px" }} />
+        <StartButton>시작하기</StartButton>
+          
+        <img src="/로고.png" alt="로고" style={{ width: "63px", marginTop: "8vh" }} />
+      </Content>
+        
       </ScrollArea>
     </Background>
   );
