@@ -64,8 +64,8 @@ const Logo = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  width: 100%;
-  height: auto;
+  width: 10%;
+  height: 10%;
 `;
 
 export default function IntroPage() {
@@ -74,7 +74,7 @@ export default function IntroPage() {
   return (
     <Background>
       <Scroll>
-        <img src="두루마리.png" />
+        <img src="두루마리.png" style={{ width: "100%", height: "auto" }} />
         <Content>
           <TextBox>어르신이 분석중!</TextBox>
 
@@ -85,7 +85,7 @@ export default function IntroPage() {
           <TextBox>시작하기</TextBox>
 
           <Logo>
-            <img src="로고.png" />
+            <img src="로고.png" style={{ width: "300%", height: "auto" }} />
           </Logo>
         </Content>
       </Scroll>
