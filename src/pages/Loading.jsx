@@ -1,4 +1,4 @@
-// 인트로(1) 페이지
+// 로딩 페이지
 import styled from "styled-components";
 import Scroll from "../components/Scroll.jsx";
 
