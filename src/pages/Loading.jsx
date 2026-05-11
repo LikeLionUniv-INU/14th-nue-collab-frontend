@@ -69,14 +69,5 @@ const SpeechBubble = styled.div`
 export default function TemplatePage() {
   const navigate = useNavigate();
 
-  return (
-    <Background onClick={() => navigate("/Intro2")}>
-      <ScrollArea>
-        <ScrollImage src="/두루마리.png" />
-        <Content>
-          <img src="/대형로고_세로.png" style={{ width: "100px" }} />
-        </Content>
-      </ScrollArea>
-    </Background>
-  );
+  return <Background>로딩중 곧 만들예정</Background>;
 }

@@ -1,7 +1,5 @@
 // 인트로(1) 페이지
 import styled from "styled-components";
-import Scroll from "../components/Scroll.jsx";
-
 import { useNavigate } from "react-router-dom";
 
 // ---------------------공통 레이아웃-----------------------------
@@ -39,28 +37,42 @@ const Content = styled.div`
   align-items: center;
 `;
 
-// 말풍선 (위쪽 꼬리)
+// 시작하기 버튼
+const StartButton = styled.button`
+  font-size: 20px;
+  width: 220px;
+  height: 47px;
+  background-color: #eedbc6;
+  border: none;
+  padding: 10px;
+  border-radius: 8.75px;
+  margin-top: 6vh; // 위치에 따라 변경
+`;
+
+// 말풍선 (아래쪽 꼬리)
 const SpeechBubble = styled.div`
   position: relative;
   background-color: #eedbc6;
   border-radius: 10px;
   padding: 15px;
-  margin-top: 5vh; // 말풍선 위치에 따라 변경
+  margin-bottom: 5vh; // 말풍선 위치에 따라 변경
   width: 90%;
   box-sizing: border-box;
+  text-align: center;
   font-size: 14px;
 
   &::after {
     content: "";
     position: absolute;
-    bottom: 100%;
+    top: 100%;
 
     // 이 수치 바꿔서 꼬리 위치 조정
-    left: 15%;
+    left: 50%;
+    transform: translateX(-50%);
 
     border-width: 12px;
     border-style: solid;
-    border-color: transparent transparent #eedbc6 transparent;
+    border-color: #eedbc6 transparent transparent transparent;
   }
 `;
 
@@ -70,11 +82,25 @@ export default function TemplatePage() {
   const navigate = useNavigate();
 
   return (
-    <Background onClick={() => navigate("/Intro2")}>
+    <Background>
       <ScrollArea>
         <ScrollImage src="/두루마리.png" />
+
         <Content>
-          <img src="/대형로고_세로.png" style={{ width: "100px" }} />
+          <SpeechBubble>어르신이 분석 중!</SpeechBubble>
+          <img
+            src="/임시할아버지.png"
+            alt="할아버지"
+            style={{ width: "150px" }}
+          />
+          <StartButton onClick={() => navigate("/BirthDate")}>
+            시작하기
+          </StartButton>
+          <img
+            src="/로고.png"
+            alt="로고"
+            style={{ width: "63px", marginTop: "8vh" }}
+          />
         </Content>
       </ScrollArea>
     </Background>

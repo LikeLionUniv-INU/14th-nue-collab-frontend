@@ -3,8 +3,9 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Layout from "./styles/Layout";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
-import Intro1 from "./pages/intro1";
-import Intro2 from "./pages/intro2";
+import Intro1 from "./pages/Intro1";
+import Intro2 from "./pages/Intro2";
+import Intro3 from "./pages/Intro3";
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Intro1 />} />
         <Route path="/intro2" element={<Intro2 />} />
+        <Route path="/intro3" element={<Intro3 />} />
         <Route element={<Layout />}>{/* 아래에 다른 페이지들 추가.. */}</Route>
       </Routes>
     </BrowserRouter>
