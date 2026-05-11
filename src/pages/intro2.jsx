@@ -66,7 +66,7 @@ const SpeechBubble = styled.div`
 
 // -----------------------------------------------------------
 
-export default function TemplatePage() {
+export default function Intro2() {
   const navigate = useNavigate();
 
   return (
