@@ -64,7 +64,7 @@ const SpeechBubble = styled.div`
 
 // -----------------------------------------------------------
 
-export default function TemplatePage() {
+export default function Intro1() {
   return (
     <Background>
       <Scroll />
