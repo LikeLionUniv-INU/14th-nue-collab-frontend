@@ -85,9 +85,18 @@ export default function TemplatePage() {
 
         <Content>
           <SpeechBubble>어르신이 분석 중!</SpeechBubble>
-          <img src="/임시할아버지.png" style={{ width: "150px" }} />
+          <img
+            src="/임시할아버지.png"
+            alt="할아버지"
+            style={{ width: "150px" }}
+          />
           <StartButton>시작하기</StartButton>
-          <img src="/로고.png" style={{ width: "63px", marginTop: "8vh" }} />
+
+          <img
+            src="/로고.png"
+            alt="로고"
+            style={{ width: "63px", marginTop: "8vh" }}
+          />
         </Content>
       </ScrollArea>
     </Background>
