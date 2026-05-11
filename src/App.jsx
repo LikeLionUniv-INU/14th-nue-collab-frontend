@@ -6,6 +6,7 @@ import Footer from "./components/Footer";
 import Intro1 from "./pages/Intro1";
 import Intro2 from "./pages/Intro2";
 import ResultPage from "./pages/ResultPage";
+import Aboutsal from "./pages/Aboutsal";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Route path="/" element={<Intro1 />} />
         <Route path="/intro2" element={<Intro2 />} />
         <Route path="/result" element={<ResultPage />} />
+        <Route path="/about-sal" element={<Aboutsal />} />
       </Routes>
     </BrowserRouter>
   );
