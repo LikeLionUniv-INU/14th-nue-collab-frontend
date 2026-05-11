@@ -45,7 +45,7 @@ const SpeechBubble = styled.div`
   background-color: #eedbc6;
   border-radius: 10px;
   padding: 15px;
-  margin-top: 5vh; // 말풍선 위치에 따라 변경
+  margin-top: -10vh; // 말풍선 위치에 따라 변경
   width: 90%;
   box-sizing: border-box;
   font-size: 14px;
@@ -53,10 +53,10 @@ const SpeechBubble = styled.div`
   &::after {
     content: "";
     position: absolute;
-    bottom: 100%;
+    top: 100%;
 
     // 이 수치 바꿔서 꼬리 위치 조정
-    left: 15%;
+    left: 45%;
 
     border-width: 12px;
     border-style: solid;
@@ -69,5 +69,20 @@ const SpeechBubble = styled.div`
 export default function TemplatePage() {
   const navigate = useNavigate();
 
-  return <Background>로딩중 곧 만들예정</Background>;
+  return (
+    <Background>
+      <ScrollArea>
+        <ScrollImage src="/두루마리.png" />
+        <Content>
+          <SpeechBubble>어르신이 분석 중!</SpeechBubble>
+          <br />
+          <img
+            src="/임시할아버지.png"
+            alt="할아버지"
+            style={{ width: "150px" }}
+          />
+        </Content>
+      </ScrollArea>
+    </Background>
+  );
 }
