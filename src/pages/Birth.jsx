@@ -35,8 +35,6 @@ const Content = styled.div`
   align-items: center;
 `;
 
-/* 
-// 시작하기 버튼
 const StartButton = styled.button`
   font-size: 20px;
   width: 220px;
@@ -46,6 +44,40 @@ const StartButton = styled.button`
   padding: 10px;
   border-radius: 8.75px;
   margin-top: 6vh; // 위치에 따라 변경
+  font-weight: bold;
+`;
+
+const Button = styled.button`
+  font-size: 15px;
+  width: 90%;
+  height: 40px;
+  background-color: #eedbc6;
+  border: none;
+  padding: 10px;
+  border-radius: 8.75px;
+  margin-top: 6vh; // 위치에 따라 변경
+  text-align: left;
+  margin: 7px 7px 7px 0;
+`;
+
+const BackButton = styled.button`
+  padding: 0;
+  font-size: 15px;
+  background: none;
+  border: none;
+`;
+
+const Btn = ({ OnClick, name }) => {
+  return <Button onClick={OnClick}> {name}</Button>;
+};
+
+const StBtn = ({ OnClick, name }) => {
+  return <StartButton onClick={OnClick}> {name}</StartButton>;
+};
+
+/* 
+// 시작하기 버튼
+
 `;
 */
 
@@ -106,19 +138,37 @@ const SpeechBubble = styled.div`
 
 // -----------------------------------------------------------
 
-export default function TemplatePage() {
+export default function Birth() {
   return (
     <Background>
       <ScrollArea>
         <ScrollImage src="/두루마리.png" />
 
         <Content>
-          {/* 아래에 두루마리 안쪽 내용 작성 (지금은 이미지랑 멘트 영역으로 나눴는데, 필요시 더 나눠야 함) */}
-          {/* 이미지 영역 */}
-          <img src="/임시할아버지.png" style={{ width: "180px" }} />
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "flex-start",
+              marginRight: "12vw",
+            }}
+          >
+            <BackButton onClick={() => {}}>← 뒤로가기</BackButton>
+            <p
+              style={{
+                fontSize: "20px",
+                marginBottom: "20%",
+              }}
+            >
+              생년월일 입력 [양력]
+            </p>
+          </div>
 
-          {/* 멘트 영역 */}
-          <SpeechBubble>멘트 멘트 멘트 멘트</SpeechBubble>
+          <Btn OnClick={() => {}} name="생년" />
+          <Btn OnClick={() => {}} name="생월" />
+          <Btn OnClick={() => {}} name="생일" />
+
+          <StBtn OnClick={() => {}} name="분석하기" />
         </Content>
       </ScrollArea>
     </Background>
