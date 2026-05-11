@@ -1,5 +1,8 @@
-// 인트로(1) 페이지
+// 인트로(2) 페이지
 import styled from "styled-components";
+import Scroll from "../components/Scroll.jsx";
+
+import { useNavigate } from "react-router-dom";
 
 // ---------------------공통 레이아웃-----------------------------
 const Background = styled.div`
@@ -36,67 +39,50 @@ const Content = styled.div`
   align-items: center;
 `;
 
-// 시작하기 버튼
-const StartButton = styled.button`
-  font-size: 20px;
-  width: 220px;
-  height: 47px;
-  background-color: #eedbc6;
-  border: none;
-  padding: 10px;
-  border-radius: 8.75px;
-  margin-top: 6vh; // 위치에 따라 변경
-`;
-
-// 말풍선 (아래쪽 꼬리)
+// 말풍선 (위쪽 꼬리)
 const SpeechBubble = styled.div`
   position: relative;
   background-color: #eedbc6;
   border-radius: 10px;
   padding: 15px;
-  margin-bottom: 5vh; // 말풍선 위치에 따라 변경
+  margin-top: 5vh; // 말풍선 위치에 따라 변경
   width: 90%;
   box-sizing: border-box;
-  text-align: center;
   font-size: 14px;
 
   &::after {
     content: "";
     position: absolute;
-    top: 100%;
+    bottom: 100%;
 
     // 이 수치 바꿔서 꼬리 위치 조정
-    left: 50%;
-    transform: translateX(-50%);
+    left: 15%;
 
     border-width: 12px;
     border-style: solid;
-    border-color: #eedbc6 transparent transparent transparent;
+    border-color: transparent transparent #eedbc6 transparent;
   }
 `;
 
 // -----------------------------------------------------------
 
 export default function Intro2() {
+  const navigate = useNavigate();
+
   return (
-    <Background>
+    <Background onClick={() => navigate("/Intro3")}>
       <ScrollArea>
         <ScrollImage src="/두루마리.png" />
 
         <Content>
-          <SpeechBubble>어르신이 분석 중!</SpeechBubble>
-          <img
-            src="/임시할아버지.png"
-            alt="할아버지"
-            style={{ width: "150px" }}
-          />
-          <StartButton>시작하기</StartButton>
+          <img src="/임시할아버지.png" style={{ width: "180px" }} />
 
-          <img
-            src="/로고.png"
-            alt="로고"
-            style={{ width: "63px", marginTop: "8vh" }}
-          />
+          <SpeechBubble>
+            "사주 살이란 인연의 시작점이라고 할 수 있지
+            <br />
+            <br />
+            너의 인연은 어떤지 한번 들여다보자꾸나."
+          </SpeechBubble>
         </Content>
       </ScrollArea>
     </Background>
