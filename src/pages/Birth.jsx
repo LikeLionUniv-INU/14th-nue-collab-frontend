@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 
 // ---------------------공통 레이아웃-----------------------------
 const Background = styled.div`
@@ -139,6 +140,9 @@ const SpeechBubble = styled.div`
 // -----------------------------------------------------------
 
 export default function Birth() {
+
+  const navigate = useNavigate();
+
   return (
     <Background>
       <ScrollArea>
@@ -153,7 +157,7 @@ export default function Birth() {
               marginRight: "12vw",
             }}
           >
-            <BackButton onClick={() => {}}>← 뒤로가기</BackButton>
+            <BackButton onClick={() => navigate("/intro1")}>← 뒤로가기</BackButton>
             <p
               style={{
                 fontSize: "20px",
@@ -168,7 +172,7 @@ export default function Birth() {
           <Btn OnClick={() => {}} name="생월" />
           <Btn OnClick={() => {}} name="생일" />
 
-          <StBtn OnClick={() => {}} name="분석하기" />
+          <StBtn OnClick={() => navigate("/result") } name="분석하기" />
         </Content>
       </ScrollArea>
     </Background>

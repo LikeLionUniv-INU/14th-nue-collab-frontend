@@ -6,15 +6,17 @@ import Footer from "./components/Footer";
 import Intro1 from "./pages/intro1";
 import Intro2 from "./pages/intro2";
 import Birth from "./pages/Birth";
+import ResultPage from "./pages/ResultPage";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
+        <Route element={<Layout />}>{/* 아래에 다른 페이지들 추가.. */}</Route>
         <Route path="/" element={<Intro1 />} />
         <Route path="/intro2" element={<Intro2 />} />
         <Route path="/birth" element={<Birth />} />
-        <Route element={<Layout />}>{/* 아래에 다른 페이지들 추가.. */}</Route>
+        <Route path="/result" element={<ResultPage />} />
       </Routes>
     </BrowserRouter>
   );
