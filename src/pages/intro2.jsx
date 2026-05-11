@@ -1,60 +1,78 @@
-//인트로(2) 페이지
-
-import { useNavigate } from "react-router-dom";
-
+// 인트로(1) 페이지
 import styled from "styled-components";
 
+// ---------------------공통 레이아웃-----------------------------
 const Background = styled.div`
-  background-color: #341d02; /* 배경색 */
-  width: 100vw; /* 브라우저 화면의 가로 100% */
-  height: 100vh; /* 브라우저 화면의 높이 100% */
-  margin: 0;
-  padding: 0;
+  background-color: #341d02;
+  width: 100vw;
+  height: 100dvh;
   display: flex;
   justify-content: center;
-  flex-direction: column;
   align-items: center;
 `;
 
-const Scroll = styled.div`
-  margin: 0;
-  padding: 0;
+const ScrollArea = styled.div`
+  position: relative;
+  width: 100%;
+  max-width: 480px; /* 모바일 화면 최대 너비 제한 */
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-direction: column;
-  position: relative;
+`;
+
+const ScrollImage = styled.img`
+  width: 90%;
+  height: auto;
 `;
 
 const Content = styled.div`
   position: absolute;
   top: 55%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%); /* 두루마리 정중앙에 컨텐츠 배치 */
+  width: 70%; /* 두루마리 안쪽 여백 고려 */
   display: flex;
   flex-direction: column;
   align-items: center;
 `;
 
-const Grandimg = styled.div`
-  margin: 0;
-  padding: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
+// 시작하기 버튼
+const StartButton = styled.button`
+  font-size: 20px;
+  width: 220px;
+  height: 47px;
+  background-color: #eedbc6;
+  border: none;
+  padding: 10px;
+  border-radius: 8.75px;
+  margin-top: 6vh; // 위치에 따라 변경
 `;
 
-const TextBox = styled.div`
-  margin: 15px;
-  padding: 15px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
+// 말풍선 (아래쪽 꼬리)
+const SpeechBubble = styled.div`
+  position: relative;
   background-color: #eedbc6;
   border-radius: 10px;
-  //font-family:
+  padding: 15px;
+  margin-bottom: 5vh; // 말풍선 위치에 따라 변경
+  width: 90%;
+  box-sizing: border-box;
+  text-align: center;
+  font-size: 14px;
+
+  &::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+
+    // 이 수치 바꿔서 꼬리 위치 조정
+    left: 50%;
+    transform: translateX(-50%);
+
+    border-width: 12px;
+    border-style: solid;
+    border-color: #eedbc6 transparent transparent transparent;
+  }
 `;
 
 const Logo = styled.div`
@@ -71,10 +89,11 @@ const Logo = styled.div`
 export default function IntroPage() {
   const navigate = useNavigate();
 
+export default function TemplatePage() {
   return (
     <Background>
-      <Scroll>
-        <img src="두루마리.png" style={{ width: "100%", height: "auto" }} />
+      <ScrollArea>
+        <ScrollImage src="/두루마리.png" />
         <Content>
           <TextBox>어르신이 분석중!</TextBox>
 
@@ -88,7 +107,7 @@ export default function IntroPage() {
             <img src="로고.png" style={{ width: "300%", height: "auto" }} />
           </Logo>
         </Content>
-      </Scroll>
+      </ScrollArea>
     </Background>
   );
 }
