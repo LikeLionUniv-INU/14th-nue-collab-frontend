@@ -1,15 +1,14 @@
 import React, { useState, useEffect } from "react"; // 이 줄을 추가하세요!
 import styled, { keyframes } from "styled-components";
 
-// 애니메이션 14%마다 프레임 교체
+// 애니메이션 20%마다 프레임 교체
 const openScrollAnimation = keyframes`
   0% { content: url('/두루마리_펼치기1.png'); }
-  14% { content: url('/두루마리_펼치기2.png'); }
-  28% { content: url('/두루마리_펼치기3.png'); }
-  42% { content: url('/두루마리_펼치기4.png'); }
-  57% { content: url('/두루마리_펼치기5.png'); }
-  71% { content: url('/두루마리_펼치기6.png'); }
-  100% { content: url('/두루마리_펼치기7.png'); }
+  20% { content: url('/두루마리_펼치기2.png'); }
+  40% { content: url('/두루마리_펼치기3.png'); }
+  60% { content: url('/두루마리_펼치기4.png'); }
+  80% { content: url('/두루마리_펼치기5.png'); }
+  100% { content: url('/두루마리_펼치기6.png'); }
 `;
 
 const Temp_Background = styled.div`
@@ -28,7 +27,7 @@ const Temp_Background = styled.div`
 // 기존 영역을 유지하되 내부 배치를 위해 flex 조정
 const TempScrollArea = styled.div`
   position: relative;
-  width: 100%;
+  width: 95%;
   max-width: 480px;
   display: flex;
   justify-content: center;
@@ -37,7 +36,7 @@ const TempScrollArea = styled.div`
 
 // 2. 애니메이션이 적용된 이미지 컴포넌트
 const AnimatedScrollImage = styled.img`
-  width: 90%;
+  width: 100%;
   height: auto;
 
   /* 0.6초 동안, 프레임이 딱딱 끊기도록(steps), 마지막 프레임 유지 */
