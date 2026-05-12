@@ -14,6 +14,7 @@ import Intro2 from "./pages/intro2";
 >>>>>>> 274526c207304eefaafcbd1c712d4f923e3d26c2
 import Birth from "./pages/Birth";
 import ResultPage from "./pages/ResultPage";
+import Aboutsal from "./pages/Aboutsal";
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
         <Route path="/loading" element={<Loading />} />
         <Route path="/birth" element={<Birth />} />
         <Route path="/result" element={<ResultPage />} />
+        <Route path="/about-sal" element={<Aboutsal />} />
       </Routes>
     </BrowserRouter>
   );
