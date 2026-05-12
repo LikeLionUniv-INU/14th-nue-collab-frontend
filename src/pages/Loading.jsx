@@ -4,6 +4,8 @@ import Scroll from "../components/Scroll.jsx";
 
 import { useNavigate } from "react-router-dom";
 
+import { useState, useEffect } from "react";
+
 // ---------------------공통 레이아웃-----------------------------
 const Background = styled.div`
   background-color: #341d02;
@@ -39,13 +41,13 @@ const Content = styled.div`
   align-items: center;
 `;
 
-// 말풍선 (위쪽 꼬리)
+// 말풍선 (아래쪽 꼬리)
 const SpeechBubble = styled.div`
   position: relative;
   background-color: #eedbc6;
   border-radius: 10px;
   padding: 15px;
-  margin-top: -10vh; // 말풍선 위치에 따라 변경
+  margin-top: 5vh; // 말풍선 위치에 따라 변경
   width: 90%;
   box-sizing: border-box;
   font-size: 14px;
@@ -60,13 +62,37 @@ const SpeechBubble = styled.div`
 
     border-width: 12px;
     border-style: solid;
-    border-color: transparent transparent #eedbc6 transparent;
+    border-color: #eedbc6 transparent transparent transparent;
   }
+`;
+
+const Message = styled.div`
+  color: #eedbc6;
+  font-size: 18px;
+  margin-bottom: 20px;
+`;
+
+// 껍데기 - 항상 고정된 크기
+const BarWrapper = styled.div`
+  width: 70%; // 고정 너비
+  background-color: #eedbc6; // 갈색 배경
+  overflow: hidden; // Bar가 밖으로 삐져나오지 않게
+  border-radius: 10px;
+`;
+
+// 채워지는 부분 - percent에 따라 너비가 변함
+const Bar = styled.div`
+  width: ${(props) => props.$percent}%; // 0% → 100% 로 변함
+  height: 20px;
+  background-color: #a2392d;
+  transition: width 0.3s ease; // 부드럽게 채워지는 애니메이션
+  position: relative;
 `;
 
 // -----------------------------------------------------------
 
 export default function TemplatePage() {
+  const [percent, setPercent] = useState(0);
   const navigate = useNavigate();
 
   return (
@@ -81,6 +107,11 @@ export default function TemplatePage() {
             alt="할아버지"
             style={{ width: "150px" }}
           />
+          <br />
+          {percent}%
+          <BarWrapper>
+            <Bar $percent={percent} />
+          </BarWrapper>
         </Content>
       </ScrollArea>
     </Background>
