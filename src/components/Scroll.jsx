@@ -42,7 +42,7 @@ const AnimatedScrollImage = styled.img`
   object-fit: contain;
   object-position: top;
 
-  animation: ${openScrollAnimation} 1.2s steps(1) forwards;
+  animation: ${openScrollAnimation} 1.4s steps(1) forwards;
 `;
 
 const Scroll = () => {
@@ -86,7 +86,7 @@ const Scroll = () => {
     if (imagesLoaded) {
       const timer = setTimeout(() => {
         setIsVisible(false);
-      }, 1300);
+      }, 1500);
       return () => clearTimeout(timer);
     }
   }, [imagesLoaded]);
