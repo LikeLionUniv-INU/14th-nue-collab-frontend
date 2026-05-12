@@ -6,8 +6,8 @@ const SpriteImage = styled.img`
   transition: all 0.1s steps(1);
 `;
 
-// 프레임 전환 간격
-const GranpaAnimation = ({ rep_sec = 275 }) => {
+// 프레임 전환 간격 현 0.4초, 무한 반복
+const GranpaAnimation = ({ rep_sec = 400 }) => {
   const [frame, setFrame] = useState(1);
 
   useEffect(() => {
@@ -20,7 +20,7 @@ const GranpaAnimation = ({ rep_sec = 275 }) => {
 
   return (
     <SpriteImage
-      src={frame === 1 ? "/임시할아버지_1.png" : "/임시할아버지_2.png"}
+      src={frame === 1 ? "/할아버지_1.png" : "/할아버지_2.png"}
       alt="할아버지 애니메이션"
     />
   );
