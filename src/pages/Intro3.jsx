@@ -93,9 +93,7 @@ export default function TemplatePage() {
             alt="할아버지"
             style={{ width: "150px" }}
           />
-          <StartButton onClick={() => navigate("/BirthDate")}>
-            시작하기
-          </StartButton>
+          <StartButton onClick={() => navigate("/birth")}>시작하기</StartButton>
           <img
             src="/로고.png"
             alt="로고"
