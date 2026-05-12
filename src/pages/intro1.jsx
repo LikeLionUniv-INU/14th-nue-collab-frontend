@@ -71,10 +71,11 @@ export default function Intro1() {
 
   return (
     <Background onClick={() => navigate("/Intro2")}>
+      <Scroll />
       <ScrollArea>
         <ScrollImage src="/두루마리.png" />
         <Content>
-          <img src="/대형로고_세로.png" style={{ width: "100px" }} />
+          <img src="/대형로고_세로.png" style={{ width: "70px" }} />
         </Content>
       </ScrollArea>
     </Background>
