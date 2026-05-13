@@ -21,7 +21,7 @@ const ModalBox = styled.div`
   width: 85%;
   max-width: 320px;
   border-radius: 10px;
-  padding: 30px 20px;
+  padding: 16px 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -38,7 +38,7 @@ const Title = styled.div`
 const Description = styled.div`
   font-size: 0.9rem;
   line-height: 1.6;
-  margin-bottom: 30px;
+  margin-bottom: 15px;
   word-break: keep-all;
 `;
 
@@ -52,9 +52,10 @@ const ConfirmButton = styled.button`
   font-size: 1rem;
   cursor: pointer;
   font-family: inherit;
+  margin-bottom: 15px;
 `;
 
-export default function PopupModal({ title, content, onClose }) {
+export default function BirthPopupModal({ title, content, onClose }) {
   return (
     <Overlay>
       <ModalBox>
