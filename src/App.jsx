@@ -9,7 +9,10 @@ import Intro3 from "./pages/Intro3";
 import Loading from "./pages/Loading";
 import Birth from "./pages/Birth";
 import ResultPage from "./pages/ResultPage";
+<<<<<<< HEAD
 import Aboutsal from "./pages/Aboutsal";
+=======
+>>>>>>> 1620b94b923fed6037d0991ecce514394a185641
 
 function App() {
   return (
@@ -22,7 +25,10 @@ function App() {
         <Route path="/loading" element={<Loading />} />
         <Route path="/birth" element={<Birth />} />
         <Route path="/result" element={<ResultPage />} />
+<<<<<<< HEAD
         <Route path="/about-sal" element={<Aboutsal />} />
+=======
+>>>>>>> 1620b94b923fed6037d0991ecce514394a185641
       </Routes>
     </BrowserRouter>
   );
