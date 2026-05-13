@@ -67,7 +67,7 @@ const SpeechBubble = styled.div`
 `;
 
 const Message = styled.div`
-  color: #eedbc6;
+  color: #000000;
   font-size: 18px;
   margin-bottom: 20px;
 `;
@@ -92,8 +92,17 @@ const Bar = styled.div`
 // -----------------------------------------------------------
 
 export default function TemplatePage() {
-  const [percent, setPercent] = useState(0);
   const navigate = useNavigate();
+
+  const [percent, setPercent] = useState(0);
+  
+
+  const getMessage = (percent) => {
+  if (percent <= 25) return "1번 대사";
+  if (percent <= 50) return "2번 대사";
+  if (percent <= 75) return "3번 대사";
+  return "4번 대사";
+};
 
   return (
     <Background>
@@ -102,12 +111,14 @@ export default function TemplatePage() {
         <Content>
           <SpeechBubble>어르신이 분석 중!</SpeechBubble>
           <br />
+          <br />
           <img
             src="/임시할아버지.png"
             alt="할아버지"
             style={{ width: "150px" }}
           />
           <br />
+          <Message>{getMessage(percent)}</Message>
           {percent}%
           <BarWrapper>
             <Bar $percent={percent} />

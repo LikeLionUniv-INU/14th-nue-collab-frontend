@@ -161,7 +161,7 @@ export default function Birth() {
             </BackButton>
             <p
               style={{
-                fontSize: "20px", 
+                fontSize: "20px",
                 marginBottom: "20%",
               }}
             >
