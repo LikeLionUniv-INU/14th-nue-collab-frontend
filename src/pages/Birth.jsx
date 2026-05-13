@@ -48,7 +48,7 @@ const StartButton = styled.button`
   font-weight: bold;
 `;
 
-const Button = styled.button`
+const Selectstyle = styled.select`
   font-size: 15px;
   width: 90%;
   height: 40px;
@@ -68,8 +68,20 @@ const BackButton = styled.button`
   border: none;
 `;
 
-const Btn = ({ OnClick, name }) => {
-  return <Button onClick={OnClick}> {name}</Button>;
+const Select = ({ name, lgh, num }) => {
+  const length = Number(lgh);
+  const start = Number(num);
+
+  return (
+    <Selectstyle>
+      <option> {name}</option>
+      {Array.from({ length }, (_, i) => i + start).map((year) => (
+        <option key={year} value={year}>
+          {year}
+        </option>
+      ))}
+    </Selectstyle>
+  );
 };
 
 const StBtn = ({ OnClick, name }) => {
@@ -169,9 +181,9 @@ export default function Birth() {
             </p>
           </div>
 
-          <Btn OnClick={() => {}} name="생년" />
-          <Btn OnClick={() => {}} name="생월" />
-          <Btn OnClick={() => {}} name="생일" />
+          <Select name="생년" lgh={51} num={1970} />
+          <Select name="생월" lgh={12} num={1} />
+          <Select name="생일" lgh={31} num={1} />
 
           <StBtn OnClick={() => navigate("/result")} name="분석하기" />
         </Content>
