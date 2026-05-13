@@ -140,7 +140,6 @@ const SpeechBubble = styled.div`
 // -----------------------------------------------------------
 
 export default function Birth() {
-
   const navigate = useNavigate();
 
   return (
@@ -157,10 +156,12 @@ export default function Birth() {
               marginRight: "12vw",
             }}
           >
-            <BackButton onClick={() => navigate("/intro3")}>← 뒤로가기</BackButton>
+            <BackButton onClick={() => navigate("/intro3")}>
+              ← 뒤로가기
+            </BackButton>
             <p
               style={{
-                fontSize: "20px", 
+                fontSize: "20px",
                 marginBottom: "20%",
               }}
             >
@@ -172,7 +173,7 @@ export default function Birth() {
           <Btn OnClick={() => {}} name="생월" />
           <Btn OnClick={() => {}} name="생일" />
 
-          <StBtn OnClick={() => navigate("/result") } name="분석하기" />
+          <StBtn OnClick={() => navigate("/result")} name="분석하기" />
         </Content>
       </ScrollArea>
     </Background>
