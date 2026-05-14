@@ -7,7 +7,6 @@ const Button = styled.button`
   width: 120px;
   height: 30px;
   font-size: 0.875rem;
-  box-shadow: 1px 1px 1px 1px gray;
 `;
 
 export default function NextBtn({ onClick, name }) {

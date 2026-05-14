@@ -1,7 +1,7 @@
 // 인트로(2) 페이지
 import styled from "styled-components";
 import Scroll from "../components/Scroll.jsx";
-import GranpaAnimation from "../components/GranpaAnimation";
+import GranpaAnimation from "../components/GranpaAnimation.jsx";
 
 import { useNavigate } from "react-router-dom";
 
