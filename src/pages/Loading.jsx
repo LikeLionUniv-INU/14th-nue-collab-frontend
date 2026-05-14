@@ -1,6 +1,7 @@
 // 로딩 페이지
 import styled from "styled-components";
 import Scroll from "../components/Scroll.jsx";
+import GranpaAnimation from "../components/GranpaAnimation";
 
 import { useNavigate } from "react-router-dom";
 
@@ -97,11 +98,28 @@ export default function TemplatePage() {
   const [percent, setPercent] = useState(0);
 
   const getMessage = (percent) => {
-    if (percent <= 25) return "1번 대사";
-    if (percent <= 50) return "2번 대사";
-    if (percent <= 75) return "3번 대사";
-    return "4번 대사";
+    if (percent <= 25) return "어르신이 분석 중...";
+    if (percent <= 50) return "홍연과 청연의 살을 엮는 중...";
+    if (percent <= 75) return "숨겨진 살을 엮는 중...";
+    return "분석 완료!";
   };
+
+  useEffect(() => {
+    const steps = [25, 50, 75, 100];
+    let i = 0;
+
+    const interval = setInterval(() => {
+      if (i < steps.length) {
+        setPercent(steps[i]);
+        i++;
+      } else {
+        clearInterval(interval);
+        navigate("/result-ready");
+      }
+    }, 1500);
+
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <Background>
@@ -110,12 +128,12 @@ export default function TemplatePage() {
         <Content>
           <SpeechBubble>어르신이 분석 중!</SpeechBubble>
           <br />
-          <br />
-          <img
+          <GranpaAnimation />
+          {/* <img
             src="/임시할아버지.png"
             alt="할아버지"
             style={{ width: "150px" }}
-          />
+          /> */}
           <br />
           <Message>{getMessage(percent)}</Message>
           {percent}%

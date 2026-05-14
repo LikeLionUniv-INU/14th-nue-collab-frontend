@@ -7,10 +7,12 @@ import Intro1 from "./pages/Intro1";
 import Intro2 from "./pages/Intro2";
 import Intro3 from "./pages/Intro3";
 import Loading from "./pages/Loading";
+import ResultReady from "./pages/ResultReady";
 import Birth from "./pages/Birth";
 import ResultPage from "./pages/ResultPage";
 import Aboutsal from "./pages/Aboutsal";
 import Noyear from "./pages/Noyear";
+import Test from "./pages/Test"; //나중에 삭제
 function App() {
   return (
     <BrowserRouter>
@@ -20,9 +22,11 @@ function App() {
         <Route path="/intro2" element={<Intro2 />} />
         <Route path="/intro3" element={<Intro3 />} />
         <Route path="/loading" element={<Loading />} />
+        <Route path="/result-ready" element={<ResultReady />} />
         <Route path="/birth" element={<Birth />} />
         <Route path="/result" element={<ResultPage />} />
         <Route path="/about-sal" element={<Aboutsal />} />
+        <Route path="/test" element={<Test />} /> {/*나중에 삭제*/}
       </Routes>
     </BrowserRouter>
   );

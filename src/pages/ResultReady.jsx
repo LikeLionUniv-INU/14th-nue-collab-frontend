@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 
 // ---------------------공통 레이아웃-----------------------------
 const Background = styled.div`
-  background-color: #341d02;
+  background-color: #9c9c9c;
   width: 100vw;
   height: 100dvh;
   display: flex;
@@ -22,11 +22,6 @@ const ScrollArea = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-`;
-
-const ScrollImage = styled.img`
-  width: 90%;
-  height: auto;
 `;
 
 const Content = styled.div`
@@ -84,17 +79,13 @@ export default function Intro2() {
   const navigate = useNavigate();
 
   return (
-    <Background onClick={() => navigate("/Intro3")}>
+    <Background onClick={() => navigate("/ResultPage")}>
       <ScrollArea>
-        <ScrollImage src="/두루마리.png" />
-
         <Content>
           <GranpaAnimation />
+
           <SpeechBubble>
-            "사주 살이란 인연의 시작점이라고 할 수 있지
-            <br />
-            <br />
-            너의 인연은 어떤지 한번 들여다보자꾸나." <SpeechClick />
+            "결과가 나왔어 확인해 볼래?" <SpeechClick />
           </SpeechBubble>
         </Content>
       </ScrollArea>
