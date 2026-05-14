@@ -168,7 +168,7 @@ export default function Birth() {
               marginRight: "12vw",
             }}
           >
-            <BackButton onClick={() => navigate("/intro3")}>
+            <BackButton onClick={() => navigate("/loading")}>
               ← 뒤로가기
             </BackButton>
             <p

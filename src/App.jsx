@@ -11,6 +11,7 @@ import Birth from "./pages/Birth";
 import ResultPage from "./pages/ResultPage";
 import Aboutsal from "./pages/Aboutsal";
 import Noyear from "./pages/Noyear";
+
 function App() {
   return (
     <BrowserRouter>

@@ -42,22 +42,41 @@ const Content = styled.div`
 const ProfileRow = styled.div`
   display: flex;
   flex-direction: row;
-  align-items: center;
-  gap: 15px;
+  align-items: stretch;
+  gap: 13px;
   width: 100%;
   margin-bottom: 2vh;
 `;
 
-// 상단 텍스트박스
-const TextBox = styled.div`
-  position: relative;
+// 상단 이미지
+const ImageBox = styled.div`
+  width: 30%;
+  padding: 15px 4px 0 4px;
   background-color: #eedbc6;
   border-radius: 10px;
-  padding: 14px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  overflow: hidden;
+  img {
+    width: 90%;
+    height: auto;
+    display: block;
+  }
+`;
+
+// 상단 텍스트박스
+const TextBox = styled.div`
+  flex: 1;
+  display: flex;
+  align-items: center;
+  background-color: #eedbc6;
+  border-radius: 10px;
+  padding: 20px 14px;
   width: 90%;
   box-sizing: border-box;
-  font-size: 12px;
-  text-align: center;
+  font-size: 10px;
+  text-align: left;
 `;
 
 // --------------------- 리스트 아이템 스타일 -----------------------------
@@ -265,12 +284,13 @@ export default function ResultPage() {
               style={{
                 backgroundColor: "#DCB98E",
                 width: "100%",
-                padding: "8px 15px",
-                fontSize: "14px",
+                padding: "12px 15px",
+                fontSize: "3vw",
                 marginBottom: "8px",
+                textAlign: "center",
               }}
             >
-              {apiData.pillars}
+              {formattedDate}
             </TextBox>
 
             {/* API 데이터 매핑 영역 */}
