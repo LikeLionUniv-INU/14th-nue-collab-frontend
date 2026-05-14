@@ -7,16 +7,11 @@ import Intro1 from "./pages/Intro1";
 import Intro2 from "./pages/Intro2";
 import Intro3 from "./pages/Intro3";
 import Loading from "./pages/Loading";
+import ResultReady from "./pages/ResultReady";
 import Birth from "./pages/Birth";
 import ResultPage from "./pages/ResultPage";
-<<<<<<< HEAD
 import Aboutsal from "./pages/Aboutsal";
-<<<<<<< HEAD
-=======
->>>>>>> 1620b94b923fed6037d0991ecce514394a185641
-=======
 import Noyear from "./pages/Noyear";
->>>>>>> develop
 
 function App() {
   return (
@@ -27,12 +22,10 @@ function App() {
         <Route path="/intro2" element={<Intro2 />} />
         <Route path="/intro3" element={<Intro3 />} />
         <Route path="/loading" element={<Loading />} />
+        <Route path="/result-ready" element={<ResultReady />} />
         <Route path="/birth" element={<Birth />} />
         <Route path="/result" element={<ResultPage />} />
-<<<<<<< HEAD
         <Route path="/about-sal" element={<Aboutsal />} />
-=======
->>>>>>> 1620b94b923fed6037d0991ecce514394a185641
       </Routes>
     </BrowserRouter>
   );

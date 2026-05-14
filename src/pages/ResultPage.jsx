@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
@@ -43,29 +42,12 @@ const Content = styled.div`
 const ProfileRow = styled.div`
   display: flex;
   flex-direction: row;
-<<<<<<< HEAD
-  align-items: center;
-  gap: 15px;
-=======
   align-items: stretch;
   gap: 13px;
->>>>>>> develop
   width: 100%;
   margin-bottom: 2vh;
 `;
 
-<<<<<<< HEAD
-// 상단 텍스트박스
-const TextBox = styled.div`
-  position: relative;
-  background-color: #eedbc6;
-  border-radius: 10px;
-  padding: 14px;
-  width: 90%;
-  box-sizing: border-box;
-  font-size: 12px;
-  text-align: center;
-=======
 // 상단 이미지
 const ImageBox = styled.div`
   width: 30%;
@@ -95,7 +77,6 @@ const TextBox = styled.div`
   box-sizing: border-box;
   font-size: 10px;
   text-align: left;
->>>>>>> develop
 `;
 
 // --------------------- 리스트 아이템 스타일 -----------------------------
@@ -108,12 +89,6 @@ const ListItem = styled.div`
   background-color: #eedbc6;
   border-radius: 8px;
   box-sizing: border-box;
-<<<<<<< HEAD
-
-  /* lucky면 파란색, unlucky면 빨간색 테두리 */
-  border: 2px solid ${(props) => (props.$type === "lucky" ? "blue" : "red")};
-  cursor: pointer;
-=======
   cursor: pointer;
 
   border: 2px solid ${(props) => (props.$type === "lucky" ? "red" : "blue")};
@@ -121,7 +96,6 @@ const ListItem = styled.div`
   /* 읽었으면 회색 처리 */
   filter: ${(props) =>
     props.$isRead ? "grayscale(100%) opacity(60%)" : "none"};
->>>>>>> develop
 `;
 
 const NumberBadge = styled.div`
@@ -141,17 +115,6 @@ const ItemName = styled.div`
   text-align: left;
   font-size: 12px;
 `;
-<<<<<<< HEAD
-// -----------------------------------------------------------
-
-// --------------------- 버튼 스타일 -----------------------------
-const ButtonArea = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  margin-top: 15px;
-=======
 
 // --------------------- 버튼 스타일 -----------------------------
 const ButtonArea = styled.div`
@@ -164,7 +127,6 @@ const ButtonArea = styled.div`
   align-items: center;
   width: calc(100% - 20px);
   z-index: 10;
->>>>>>> develop
 `;
 
 const LeftButtonGroup = styled.div`
@@ -202,15 +164,9 @@ const TipsButton = styled(CircleButton)`
 const ScrollableListBox = styled.div`
   background-color: #eedbc6;
   width: 100%;
-<<<<<<< HEAD
-  height: 400px;
-  overflow-y: auto;
-  padding: 10px;
-=======
   height: 50vh;
   overflow-y: auto;
   padding: 10px 10px;
->>>>>>> develop
   border-radius: 10px;
   box-sizing: border-box;
   display: flex;
@@ -227,50 +183,6 @@ const ScrollableListBox = styled.div`
 `;
 
 export default function ResultPage() {
-<<<<<<< HEAD
-  const [isModalOpen, setIsModalOpen] = useState(true);
-
-  // 서버 연동 전 임시 데이터
-  const apiData = {
-    birthDate: "2002-04-12",
-    pillars: "임오년 갑진월 임자일",
-    totalCount: 4,
-    sinSals: [
-      {
-        key: "cheon_eul_gwi_in",
-        name: "천을귀인",
-        hanja: "天乙貴人",
-        type: "lucky",
-      },
-      { key: "do_hwa_sal", name: "도화살", hanja: "桃花殺", type: "unlucky" },
-      {
-        key: "baek_ho_dae_sal",
-        name: "백호대살",
-        hanja: "白虎大殺",
-        type: "unlucky",
-      },
-      {
-        key: "tae_geuk_gwi_in",
-        name: "태극귀인",
-        hanja: "太極貴人",
-        type: "lucky",
-      },
-      {
-        key: "tae_geuk_gwi_in",
-        name: "태극귀인",
-        hanja: "太極貴人",
-        type: "lucky",
-      },
-      {
-        key: "tae_geuk_gwi_in",
-        name: "태극귀인",
-        hanja: "太極貴人",
-        type: "lucky",
-      },
-    ],
-  };
-
-=======
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [readItems, setReadItems] = useState(() => {
     const stored = localStorage.getItem("readItems");
@@ -351,7 +263,6 @@ export default function ResultPage() {
   const dateParts = apiData.birthDate.split("-");
   const formattedDate = `생년월일 ${dateParts[0]}년 ${dateParts[1]}월 ${dateParts[2]}일 (양력)`;
 
->>>>>>> develop
   return (
     <Background>
       {/* 팝업 모달 */}
@@ -376,10 +287,6 @@ export default function ResultPage() {
         <Content>
           {/* 상단 프로필 영역 */}
           <ProfileRow>
-<<<<<<< HEAD
-            <img src="/임시할아버지.png" style={{ width: "50px" }} />
-            <TextBox>어르신의 한마디</TextBox>
-=======
             <ImageBox>
               <img src="어깨_할아버지.png" />{" "}
             </ImageBox>
@@ -387,7 +294,6 @@ export default function ResultPage() {
               총 {apiData.totalCount}개의 살이 나왔구나. <br />
               클릭해서 결과를 확인해보렴.
             </TextBox>
->>>>>>> develop
           </ProfileRow>
 
           {/* 하단 사주 결과 리스트 영역 */}
@@ -396,28 +302,6 @@ export default function ResultPage() {
               style={{
                 backgroundColor: "#DCB98E",
                 width: "100%",
-<<<<<<< HEAD
-                padding: "8px 15px",
-                fontSize: "14px",
-                marginBottom: "8px",
-              }}
-            >
-              {apiData.pillars}
-            </TextBox>
-
-            {/* API 데이터 매핑 영역 */}
-            {apiData.sinSals.map((sal, index) => (
-              <ListItem key={sal.key} $type={sal.type}>
-                <div style={{ display: "flex", alignItems: "center", flex: 1 }}>
-                  <NumberBadge>{index + 1}</NumberBadge>
-                  <ItemName>
-                    {sal.name} ({sal.hanja})
-                  </ItemName>
-                </div>
-                <div>→</div>
-              </ListItem>
-            ))}
-=======
                 padding: "12px 15px",
                 fontSize: "3vw",
                 marginBottom: "8px",
@@ -454,7 +338,6 @@ export default function ResultPage() {
                   <div>→</div>
                 </ListItem>
               ))}
->>>>>>> develop
 
             <ButtonArea>
               <LeftButtonGroup>
