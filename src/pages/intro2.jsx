@@ -49,6 +49,8 @@ const SpeechBubble = styled.div`
   width: 90%;
   box-sizing: border-box;
   font-size: 14px;
+  display: flex;
+  flex-direction: column;
 
   &::after {
     content: "";
@@ -62,6 +64,17 @@ const SpeechBubble = styled.div`
     border-style: solid;
     border-color: transparent transparent #eedbc6 transparent;
   }
+`;
+
+const SpeechClick = styled.div`
+  position: relative;
+  width: 0;
+  height: 0;
+  border-left: 12px solid transparent;
+  border-right: 12px solid transparent;
+  border-bottom: 12px solid #dcb98e;
+  margin-top: 10px;
+  align-self: flex-end;
 `;
 
 // -----------------------------------------------------------
@@ -81,7 +94,7 @@ export default function Intro2() {
             "사주 살이란 인연의 시작점이라고 할 수 있지
             <br />
             <br />
-            너의 인연은 어떤지 한번 들여다보자꾸나."
+            너의 인연은 어떤지 한번 들여다보자꾸나." <SpeechClick />
           </SpeechBubble>
         </Content>
       </ScrollArea>
