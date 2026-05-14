@@ -232,7 +232,7 @@ export default function Aboutsal() {
                   {selectedSal.name} ({selectedSal.hanja})
                 </span>
                 <p>
-                  당신은
+                  당신은{" "}
                   <span className="sal">
                     {selectedSal.name} ({selectedSal.hanja})
                   </span>

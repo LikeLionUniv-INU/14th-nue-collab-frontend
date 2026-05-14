@@ -208,7 +208,7 @@ export default function ResultPage() {
     const fetchSajuData = async () => {
       try {
         const response = await fetch(
-          "https://9su.site/api/sinsals?birthDate=2000-01-08"
+          "https://9su.site/api/sinsals?birthDate=2002-02-14"
         );
 
         if (!response.ok) {
