@@ -177,7 +177,7 @@ export default function Birth() {
       });
 
       if (response.status === 200) {
-        navigate("/result");
+        navigate("/loading");
       }
     } catch (error) {
       const code = error.response?.data?.code;

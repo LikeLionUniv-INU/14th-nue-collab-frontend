@@ -1,8 +1,11 @@
 // 로딩 페이지
 import styled from "styled-components";
 import Scroll from "../components/Scroll.jsx";
+import GranpaAnimation from "../components/GranpaAnimation";
 
 import { useNavigate } from "react-router-dom";
+
+import { useState, useEffect } from "react";
 
 // ---------------------공통 레이아웃-----------------------------
 const Background = styled.div`
@@ -39,13 +42,13 @@ const Content = styled.div`
   align-items: center;
 `;
 
-// 말풍선 (위쪽 꼬리)
+// 말풍선 (아래쪽 꼬리)
 const SpeechBubble = styled.div`
   position: relative;
   background-color: #eedbc6;
   border-radius: 10px;
   padding: 15px;
-  margin-top: -10vh; // 말풍선 위치에 따라 변경
+  margin-top: 5vh; // 말풍선 위치에 따라 변경
   width: 90%;
   box-sizing: border-box;
   font-size: 14px;
@@ -60,14 +63,63 @@ const SpeechBubble = styled.div`
 
     border-width: 12px;
     border-style: solid;
-    border-color: transparent transparent #eedbc6 transparent;
+    border-color: #eedbc6 transparent transparent transparent;
   }
+`;
+
+const Message = styled.div`
+  color: #000000;
+  font-size: 18px;
+  margin-bottom: 20px;
+`;
+
+// 껍데기 - 항상 고정된 크기
+const BarWrapper = styled.div`
+  width: 70%; // 고정 너비
+  background-color: #eedbc6; // 갈색 배경
+  overflow: hidden; // Bar가 밖으로 삐져나오지 않게
+  border-radius: 10px;
+`;
+
+// 채워지는 부분 - percent에 따라 너비가 변함
+const Bar = styled.div`
+  width: ${(props) => props.$percent}%; // 0% → 100% 로 변함
+  height: 20px;
+  background-color: #a2392d;
+  transition: width 0.3s ease; // 부드럽게 채워지는 애니메이션
+  position: relative;
 `;
 
 // -----------------------------------------------------------
 
 export default function TemplatePage() {
   const navigate = useNavigate();
+
+  const [percent, setPercent] = useState(0);
+
+  const getMessage = (percent) => {
+    if (percent <= 25) return "어르신이 분석 중...";
+    if (percent <= 50) return "홍연과 청연의 살을 엮는 중...";
+    if (percent <= 75) return "숨겨진 살을 엮는 중...";
+    return "분석 완료!";
+  };
+
+  useEffect(() => {
+    const steps = [25, 50, 75, 100];
+    let i = 0;
+
+    const interval = setInterval(() => {
+      if (i < steps.length) {
+        setPercent(steps[i]);
+        i++;
+      } else {
+        clearInterval(interval);
+        navigate("/result-ready");
+      }
+    }, 1500);
+
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <Background>
@@ -76,11 +128,18 @@ export default function TemplatePage() {
         <Content>
           <SpeechBubble>어르신이 분석 중!</SpeechBubble>
           <br />
-          <img
+          <GranpaAnimation />
+          {/* <img
             src="/임시할아버지.png"
             alt="할아버지"
             style={{ width: "150px" }}
-          />
+          /> */}
+          <br />
+          <Message>{getMessage(percent)}</Message>
+          {percent}%
+          <BarWrapper>
+            <Bar $percent={percent} />
+          </BarWrapper>
         </Content>
       </ScrollArea>
     </Background>
