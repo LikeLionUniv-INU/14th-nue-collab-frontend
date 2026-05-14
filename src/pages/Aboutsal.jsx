@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import PopupModal from "../components/PopupModal";
@@ -84,7 +84,7 @@ const TextBox = styled.div`
 const ScrollableListBox = styled.div`
   background-color: #eedbc6;
   width: 100%;
-  height: 400px;
+  height: 50vh;
   overflow-y: auto;
   padding: 10px 10px;
   border-radius: 10px;
@@ -165,45 +165,33 @@ const ConfirmButton = styled.button`
 
 export default function Aboutsal() {
   const navigate = useNavigate();
+  const [selectedSal, setSelectedSal] = useState(null);
+  const [apiData, setApiData] = useState(null);
 
-  /*const handleAboutsal = async () => {
-    try {
-      const response = await api.get("/api/sinsals");
-    } catch (error) {
-      const status = error.response?.data?.status;
+  useEffect(() => {
+    // localStorage에서 선택된 살과 전체 데이터 읽어오기
+    const storedSal = localStorage.getItem("selectedSal");
+    const storedApiData = localStorage.getItem("apiData");
 
-      if (status === "400") {
-        setErrorMsg("에러 메시지");
-      }
+    if (storedSal) {
+      setSelectedSal(JSON.parse(storedSal));
     }
-  };*/
 
-  /** 임시 데이터 */
-  const apiData = {
-    birthDate: "2002-04-12",
-    totalCount: 4,
-    sinSals: [
-      {
-        name: "천을귀인",
-        hanja: "天乙貴人",
-        description: "가장 강력한 길신으로 귀인의 도움을 받는 운",
-        type: "lucky",
-        effects: [
-          "위기 상황에서 귀인의 도움을 받습니다",
-          "사회적 명예와 지위가 상승합니다",
-          "재난과 어려움을 피할 수 있습니다",
-        ],
-        advice: [
-          "주변 사람들과의 인연을 소중히 하세요",
-          "어려울 때 주저하지 말고 도움을 청하세요",
-        ],
-        quote: "천을귀인이 보이는군... 위기의 순간 도움을 받게 될 것이야.",
-      },
-    ],
-  };
+    if (storedApiData) {
+      setApiData(JSON.parse(storedApiData));
+    }
+  }, []);
+
+  // 데이터가 로드될 때까지 로딩 표시
+  if (!selectedSal || !apiData) {
+    return (
+      <Background>
+        <TextBox style={{ width: "80%", fontSize: "16px" }}>로딩 중...</TextBox>
+      </Background>
+    );
+  }
 
   const dateParts = apiData.birthDate.split("-");
-
   const formattedDate = `생년월일 ${dateParts[0]}년 ${dateParts[1]}월 ${dateParts[2]}일 (양력)`;
 
   return (
@@ -214,10 +202,11 @@ export default function Aboutsal() {
           {/* 상단 프로필 영역 */}
           <ProfileRow>
             <ImageBox>
-              {" "}
               <img src="어깨_할아버지.png" />{" "}
             </ImageBox>
-            <TextBox>{apiData.sinSals[0].quote}</TextBox>
+            <TextBox>
+              {selectedSal.quote || "살에 대한 정보를 확인해보세요"}
+            </TextBox>
           </ProfileRow>
 
           {/* 하단 사주 결과 리스트 영역 */}
@@ -229,54 +218,56 @@ export default function Aboutsal() {
                 padding: "12px 15px",
                 fontSize: "3vw",
                 marginBottom: "8px",
-                textAlign: "center",
+                justifyContent: "center",
               }}
             >
               {formattedDate}
             </TextBox>
-            {apiData.sinSals.map((sal, index) => (
-              <SalDetailContainer key={index}>
-                {/* 제목 부분 */}
-                <SalHeader type={sal.type}>
+
+            {/* 선택된 살 상세 정보만 표시 */}
+            <SalDetailContainer>
+              {/* 제목 부분 */}
+              <SalHeader type={selectedSal.type}>
+                <span className="sal">
+                  {selectedSal.name} ({selectedSal.hanja})
+                </span>
+                <p>
+                  당신은
                   <span className="sal">
-                    {sal.name} ({sal.hanja})
+                    {selectedSal.name} ({selectedSal.hanja})
                   </span>
-                  <p>
-                    당신은{" "}
-                    <span className="sal">
-                      {sal.name} ({sal.hanja})
-                    </span>
-                    이 있습니다.
-                  </p>
-                </SalHeader>
-                <div
-                  style={{
-                    width: "100%",
-                    height: "2px",
-                    backgroundColor: "#dcb98e",
-                  }}
-                />
-                {/* 설명 섹션 */}
-                <Section>
-                  <SectionTitle>설명</SectionTitle>
-                  <SectionContent>• {sal.description}</SectionContent>
-                </Section>
-                {/* 효과 섹션 */}
-                <Section>
-                  <SectionTitle>효과</SectionTitle>
-                  {sal.effects.map((eff, i) => (
+                  이 있습니다.
+                </p>
+              </SalHeader>
+              <div
+                style={{
+                  width: "100%",
+                  height: "2px",
+                  backgroundColor: "#dcb98e",
+                }}
+              />
+              {/* 설명 섹션 */}
+              <Section>
+                <SectionTitle>설명</SectionTitle>
+                <SectionContent>• {selectedSal.description}</SectionContent>
+              </Section>
+              {/* 효과 섹션 */}
+              <Section>
+                <SectionTitle>효과</SectionTitle>
+                {selectedSal.effects &&
+                  selectedSal.effects.map((eff, i) => (
                     <SectionContent key={i}>• {eff}</SectionContent>
                   ))}
-                </Section>
-                {/* 조언 섹션 */}
-                <Section>
-                  <SectionTitle>조언</SectionTitle>
-                  {sal.advice.map((adv, i) => (
+              </Section>
+              {/* 조언 섹션 */}
+              <Section>
+                <SectionTitle>조언</SectionTitle>
+                {selectedSal.advice &&
+                  selectedSal.advice.map((adv, i) => (
                     <SectionContent key={i}>• {adv}</SectionContent>
                   ))}
-                </Section>
-              </SalDetailContainer>
-            ))}
+              </Section>
+            </SalDetailContainer>
 
             <ConfirmButton onClick={() => navigate("/result")}>
               확인

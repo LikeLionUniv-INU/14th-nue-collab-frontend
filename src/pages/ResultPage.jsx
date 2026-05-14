@@ -115,15 +115,18 @@ const ItemName = styled.div`
   text-align: left;
   font-size: 12px;
 `;
-// -----------------------------------------------------------
 
 // --------------------- 버튼 스타일 -----------------------------
 const ButtonArea = styled.div`
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  right: 10px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 100%;
-  margin-top: 15px;
+  width: calc(100% - 20px);
+  z-index: 10;
 `;
 
 const LeftButtonGroup = styled.div`
@@ -161,9 +164,9 @@ const TipsButton = styled(CircleButton)`
 const ScrollableListBox = styled.div`
   background-color: #eedbc6;
   width: 100%;
-  height: 400px;
+  height: 50vh;
   overflow-y: auto;
-  padding: 10px;
+  padding: 10px 10px;
   border-radius: 10px;
   box-sizing: border-box;
   display: flex;
@@ -181,7 +184,10 @@ const ScrollableListBox = styled.div`
 
 export default function ResultPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [readItems, setReadItems] = useState([]);
+  const [readItems, setReadItems] = useState(() => {
+    const stored = localStorage.getItem("readItems");
+    return stored ? JSON.parse(stored) : [];
+  });
   const [apiData, setApiData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
@@ -202,7 +208,7 @@ export default function ResultPage() {
     const fetchSajuData = async () => {
       try {
         const response = await fetch(
-          "https://9su.site/api/sinsals?birthDate=2002-12-12"
+          "https://9su.site/api/sinsals?birthDate=2000-01-08"
         );
 
         if (!response.ok) {
@@ -222,10 +228,17 @@ export default function ResultPage() {
     fetchSajuData();
   }, []);
 
-  const handleItemClick = (salKey) => {
-    if (!readItems.includes(salKey)) {
-      setReadItems((prev) => [...prev, salKey]);
-    }
+  const handleItemClick = (sal) => {
+    const updated = !readItems.includes(sal.key)
+      ? [...readItems, sal.key]
+      : readItems;
+    setReadItems(updated);
+    localStorage.setItem("readItems", JSON.stringify(updated));
+
+    // 선택된 살 정보를 localStorage에 저장하고 Aboutsal 페이지로 이동
+    localStorage.setItem("selectedSal", JSON.stringify(sal));
+    localStorage.setItem("apiData", JSON.stringify(apiData));
+    navigate("/about-sal");
   };
 
   if (isLoading) {
@@ -246,6 +259,9 @@ export default function ResultPage() {
       </Background>
     );
   }
+
+  const dateParts = apiData.birthDate.split("-");
+  const formattedDate = `생년월일 ${dateParts[0]}년 ${dateParts[1]}월 ${dateParts[2]}일 (양력)`;
 
   return (
     <Background>
@@ -271,7 +287,9 @@ export default function ResultPage() {
         <Content>
           {/* 상단 프로필 영역 */}
           <ProfileRow>
-            <img src="/임시할아버지.png" style={{ width: "50px" }} />
+            <ImageBox>
+              <img src="어깨_할아버지.png" />{" "}
+            </ImageBox>
             <TextBox>
               총 {apiData.totalCount}개의 살이 나왔구나. <br />
               클릭해서 결과를 확인해보렴.
@@ -287,7 +305,9 @@ export default function ResultPage() {
                 padding: "12px 15px",
                 fontSize: "3vw",
                 marginBottom: "8px",
-                textAlign: "center",
+                justifyContent: "center",
+                flex: "none",
+                height: "auto",
               }}
             >
               {formattedDate}
@@ -305,7 +325,7 @@ export default function ResultPage() {
                   key={sal.key}
                   $type={sal.type}
                   $isRead={readItems.includes(sal.key)}
-                  onClick={() => handleItemClick(sal.key)}
+                  onClick={() => handleItemClick(sal)}
                 >
                   <div
                     style={{ display: "flex", alignItems: "center", flex: 1 }}
