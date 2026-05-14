@@ -95,14 +95,13 @@ export default function TemplatePage() {
   const navigate = useNavigate();
 
   const [percent, setPercent] = useState(0);
-  
 
   const getMessage = (percent) => {
-  if (percent <= 25) return "1번 대사";
-  if (percent <= 50) return "2번 대사";
-  if (percent <= 75) return "3번 대사";
-  return "4번 대사";
-};
+    if (percent <= 25) return "1번 대사";
+    if (percent <= 50) return "2번 대사";
+    if (percent <= 75) return "3번 대사";
+    return "4번 대사";
+  };
 
   return (
     <Background>
