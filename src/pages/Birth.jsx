@@ -185,7 +185,7 @@ export default function Birth() {
           <Select name="생월" lgh={12} num={1} />
           <Select name="생일" lgh={31} num={1} />
 
-          <StBtn OnClick={() => navigate("/result")} name="분석하기" />
+          <StBtn OnClick={() => navigate("/loading")} name="분석하기" />
         </Content>
       </ScrollArea>
     </Background>
