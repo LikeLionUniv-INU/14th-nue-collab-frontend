@@ -10,7 +10,7 @@ import Loading from "./pages/Loading";
 import Birth from "./pages/Birth";
 import ResultPage from "./pages/ResultPage";
 import Aboutsal from "./pages/Aboutsal";
-import Noyear from "./pages/Noyear";
+import Nobirth from "./pages/Nobirth";
 
 function App() {
   return (
@@ -24,6 +24,7 @@ function App() {
         <Route path="/birth" element={<Birth />} />
         <Route path="/result" element={<ResultPage />} />
         <Route path="/about-sal" element={<Aboutsal />} />
+        <Route path="/nobirth" element={<Nobirth />} />
       </Routes>
     </BrowserRouter>
   );
