@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import PopupModal from "../components/PopupModal";
 
@@ -69,10 +70,13 @@ const ListItem = styled.div`
   background-color: #eedbc6;
   border-radius: 8px;
   box-sizing: border-box;
-
-  /* lucky면 파란색, unlucky면 빨간색 테두리 */
-  border: 2px solid ${(props) => (props.$type === "lucky" ? "blue" : "red")};
   cursor: pointer;
+
+  border: 2px solid ${(props) => (props.$type === "lucky" ? "red" : "blue")};
+
+  /* 읽었으면 회색 처리 */
+  filter: ${(props) =>
+    props.$isRead ? "grayscale(100%) opacity(60%)" : "none"};
 `;
 
 const NumberBadge = styled.div`
@@ -157,47 +161,72 @@ const ScrollableListBox = styled.div`
 `;
 
 export default function ResultPage() {
-  const [isModalOpen, setIsModalOpen] = useState(true);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [readItems, setReadItems] = useState([]);
+  const [apiData, setApiData] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const navigate = useNavigate();
 
-  // 서버 연동 전 임시 데이터
-  const apiData = {
-    birthDate: "2002-04-12",
-    pillars: "임오년 갑진월 임자일",
-    totalCount: 4,
-    sinSals: [
-      {
-        key: "cheon_eul_gwi_in",
-        name: "천을귀인",
-        hanja: "天乙貴人",
-        type: "lucky",
-      },
-      { key: "do_hwa_sal", name: "도화살", hanja: "桃花殺", type: "unlucky" },
-      {
-        key: "baek_ho_dae_sal",
-        name: "백호대살",
-        hanja: "白虎大殺",
-        type: "unlucky",
-      },
-      {
-        key: "tae_geuk_gwi_in",
-        name: "태극귀인",
-        hanja: "太極貴人",
-        type: "lucky",
-      },
-      {
-        key: "tae_geuk_gwi_in",
-        name: "태극귀인",
-        hanja: "太極貴人",
-        type: "lucky",
-      },
-      {
-        key: "tae_geuk_gwi_in",
-        name: "태극귀인",
-        hanja: "太極貴人",
-        type: "lucky",
-      },
-    ],
+  // 최초 1회 방문인지 확인
+  useEffect(() => {
+    const hasSeen = localStorage.getItem("hasSeenTips");
+
+    // 기록 없으면 팝업 띄우고 상태 저장
+    if (!hasSeen) {
+      setIsModalOpen(true);
+      localStorage.setItem("hasSeenTips", "true");
+    }
+  }, []);
+
+  // 백엔드에 데이터 요청
+  useEffect(() => {
+    const fetchSajuData = async () => {
+      try {
+        const response = await fetch(
+          "https://9su.site/api/sinsals?birthDate=2002-12-12"
+        );
+
+        if (!response.ok) {
+          throw new Error(`서버 응답 오류: ${response.status}`);
+        }
+
+        const data = await response.json();
+
+        setApiData(data);
+      } catch (error) {
+        console.error("데이터를 불러오는데 실패했습니다:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchSajuData();
+  }, []);
+
+  const handleItemClick = (salKey) => {
+    if (!readItems.includes(salKey)) {
+      setReadItems((prev) => [...prev, salKey]);
+    }
   };
+
+  if (isLoading) {
+    return (
+      <Background>
+        <TextBox style={{ width: "80%", fontSize: "16px" }}>로딩 중...</TextBox>
+      </Background>
+    );
+  }
+
+  // 에러 처리
+  if (!apiData) {
+    return (
+      <Background>
+        <TextBox style={{ width: "80%" }}>
+          풀이에 실패했습니다. 다시 시도해주세요.
+        </TextBox>
+      </Background>
+    );
+  }
 
   return (
     <Background>
@@ -224,7 +253,10 @@ export default function ResultPage() {
           {/* 상단 프로필 영역 */}
           <ProfileRow>
             <img src="/임시할아버지.png" style={{ width: "50px" }} />
-            <TextBox>어르신의 한마디</TextBox>
+            <TextBox>
+              총 {apiData.totalCount}개의 살이 나왔구나. <br />
+              클릭해서 결과를 확인해보렴.
+            </TextBox>
           </ProfileRow>
 
           {/* 하단 사주 결과 리스트 영역 */}
@@ -242,17 +274,30 @@ export default function ResultPage() {
             </TextBox>
 
             {/* API 데이터 매핑 영역 */}
-            {apiData.sinSals.map((sal, index) => (
-              <ListItem key={sal.key} $type={sal.type}>
-                <div style={{ display: "flex", alignItems: "center", flex: 1 }}>
-                  <NumberBadge>{index + 1}</NumberBadge>
-                  <ItemName>
-                    {sal.name} ({sal.hanja})
-                  </ItemName>
-                </div>
-                <div>→</div>
-              </ListItem>
-            ))}
+            {[...apiData.sinSals]
+              .sort((a, b) => {
+                if (a.type === "lucky" && b.type === "unlucky") return -1;
+                if (a.type === "unlucky" && b.type === "lucky") return 1;
+                return 0; // 같으면 순서 유지
+              })
+              .map((sal, index) => (
+                <ListItem
+                  key={sal.key}
+                  $type={sal.type}
+                  $isRead={readItems.includes(sal.key)}
+                  onClick={() => handleItemClick(sal.key)}
+                >
+                  <div
+                    style={{ display: "flex", alignItems: "center", flex: 1 }}
+                  >
+                    <NumberBadge>{index + 1}</NumberBadge>
+                    <ItemName>
+                      {sal.name} ({sal.hanja})
+                    </ItemName>
+                  </div>
+                  <div>→</div>
+                </ListItem>
+              ))}
 
             <ButtonArea>
               <LeftButtonGroup>
