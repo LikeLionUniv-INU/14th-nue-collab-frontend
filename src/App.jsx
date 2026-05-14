@@ -11,8 +11,12 @@ import Birth from "./pages/Birth";
 import ResultPage from "./pages/ResultPage";
 <<<<<<< HEAD
 import Aboutsal from "./pages/Aboutsal";
+<<<<<<< HEAD
 =======
 >>>>>>> 1620b94b923fed6037d0991ecce514394a185641
+=======
+import Noyear from "./pages/Noyear";
+>>>>>>> develop
 
 function App() {
   return (

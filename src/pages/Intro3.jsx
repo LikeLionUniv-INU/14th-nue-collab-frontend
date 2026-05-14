@@ -1,7 +1,7 @@
 // 인트로(3) 페이지
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-
+import GranpaAnimation from "../components/GranpaAnimation";
 // ---------------------공통 레이아웃-----------------------------
 const Background = styled.div`
   background-color: #341d02;
@@ -88,11 +88,12 @@ export default function TemplatePage() {
 
         <Content>
           <SpeechBubble>어르신이 분석 중!</SpeechBubble>
-          <img
+          <GranpaAnimation />
+          {/* <img
             src="/임시할아버지.png"
             alt="할아버지"
             style={{ width: "150px" }}
-          />
+          />*/}
           <StartButton onClick={() => navigate("/birth")}>시작하기</StartButton>
           <img
             src="/로고.png"
