@@ -41,22 +41,41 @@ const Content = styled.div`
 const ProfileRow = styled.div`
   display: flex;
   flex-direction: row;
-  align-items: center;
-  gap: 15px;
+  align-items: stretch;
+  gap: 13px;
   width: 100%;
   margin-bottom: 2vh;
 `;
 
-// 상단 텍스트박스
-const TextBox = styled.div`
-  position: relative;
+// 상단 이미지
+const ImageBox = styled.div`
+  width: 30%;
+  padding: 15px 4px 0 4px;
   background-color: #eedbc6;
   border-radius: 10px;
-  padding: 14px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  overflow: hidden;
+  img {
+    width: 90%;
+    height: auto;
+    display: block;
+  }
+`;
+
+// 상단 텍스트박스
+const TextBox = styled.div`
+  flex: 1;
+  display: flex;
+  align-items: center;
+  background-color: #eedbc6;
+  border-radius: 10px;
+  padding: 20px 14px;
   width: 90%;
   box-sizing: border-box;
-  font-size: 12px;
-  text-align: center;
+  font-size: 10px;
+  text-align: left;
 `;
 
 // --------------------- 리스트 아이템 스타일 -----------------------------
@@ -162,7 +181,6 @@ export default function ResultPage() {
   // 서버 연동 전 임시 데이터
   const apiData = {
     birthDate: "2002-04-12",
-    pillars: "임오년 갑진월 임자일",
     totalCount: 4,
     sinSals: [
       {
@@ -199,6 +217,10 @@ export default function ResultPage() {
     ],
   };
 
+  const dateParts = apiData.birthDate.split("-");
+
+  const formattedDate = `생년월일 ${dateParts[0]}년 ${dateParts[1]}월 ${dateParts[2]}일 (양력)`;
+
   return (
     <Background>
       {/* 팝업 모달 */}
@@ -223,8 +245,13 @@ export default function ResultPage() {
         <Content>
           {/* 상단 프로필 영역 */}
           <ProfileRow>
-            <img src="/임시할아버지.png" style={{ width: "50px" }} />
-            <TextBox>어르신의 한마디</TextBox>
+            <ImageBox>
+              <img src="어깨_할아버지.png" />
+            </ImageBox>
+            <TextBox>
+              "총 {apiData.totalCount}개의 살이 나왔구나. 클릭해서 결과를
+              확인해보렴."
+            </TextBox>
           </ProfileRow>
 
           {/* 하단 사주 결과 리스트 영역 */}
@@ -233,12 +260,13 @@ export default function ResultPage() {
               style={{
                 backgroundColor: "#DCB98E",
                 width: "100%",
-                padding: "8px 15px",
-                fontSize: "14px",
+                padding: "12px 15px",
+                fontSize: "3vw",
                 marginBottom: "8px",
+                textAlign: "center",
               }}
             >
-              {apiData.pillars}
+              {formattedDate}
             </TextBox>
 
             {/* API 데이터 매핑 영역 */}

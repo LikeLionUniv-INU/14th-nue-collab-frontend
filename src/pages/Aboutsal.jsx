@@ -43,21 +43,40 @@ const Content = styled.div`
 const ProfileRow = styled.div`
   display: flex;
   flex-direction: row;
-  align-items: center;
-  gap: 15px;
+  align-items: stretch;
+  gap: 13px;
   width: 100%;
   margin-bottom: 2vh;
 `;
 
-// 상단 텍스트박스
-const TextBox = styled.div`
-  position: relative;
+// 상단 이미지
+const ImageBox = styled.div`
+  width: 30%;
+  padding: 15px 4px 0 4px;
   background-color: #eedbc6;
   border-radius: 10px;
-  padding: 10px 14px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  overflow: hidden;
+  img {
+    width: 90%;
+    height: auto;
+    display: block;
+  }
+`;
+
+// 상단 텍스트박스
+const TextBox = styled.div`
+  flex: 1;
+  display: flex;
+  align-items: center;
+  background-color: #eedbc6;
+  border-radius: 10px;
+  padding: 20px 14px;
   width: 90%;
   box-sizing: border-box;
-  font-size: 9px;
+  font-size: 10px;
   text-align: left;
 `;
 
@@ -93,7 +112,7 @@ const SalDetailContainer = styled.div`
   text-align: left; /* 전체 왼쪽 정렬 */
 `;
 
-// 제목 및 안내 문구 (파란 박스 느낌)
+// 제목 및 안내 문구
 const SalHeader = styled.div`
   width: 100%;
   box-sizing: border-box;
@@ -147,6 +166,18 @@ const ConfirmButton = styled.button`
 export default function Aboutsal() {
   const navigate = useNavigate();
 
+  /*const handleAboutsal = async () => {
+    try {
+      const response = await api.get("/api/sinsals");
+    } catch (error) {
+      const status = error.response?.data?.status;
+
+      if (status === "400") {
+        setErrorMsg("에러 메시지");
+      }
+    }
+  };*/
+
   /** 임시 데이터 */
   const apiData = {
     birthDate: "2002-04-12",
@@ -166,6 +197,7 @@ export default function Aboutsal() {
           "주변 사람들과의 인연을 소중히 하세요",
           "어려울 때 주저하지 말고 도움을 청하세요",
         ],
+        quote: "천을귀인이 보이는군... 위기의 순간 도움을 받게 될 것이야.",
       },
     ],
   };
@@ -181,11 +213,11 @@ export default function Aboutsal() {
         <Content>
           {/* 상단 프로필 영역 */}
           <ProfileRow>
-            <img src="/임시할아버지.png" style={{ width: "50px" }} />
-            <TextBox>
-              "총 {apiData.totalCount}개의 살이 나왔구나. 클릭해서 결과를
-              확인해보렴"
-            </TextBox>
+            <ImageBox>
+              {" "}
+              <img src="어깨_할아버지.png" />{" "}
+            </ImageBox>
+            <TextBox>{apiData.sinSals[0].quote}</TextBox>
           </ProfileRow>
 
           {/* 하단 사주 결과 리스트 영역 */}
