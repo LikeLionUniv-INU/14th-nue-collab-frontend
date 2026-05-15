@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 // 폴더 구조에 따라 경로를 확인해 주세요 (예: ./Title_Animation 혹은 ../components/Title_Animation)
 import Title_Animation from "../components/Title_Animation";
+import Scroll from "../components/Scroll.jsx";
 
 const TestContainer = styled.div`
   background-color: #222; /* 배경을 어둡게 해서 잘 보이게 함 */
@@ -38,14 +39,8 @@ export default function Test() {
       </button>
 
       {/* key값을 바꿔주면 리액트가 컴포넌트를 아예 새로 그리기 때문에 애니메이션이 다시 나옵니다 */}
-      <Title_Animation key={testKey}>
-        {/* 경로 문제를 배제하기 위해 외부 이미지 URL을 넣었습니다 */}
-        <img
-          src="/대형로고_세로.png"
-          alt="테스트 이미지"
-          style={{ width: "100%", display: "block" }}
-        />
-      </Title_Animation>
+      <Scroll />
+      <Title_Animation key={testKey} />
     </TestContainer>
   );
 }
