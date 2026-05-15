@@ -22,7 +22,6 @@ const ImageBox = styled.div`
   overflow: hidden;
   border-radius: 45px 45px 10px 10px;
   background-color: #eedbc6;
-  flexbox: center;
   display: flex;
   justify-content: center;
 `;
@@ -83,9 +82,9 @@ const SpeechClick = styled.div`
   position: relative;
   width: 0;
   height: 0;
-  border-left: 12px solid transparent;
-  border-right: 12px solid transparent;
-  border-bottom: 12px solid #dcb98e;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-top: 12px solid #dcb98e;
   margin-top: 10px;
   align-self: flex-end;
 `;
