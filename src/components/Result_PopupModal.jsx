@@ -78,7 +78,7 @@ const Blue = styled.span`
   color: #0000ff;
 `;
 
-export default function Result_PopupModal({ message }) {
+export default function Result_PopupModal({ message, onClose }) {
   return (
     <Overlay>
       <ModalBox>
@@ -104,7 +104,7 @@ export default function Result_PopupModal({ message }) {
         <ResultSaveButton /*여기에 결과화면 저장 기능 삽입*/>
           결과 저장
         </ResultSaveButton>
-        <NextButton>다음으로</NextButton>
+        <NextButton onClick={onClose}>다음으로</NextButton>
       </ModalBox>
     </Overlay>
   );

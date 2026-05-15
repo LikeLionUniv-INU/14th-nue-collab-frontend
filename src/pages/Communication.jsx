@@ -18,9 +18,9 @@ const ImageBox = styled.div`
   overflow: hidden;
   border-radius: 45px 45px 10px 10px;
   background-color: #eedbc6;
-  flexbox: center;
   display: flex;
   justify-content: center;
+  align-items: center;
 `;
 
 const AnimationWrapper = styled.div`
@@ -80,7 +80,7 @@ const SpeechClick = styled.div`
   height: 0;
   border-left: 12px solid transparent;
   border-right: 12px solid transparent;
-  border-bottom: 12px solid #dcb98e;
+  border-top: 12px solid #dcb98e;
   margin-top: 10px;
   align-self: flex-end;
 `;
@@ -107,8 +107,8 @@ export default function Communication() {
     "나는 총 16가지의 실을 볼 수 있다네.",
     <>
       그 중에서 자신에게 힘이 되는 <Red>붉은 색의 홍연 살</Red>과 흐름을
-      방해하는
-      <Blue> 푸른색의 청연 살</Blue>도 있고 간혹 2% 확률로 특별한 살도 나온단다.
+      방해하는 <Blue> 푸른색의 청연 살</Blue>도 있고 간혹 2% 확률로 특별한 살도
+      나온단다.
     </>,
     "너의 생년월일을 먼저 알려주렴.",
   ];
@@ -131,7 +131,10 @@ export default function Communication() {
               <GranpaAnimation />
             </AnimationWrapper>
           </ImageBox>
-          <SpeechBubble>{dialogs[step]}</SpeechBubble>
+          <SpeechBubble>
+            {dialogs[step]}
+            <SpeechClick />
+          </SpeechBubble>
         </Content>
       </ScrollArea>
     </Background>

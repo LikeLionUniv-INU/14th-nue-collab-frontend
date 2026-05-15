@@ -76,9 +76,7 @@ export default function Intro1() {
       <ScrollArea>
         <ScrollImage src="/두루마리.png" />
         <Content>
-          <Title_Animation>
-            <img src="/대형로고_세로.png" style={{ width: "70px" }} />
-          </Title_Animation>
+          <Title_Animation />
         </Content>
       </ScrollArea>
     </Background>
