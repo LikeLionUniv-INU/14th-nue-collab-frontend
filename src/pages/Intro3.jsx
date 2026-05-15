@@ -89,12 +89,9 @@ export default function TemplatePage() {
         <Content>
           <SpeechBubble>어르신이 분석 중!</SpeechBubble>
           <GranpaAnimation />
-          {/* <img
-            src="/임시할아버지.png"
-            alt="할아버지"
-            style={{ width: "150px" }}
-          />*/}
-          <StartButton onClick={() => navigate("/birth")}>시작하기</StartButton>
+          <StartButton onClick={() => navigate("/communication")}>
+            시작하기
+          </StartButton>
           <img
             src="/로고.png"
             alt="로고"

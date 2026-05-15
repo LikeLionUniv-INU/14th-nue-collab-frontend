@@ -1,7 +1,8 @@
 import { useState } from "react";
 import styled from "styled-components";
 
-const ListItem = styled.div`// 리스트 아이템 스타일
+const ListItem = styled.div`
+  // 리스트 아이템 스타일
   display: flex;
   align-items: center;
   width: 275px;
@@ -13,7 +14,8 @@ const ListItem = styled.div`// 리스트 아이템 스타일
   cursor: pointer;
 `;
 
-const CheckBox = styled.div`// 체크박스 스타일
+const CheckBox = styled.div`
+  // 체크박스 스타일
   width: 20px;
   height: 20px;
   display: flex;
@@ -25,11 +27,12 @@ const CheckBox = styled.div`// 체크박스 스타일
   background-color: ${(props) => (props.checked ? "#dcb88e" : "#a2392d")};
 `;
 
-const CheckMark = styled.div`// 체크 표시 스타일
+const CheckMark = styled.div`
+  // 체크 표시 스타일
   width: 6px;
   height: 10px;
   border-right: 2px solid ${(props) => (props.checked ? "#341d02" : "#fff2df")};
-  border-bottom: 2px solid ${(props) => (props.checked ?  "#341d02": "#fff2df")};
+  border-bottom: 2px solid ${(props) => (props.checked ? "#341d02" : "#fff2df")};
   transform: rotate(45deg);
   margin-bottom: 4px;
 `;
@@ -42,7 +45,7 @@ export default function CheckSalBox({ name, color }) {
       style={{ border: `2px solid ${color}` }}
       onClick={() => setChecked(!checked)}
     >
-      <CheckBox checked={checked}> 
+      <CheckBox checked={checked}>
         <CheckMark checked={checked} />
       </CheckBox>
       {name}
