@@ -15,6 +15,7 @@ const Background = styled.div`
   align-items: center;
 `;
 
+//할아버지 애니메이션 뒷배경 박스
 const ImageBox = styled.div`
   width: 250px;
   height: 300px;
@@ -26,6 +27,7 @@ const ImageBox = styled.div`
   justify-content: center;
 `;
 
+//할아버지 애니메이션 확대 및 위치 조정
 const AnimationWrapper = styled.div`
   transform: scale(1.5) translateY(25%);
 `;
