@@ -67,6 +67,8 @@ const BackButton = styled.button`
   font-size: 15px;
   background: none;
   border: none;
+  cursor: pointer;
+  z-index: 10;
 `;
 
 const Select = ({ name, lgh, num, value, onChange }) => {
@@ -206,9 +208,10 @@ export default function Birth() {
               marginRight: "12vw",
             }}
           >
-            <BackButton onClick={() => navigate("/intro3")}>
+            <BackButton onClick={() => navigate("/Communication")}>
               ← 뒤로가기
             </BackButton>
+
             <p
               style={{
                 fontSize: "20px",
