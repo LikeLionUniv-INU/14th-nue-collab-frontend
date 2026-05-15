@@ -11,7 +11,9 @@ import ResultReady from "./pages/ResultReady";
 import Birth from "./pages/Birth";
 import ResultPage from "./pages/ResultPage";
 import Aboutsal from "./pages/Aboutsal";
-import Noyear from "./pages/Noyear";
+import Nobirth from "./pages/Nobirth";
+import Test from "./pages/Test"; // 나중에 삭제
+
 function App() {
   return (
     <BrowserRouter>
@@ -25,6 +27,8 @@ function App() {
         <Route path="/birth" element={<Birth />} />
         <Route path="/result" element={<ResultPage />} />
         <Route path="/about-sal" element={<Aboutsal />} />
+        <Route path="/nobirth" element={<Nobirth />} />
+        <Route path="/test" element={<Test />} /> {/*나중에 삭제*/}
       </Routes>
     </BrowserRouter>
   );

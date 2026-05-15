@@ -94,7 +94,7 @@ export default function ResultReady() {
   const navigate = useNavigate();
 
   return (
-    <Background onClick={() => navigate("/ResultPage")}>
+    <Background onClick={() => navigate("/result")}>
       <ScrollArea>
         <Content>
           <ImageBox>
