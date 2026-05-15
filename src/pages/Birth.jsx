@@ -1,6 +1,7 @@
-import styled from "styled-components";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import styled from "styled-components";
+import axios from "axios";
 // ---------------------공통 레이아웃-----------------------------
 const Background = styled.div`
   background-color: #341d02;
@@ -68,16 +69,19 @@ const BackButton = styled.button`
   border: none;
 `;
 
-const Select = ({ name, lgh, num }) => {
+const Select = ({ name, lgh, num, value, onChange }) => {
   const length = Number(lgh);
   const start = Number(num);
 
   return (
-    <Selectstyle>
-      <option> {name}</option>
-      {Array.from({ length }, (_, i) => i + start).map((year) => (
-        <option key={year} value={year}>
-          {year}
+    <Selectstyle
+      value={value}
+      onChange={(event) => onChange(event.target.value)}
+    >
+      <option value="">{name}</option>
+      {Array.from({ length }, (_, i) => i + start).map((item) => (
+        <option key={item} value={item}>
+          {item}
         </option>
       ))}
     </Selectstyle>
@@ -85,7 +89,7 @@ const Select = ({ name, lgh, num }) => {
 };
 
 const StBtn = ({ OnClick, name }) => {
-  return <StartButton onClick={OnClick}> {name}</StartButton>;
+  return <StartButton onClick={OnClick}>{name}</StartButton>;
 };
 
 /* 
@@ -153,6 +157,40 @@ const SpeechBubble = styled.div`
 
 export default function Birth() {
   const navigate = useNavigate();
+  const [year, setYear] = useState("");
+  const [month, setMonth] = useState("");
+  const [day, setDay] = useState("");
+
+  const handleSubmit = async () => {
+    if (!year || !month || !day) {
+      navigate("/nobirth");
+      return;
+    }
+
+    const formattedDate = `${year}-${String(month).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
+
+    try {
+      const response = await axios.get("https://9su.site/api/sinsals", {
+        params: {
+          birthDate: formattedDate,
+        },
+      });
+
+      if (response.status === 200) {
+        navigate("/loading");
+      }
+    } catch (error) {
+      const code = error.response?.data?.code;
+
+      if (code === "SINSAL_001") {
+        navigate("/nobirth");
+      } else if (code === "SINSAL_002") {
+        alert("생년월일이 올바르지 않습니다. 다시 입력해주세요.");
+      } else if (code === "SINSAL_500") {
+        alert("서버 오류입니다. 잠시 후 다시 시도해주세요.");
+      }
+    }
+  };
 
   return (
     <Background>
@@ -168,7 +206,7 @@ export default function Birth() {
               marginRight: "12vw",
             }}
           >
-            <BackButton onClick={() => navigate("/loading")}>
+            <BackButton onClick={() => navigate("/intro3")}>
               ← 뒤로가기
             </BackButton>
             <p
@@ -181,11 +219,23 @@ export default function Birth() {
             </p>
           </div>
 
-          <Select name="생년" lgh={51} num={1970} />
-          <Select name="생월" lgh={12} num={1} />
-          <Select name="생일" lgh={31} num={1} />
+          <Select
+            name="생년"
+            lgh={51}
+            num={1970}
+            value={year}
+            onChange={setYear}
+          />
+          <Select
+            name="생월"
+            lgh={12}
+            num={1}
+            value={month}
+            onChange={setMonth}
+          />
+          <Select name="생일" lgh={31} num={1} value={day} onChange={setDay} />
 
-          <StBtn OnClick={() => navigate("/loading")} name="분석하기" />
+          <StBtn OnClick={handleSubmit} name="분석하기" />
         </Content>
       </ScrollArea>
     </Background>

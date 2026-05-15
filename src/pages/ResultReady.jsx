@@ -1,4 +1,4 @@
-// 인트로(2) 페이지
+// 결과 준비 페이지
 import styled from "styled-components";
 import Scroll from "../components/Scroll.jsx";
 import GranpaAnimation from "../components/GranpaAnimation";
@@ -7,12 +7,27 @@ import { useNavigate } from "react-router-dom";
 
 // ---------------------공통 레이아웃-----------------------------
 const Background = styled.div`
-  background-color: #9c9c9c;
+  background-color: #b6b6b6;
   width: 100vw;
   height: 100dvh;
   display: flex;
   justify-content: center;
   align-items: center;
+`;
+
+const ImageBox = styled.div`
+  width: 250px;
+  height: 300px;
+  overflow: hidden;
+  border-radius: 45px 45px 10px 10px;
+  background-color: #eedbc6;
+  flexbox: center;
+  display: flex;
+  justify-content: center;
+`;
+
+const AnimationWrapper = styled.div`
+  transform: scale(1.5) translateY(25%);
 `;
 
 const ScrollArea = styled.div`
@@ -75,15 +90,18 @@ const SpeechClick = styled.div`
 
 // -----------------------------------------------------------
 
-export default function Intro2() {
+export default function ResultReady() {
   const navigate = useNavigate();
 
   return (
-    <Background onClick={() => navigate("/ResultPage")}>
+    <Background onClick={() => navigate("/result")}>
       <ScrollArea>
         <Content>
-          <GranpaAnimation />
-
+          <ImageBox>
+            <AnimationWrapper>
+              <GranpaAnimation />
+            </AnimationWrapper>
+          </ImageBox>
           <SpeechBubble>
             "결과가 나왔어 확인해 볼래?" <SpeechClick />
           </SpeechBubble>
