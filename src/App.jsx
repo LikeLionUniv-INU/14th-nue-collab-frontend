@@ -13,6 +13,7 @@ import ResultPage from "./pages/ResultPage";
 import Aboutsal from "./pages/Aboutsal";
 import Nobirth from "./pages/Nobirth";
 import Test from "./pages/Test"; // 나중에 삭제
+import Communication from "./pages/Communication";
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
         <Route path="/about-sal" element={<Aboutsal />} />
         <Route path="/nobirth" element={<Nobirth />} />
         <Route path="/test" element={<Test />} /> {/*나중에 삭제*/}
+        <Route path="/communication" element={<Communication />} />
       </Routes>
     </BrowserRouter>
   );
