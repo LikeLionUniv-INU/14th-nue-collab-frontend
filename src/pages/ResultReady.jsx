@@ -22,7 +22,6 @@ const ImageBox = styled.div`
   overflow: hidden;
   border-radius: 45px 45px 10px 10px;
   background-color: #eedbc6;
-  flexbox: center;
   display: flex;
   justify-content: center;
 `;
