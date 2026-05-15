@@ -3,63 +3,62 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import GranpaAnimation from "../components/GranpaAnimation.jsx";
 
-const Overlay = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
+const Background = styled.div`
+  background-color: #b6b6b6;
   width: 100vw;
   height: 100dvh;
-  background-color: #b6b6b6;
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 999;
 `;
 
-// 사진, 말풍선을 배열하는 말풍선
-const Container = styled.div`
-  width: 85%;
-  max-width: 320px;
-  border-radius: 10px;
-  padding: 30px 20px;
+const ImageBox = styled.div`
+  width: 250px;
+  height: 300px;
+  overflow: hidden;
+  border-radius: 45px 45px 10px 10px;
+  background-color: #eedbc6;
+  flexbox: center;
+  display: flex;
+  justify-content: center;
+`;
+
+const AnimationWrapper = styled.div`
+  transform: scale(1.5) translateY(25%);
+`;
+
+const ScrollArea = styled.div`
+  position: relative;
+  width: 100%;
+  max-width: 480px; /* 모바일 화면 최대 너비 제한 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const Content = styled.div`
+  position: absolute;
+  top: 55%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* 두루마리 정중앙에 컨텐츠 배치 */
+  width: 70%; /* 두루마리 안쪽 여백 고려 */
   display: flex;
   flex-direction: column;
   align-items: center;
-  text-align: center;
-  box-sizing: border-box;
-`;
-const Person_Box = styled.div`
-  padding-top: 50px;
-  width: 70%;
-  aspect-ratio: 1 / 1.4;
-  background-color: #eaddcb;
-  border-radius: 40px 40px 0px 0px;
-  position: relative;
-  z-index: 1005;
 `;
 
-//할아버지 인물창 하반신 가리게 하는 박스
-const Bottom_Mask = styled.div`
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 32%; /* 하반신을 가릴 만큼의 높이 */
-  background-color: #b6b6b6;
-  z-index: 1010; /* 캐릭터보다 위에 오도록 설정 */
-`;
-
-// 메세지 박스
+// 말풍선 (위쪽 꼬리)
 const SpeechBubble = styled.div`
   position: relative;
-  background-color: #eaddcb;
+  background-color: #eedbc6;
   border-radius: 10px;
   padding: 15px;
-  margin-top: -10vh; // 말풍선 위치에 따라 변경
-  width: 74%; // 박스 가로 길이 조정
+  margin-top: 5vh; // 말풍선 위치에 따라 변경
+  width: 90%;
   box-sizing: border-box;
   font-size: 14px;
-  z-index: 1011;
+  display: flex;
+  flex-direction: column;
 
   &::after {
     content: "";
@@ -67,12 +66,23 @@ const SpeechBubble = styled.div`
     bottom: 100%;
 
     // 이 수치 바꿔서 꼬리 위치 조정
-    left: 18%;
+    left: 15%;
 
     border-width: 12px;
     border-style: solid;
-    border-color: transparent transparent #eaddcb transparent;
+    border-color: transparent transparent #eedbc6 transparent;
   }
+`;
+
+const SpeechClick = styled.div`
+  position: relative;
+  width: 0;
+  height: 0;
+  border-left: 12px solid transparent;
+  border-right: 12px solid transparent;
+  border-bottom: 12px solid #dcb98e;
+  margin-top: 10px;
+  align-self: flex-end;
 `;
 
 const Description = styled.div`
@@ -108,20 +118,22 @@ export default function Communication() {
     if (step < dialogs.length - 1) {
       setStep(step + 1);
     } else {
-      // 마지막 대사일 때 다음 페이지(예: 메인)로 이동
       navigate("/birth");
     }
   };
 
   return (
-    <Overlay onClick={handleNext}>
-      <Container>
-        <Person_Box>
-          <GranpaAnimation />
-          <Bottom_Mask />
-        </Person_Box>
-        <SpeechBubble>{dialogs[step]}</SpeechBubble>
-      </Container>
-    </Overlay>
+    <Background onClick={handleNext}>
+      <ScrollArea>
+        <Content>
+          <ImageBox>
+            <AnimationWrapper>
+              <GranpaAnimation />
+            </AnimationWrapper>
+          </ImageBox>
+          <SpeechBubble>{dialogs[step]}</SpeechBubble>
+        </Content>
+      </ScrollArea>
+    </Background>
   );
 }
