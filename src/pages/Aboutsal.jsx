@@ -34,7 +34,6 @@ const Content = styled.div`
   left: 50%;
   transform: translate(-50%, -50%);
   width: 70%;
-  height: 78%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -80,6 +79,7 @@ const TextBox = styled.div`
   box-sizing: border-box;
   font-size: 10px;
   text-align: left;
+  word-break: keep-all;
 `;
 
 // 스크롤 전용 리스트 박스 (흰부분, 내용 길어지면 스크롤 가능)
@@ -112,6 +112,9 @@ const SalDetailContainer = styled.div`
   padding: 5px;
   gap: 10px;
   text-align: left; /* 전체 왼쪽 정렬 */
+  word-break: keep-all;
+  overflow-wrap: break-word;
+  line-height: 1.5;
 `;
 
 // 제목 및 안내 문구
@@ -234,7 +237,7 @@ export default function Aboutsal() {
                   {selectedSal.name} ({selectedSal.hanja})
                 </span>
                 <p>
-                  당신은
+                  당신은{" "}
                   <span className="sal">
                     {selectedSal.name} ({selectedSal.hanja})
                   </span>

@@ -53,6 +53,10 @@ const SpeechBubble = styled.div`
   display: flex;
   flex-direction: column;
 
+  word-break: keep-all;
+  overflow-wrap: break-word;
+  line-height: 1.5;
+
   &::after {
     content: "";
     position: absolute;

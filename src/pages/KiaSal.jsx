@@ -22,7 +22,7 @@ const Container = styled.div`
   align-items: center;
   width: 100%;
   max-width: 480px;
-  gap: 20px;
+  gap: 10px;
 `;
 
 const Title = styled.h1`
