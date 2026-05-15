@@ -79,7 +79,7 @@ export default function Intro2() {
   const navigate = useNavigate();
 
   return (
-    <Background onClick={() => navigate("/ResultPage")}>
+    <Background onClick={() => navigate("/result")}>
       <ScrollArea>
         <Content>
           <GranpaAnimation />
