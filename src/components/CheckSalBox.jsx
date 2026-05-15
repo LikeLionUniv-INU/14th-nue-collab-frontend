@@ -49,7 +49,7 @@ export default function CheckSalBox({ name, color }) {
         <CheckMark checked={checked} />
       </CheckBox>
       {name}
-      <div style={{ marginLeft: "auto" }}>→</div> // 오른쪽 끝 화살표
+      <div style={{ marginLeft: "auto" }}>→</div>
     </ListItem>
   );
 }

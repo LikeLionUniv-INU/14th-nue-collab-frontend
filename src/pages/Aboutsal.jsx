@@ -34,6 +34,7 @@ const Content = styled.div`
   left: 50%;
   transform: translate(-50%, -50%);
   width: 70%;
+  height: 78%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -47,6 +48,7 @@ const ProfileRow = styled.div`
   gap: 13px;
   width: 100%;
   margin-bottom: 2vh;
+  height: 8vh;
 `;
 
 // 상단 이미지
