@@ -33,6 +33,7 @@ const Content = styled.div`
   left: 50%;
   transform: translate(-50%, -50%);
   width: 70%;
+  height: 78%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -46,6 +47,7 @@ const ProfileRow = styled.div`
   gap: 13px;
   width: 100%;
   margin-bottom: 2vh;
+  height: 8vh;
 `;
 
 // 상단 이미지
@@ -164,7 +166,8 @@ const TipsButton = styled(CircleButton)`
 const ScrollableListBox = styled.div`
   background-color: #eedbc6;
   width: 100%;
-  height: 50vh;
+  height: 70vh;
+  min-height: 0;
   overflow-y: auto;
   padding: 10px 10px;
   border-radius: 10px;
@@ -173,13 +176,7 @@ const ScrollableListBox = styled.div`
   flex-direction: column;
   align-items: center;
   gap: 5px;
-
-  /* 모바일 회색 스크롤바 숨기기 */
-  &::-webkit-scrollbar {
-    display: none;
-  }
-  -ms-overflow-style: none;
-  scrollbar-width: none;
+  padding-bottom: 70px;
 `;
 
 export default function ResultPage() {
@@ -207,8 +204,17 @@ export default function ResultPage() {
   useEffect(() => {
     const fetchSajuData = async () => {
       try {
+        // localStorage에서 저장된 생년월일 가져오기
+        const userBirthDate = localStorage.getItem("userBirthDate");
+
+        if (!userBirthDate) {
+          console.error("저장된 생년월일이 없습니다.");
+          setIsLoading(false);
+          return;
+        }
+
         const response = await fetch(
-          "https://9su.site/api/sinsals?birthDate=2000-01-08"
+          `https://9su.site/api/sinsals?birthDate=${userBirthDate}`
         );
 
         if (!response.ok) {
@@ -302,7 +308,7 @@ export default function ResultPage() {
               style={{
                 backgroundColor: "#DCB98E",
                 width: "100%",
-                padding: "12px 15px",
+                padding: "8px 15px",
                 fontSize: "3vw",
                 marginBottom: "8px",
                 justifyContent: "center",
@@ -341,11 +347,14 @@ export default function ResultPage() {
 
             <ButtonArea>
               <LeftButtonGroup>
-                <ActionButton color="red">
+                <ActionButton
+                  color="red"
+                  onClick={() => navigate("/enhance-sal")}
+                >
                   살<br />
                   강화
                 </ActionButton>
-                <ActionButton color="blue">
+                <ActionButton color="blue" onClick={() => navigate("/kia-sal")}>
                   살<br />
                   무력화
                 </ActionButton>

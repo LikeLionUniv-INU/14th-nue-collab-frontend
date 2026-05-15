@@ -11,6 +11,7 @@
 
 * {
   font-family: "Galmuri11", sans-serif;
+  touch-action: none;
 }
 
 body {

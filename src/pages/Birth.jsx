@@ -180,6 +180,8 @@ export default function Birth() {
       });
 
       if (response.status === 200) {
+        // 생년월일을 localStorage에 저장
+        localStorage.setItem("userBirthDate", formattedDate);
         navigate("/loading");
       }
     } catch (error) {
