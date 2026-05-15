@@ -1,32 +1,37 @@
 import React from "react";
 import styled, { keyframes } from "styled-components";
 
-// 전체 0.7초 중 약 0.4초(60%)까지는 숨어있다가 나머지 0.3초 동안 쫘르륵 커지는 로직
-const CustomScaleUp = keyframes`
-  0% { 
+// 이미지 확대 코드기능
+const ScaleUp = keyframes`
+  0% {
     transform: scale(0.01); 
-    opacity: 0; 
+    opacity: 0; //투명도 0에서 시작
   }
-  60% { 
-    /* 0.7초의 60%인 약 0.42초까지 이 상태를 유지 (버티기) */
-    transform: scale(0.01); 
-    opacity: 0; 
-  }
-  100% { 
-    /* 남은 0.28초 동안 급격히 커짐 */
-    transform: scale(1); 
-    opacity: 1; 
+    0.1% {
+    transform: scale(0.01);
+    opacity: 0;
+ }
+  100% {
+    transform: scale(1);
+    opacity: 1;
   }
 `;
 
+// 애니메이션을 적용할 컨테이너
 const AnimatedWrapper = styled.div`
   display: inline-block;
+  transform: scale(0.01);
+  opacity: 0;
   will-change: transform, opacity;
-
-  /* 0.7초 동안 실행하되, 우리가 설정한 내부 시차(60%)를 적용 */
-  animation: ${CustomScaleUp} 0.7s steps(20) forwards;
+  /* 애니메이션 설정: n초 동안, n프레임으로, n초 기다리다가 애니메이션 이전에는 0%의 스타일을, 이후에는 100%의 스타일을 유지 */
+  animation: ${ScaleUp} 0.7s steps(15) 1.4s both;
 `;
 
-export default function Title_Animation({ children }) {
-  return <AnimatedWrapper>{children}</AnimatedWrapper>;
+export default function Title_Animation() {
+  return (
+    <AnimatedWrapper>
+      {" "}
+      <img src="/대형로고_세로.png" style={{ width: "70px" }} />
+    </AnimatedWrapper>
+  );
 }
