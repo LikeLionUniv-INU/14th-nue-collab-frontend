@@ -71,9 +71,9 @@ const SpeechClick = styled.div`
   position: relative;
   width: 0;
   height: 0;
-  border-left: 12px solid transparent;
-  border-right: 12px solid transparent;
-  border-bottom: 12px solid #dcb98e;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-top: 12px solid #dcb98e;
   margin-top: 10px;
   align-self: flex-end;
 `;
