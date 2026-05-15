@@ -45,14 +45,14 @@ const StartButton = styled.button`
   border: none;
   padding: 10px;
   border-radius: 8.75px;
-  margin-top: 6vh; // 위치에 따라 변경
+  margin-top: 10vh; // 위치에 따라 변경
   font-weight: bold;
 `;
 
 const Selectstyle = styled.select`
-  font-size: 15px;
+  font-size: 12px;
   width: 90%;
-  height: 40px;
+  height: 35px;
   background-color: #eedbc6;
   border: none;
   padding: 10px;
@@ -63,8 +63,9 @@ const Selectstyle = styled.select`
 `;
 
 const BackButton = styled.button`
-  padding: 0;
-  font-size: 15px;
+  position: absolute;
+  top: -10%;
+  left: 0;
   background: none;
   border: none;
   cursor: pointer;
@@ -206,6 +207,7 @@ export default function Birth() {
               flexDirection: "column",
               alignItems: "flex-start",
               marginRight: "12vw",
+              marginTop: "10%",
             }}
           >
             <BackButton onClick={() => navigate("/Communication")}>
