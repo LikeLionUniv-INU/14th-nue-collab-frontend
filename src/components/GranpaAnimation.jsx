@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 
 const SpriteImage = styled.img`
-  width: 150px;
+  width: 130px;
   transition: all 0.1s steps(1);
 `;
 

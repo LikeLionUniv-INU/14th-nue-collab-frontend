@@ -79,6 +79,7 @@ const TextBox = styled.div`
   box-sizing: border-box;
   font-size: 10px;
   text-align: left;
+  word-break: keep-all;
 `;
 
 // --------------------- 리스트 아이템 스타일 -----------------------------
@@ -280,8 +281,8 @@ export default function ResultPage() {
               궁금한 살을 눌러 내용을 자세히 확인해보세요.
               <br />
               <br />
-              홍연으로 이어 좋은 살은 더욱 강하게 만들고, 청연으로 이어 나쁜
-              살을 무력화 시킬 수 있습니다!
+              <div style={{ color: "red" }}>홍연 </div>으로 이어 좋은 살은 더욱
+              강하게 만들고, 청연으로 이어 나쁜 살을 무력화 시킬 수 있습니다!
             </>
           }
           onClose={() => setIsModalOpen(false)}

@@ -60,6 +60,10 @@ const SpeechBubble = styled.div`
   display: flex;
   flex-direction: column;
 
+  word-break: keep-all;
+  overflow-wrap: break-word;
+  line-height: 1.5;
+
   &::after {
     content: "";
     position: absolute;
@@ -90,6 +94,7 @@ const Description = styled.div`
   line-height: 1.6;
   margin-bottom: 20px;
   word-break: keep-all;
+  overflow-wrap: break-word;
 `;
 
 const Red = styled.span`
@@ -106,9 +111,9 @@ export default function Communication() {
   const dialogs = [
     "나는 총 16가지의 실을 볼 수 있다네.",
     <>
-      그 중에서 자신에게 힘이 되는 <Red>붉은 색의 홍연 살</Red>과 흐름을
-      방해하는 <Blue> 푸른색의 청연 살</Blue>도 있고 간혹 2% 확률로 특별한 살도
-      나온단다.
+      그 중에서 자신에게 힘이 되는 <Red>붉은 색의 홍연 살</Red>과, <br />
+      흐름을 방해하는 <Blue> 푸른색의 청연 살</Blue>도 있고 <br /> 간혹 2%
+      확률로 특별한 살도 나온단다.
     </>,
     "너의 생년월일을 먼저 알려주렴.",
   ];
@@ -132,7 +137,7 @@ export default function Communication() {
             </AnimationWrapper>
           </ImageBox>
           <SpeechBubble>
-            {dialogs[step]}
+            <div>{dialogs[step]}</div>
             <SpeechClick />
           </SpeechBubble>
         </Content>
