@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import PopupModal from "../components/PopupModal";
 import CheckSalBox from "../components/CheckSalBox";
+import confetti from "canvas-confetti";
 
 // ---------------------스타일-----------------------------
 const Background = styled.div`
@@ -97,11 +98,11 @@ export default function EnhanceSal() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
-  // localStorage에서 데이터 로드
+  // sessionStorage에서 데이터 로드
   useEffect(() => {
     try {
-      const savedApiData = localStorage.getItem("apiData");
-      const savedReadItems = localStorage.getItem("readItems");
+      const savedApiData = sessionStorage.getItem("apiData");
+      const savedReadItems = sessionStorage.getItem("readItems");
 
       if (savedApiData) {
         setApiData(JSON.parse(savedApiData));
@@ -131,11 +132,38 @@ export default function EnhanceSal() {
   const handleEnhanceClick = () => {
     if (allLuckyRead) {
       setIsModalOpen(true);
+
+      const confettiConfig = {
+        particleCount: 100, 
+        spread: 80, 
+        startVelocity: 60, 
+        gravity: 2,
+        ticks: 120, 
+        zIndex: 1000,
+        colors: ["#ff0000", "#ff6b6b", "#ffc0cb", "#dcb98e", "#ffffff"], 
+      };
+
+      // 화면 왼쪽에서 중앙을 향해 발사
+      confetti({
+        ...confettiConfig,
+        angle: 60,
+        origin: { x: 0, y: 0.6 },
+      });
+      // 화면 오른쪽에서 중앙을 향해 발사
+      confetti({
+        ...confettiConfig,
+        angle: 120,
+        origin: { x: 1, y: 0.6 },
+      });
     }
   };
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
+    // 강화된 살들의 목록 저장
+    sessionStorage.setItem("enhancedSals", JSON.stringify(luckyItems));
+    // 강화 완료 상태 저장
+    sessionStorage.setItem("enhanceSalCompleted", "true");
     // 모달 닫은 후 결과페이지로 이동
     navigate("/result");
   };
@@ -150,11 +178,24 @@ export default function EnhanceSal() {
     );
   }
 
-  if (!apiData || luckyItems.length === 0) {
+  if (!apiData) {
     return (
       <Background>
         <Container>
-          <Title>모든 살의 내용을 먼저 확인해주세요.</Title>
+          <Title>모든 살을 먼저 확인해주세요!</Title>
+          <ActionButton onClick={() => navigate("/result")}>
+            뒤로가기
+          </ActionButton>
+        </Container>
+      </Background>
+    );
+  }
+
+  if (luckyItems.length === 0) {
+    return (
+      <Background>
+        <Container>
+          <Title>강화할 수 있는 홍연이 없습니다.</Title>
           <ActionButton onClick={() => navigate("/result")}>
             뒤로가기
           </ActionButton>
@@ -166,11 +207,13 @@ export default function EnhanceSal() {
   return (
     <Background>
       {isModalOpen && (
-        <PopupModal
-          title="살 강화 완료"
-          content="좋은 살이 홍연으로 이어져 더욱 강해졌습니다!"
-          onClose={handleCloseModal}
-        />
+        <>
+          <PopupModal
+            title="살 강화 완료"
+            content="좋은 살이 홍연으로 이어져 더욱 강해졌습니다!"
+            onClose={handleCloseModal}
+          />
+        </>
       )}
 
       <Container>

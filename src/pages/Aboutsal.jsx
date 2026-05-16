@@ -174,18 +174,19 @@ export default function Aboutsal() {
   const [apiData, setApiData] = useState(null);
 
   useEffect(() => {
-    // localStorage에서 선택된 살과 전체 데이터 읽어오기
-    const storedSal = localStorage.getItem("selectedSal");
-    const storedApiData = localStorage.getItem("apiData");
+    // sessionStorage에서 선택된 살과 전체 데이터 읽어오기
+    const storedSal = sessionStorage.getItem("selectedSal");
+    const storedApiData = sessionStorage.getItem("apiData");
 
-    if (storedSal) {
+    if (storedSal && storedApiData) {
       setSelectedSal(JSON.parse(storedSal));
-    }
-
-    if (storedApiData) {
       setApiData(JSON.parse(storedApiData));
+    } else {
+      // 비정상적인 접근 처리
+      alert("잘못된 접근입니다.");
+      navigate("/birth");
     }
-  }, []);
+  }, [navigate]);
 
   // 데이터가 로드될 때까지 로딩 표시
   if (!selectedSal || !apiData) {

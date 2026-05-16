@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import PopupModal from "../components/PopupModal";
+import Result_PopupModal from "../components/Result_PopupModal";
+import CheckResultBtn from "../components/CheckResultBtn";
 
 // ---------------------공통 레이아웃-----------------------------
 const Background = styled.div`
@@ -178,38 +180,65 @@ const ScrollableListBox = styled.div`
   align-items: center;
   gap: 5px;
   padding-bottom: 70px;
+
+  /* 스크롤바 숨기기 (모바일 환경 깔끔하게) */
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 `;
 
 export default function ResultPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isResultModalOpen, setIsResultModalOpen] = useState(false);
   const [readItems, setReadItems] = useState(() => {
-    const stored = localStorage.getItem("readItems");
+    const stored = sessionStorage.getItem("readItems");
     return stored ? JSON.parse(stored) : [];
   });
   const [apiData, setApiData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [isEnhanceSalCompleted, setIsEnhanceSalCompleted] = useState(false);
+  const [isKiaSalCompleted, setIsKiaSalCompleted] = useState(false);
+  const [enhancedSals, setEnhancedSals] = useState([]);
+  const [weakenedSals, setWeakenedSals] = useState([]);
   const navigate = useNavigate();
 
   // 최초 1회 방문인지 확인
   useEffect(() => {
-    const hasSeen = localStorage.getItem("hasSeenTips");
+    const hasSeen = sessionStorage.getItem("hasSeenTips");
 
     // 기록 없으면 팝업 띄우고 상태 저장
     if (!hasSeen) {
       setIsModalOpen(true);
-      localStorage.setItem("hasSeenTips", "true");
+      sessionStorage.setItem("hasSeenTips", "true");
     }
+
+    // 강화/무력화 완료 상태 확인
+    const enhanceCompleted = sessionStorage.getItem("enhanceSalCompleted");
+    const kiaCompleted = sessionStorage.getItem("kiaSalCompleted");
+    setIsEnhanceSalCompleted(enhanceCompleted === "true");
+    setIsKiaSalCompleted(kiaCompleted === "true");
   }, []);
 
   // 백엔드에 데이터 요청
   useEffect(() => {
     const fetchSajuData = async () => {
       try {
-        // localStorage에서 저장된 생년월일 가져오기
-        const userBirthDate = localStorage.getItem("userBirthDate");
+        // sessionStorage에서 저장된 생년월일 가져오기
+        const userBirthDate = sessionStorage.getItem("userBirthDate");
 
         if (!userBirthDate) {
-          console.error("저장된 생년월일이 없습니다.");
+          alert("생년월일 정보가 없습니다. 다시 입력해주세요.");
+          setIsLoading(false);
+          navigate("/birth");
+          return;
+        }
+
+        // 이미 세션에 데이터가 있다면 API 재호출 방지 (로딩 깜빡임 제거)
+        const cachedApiData = sessionStorage.getItem("apiData");
+        if (cachedApiData) {
+          setApiData(JSON.parse(cachedApiData));
           setIsLoading(false);
           return;
         }
@@ -235,16 +264,49 @@ export default function ResultPage() {
     fetchSajuData();
   }, []);
 
+  // apiData 로드 후 lucky/unlucky 개수에 따라 완료 상태 자동 설정
+  useEffect(() => {
+    if (apiData) {
+      const luckyItems = apiData.sinSals.filter((sal) => sal.type === "lucky");
+      const unluckyItems = apiData.sinSals.filter(
+        (sal) => sal.type === "unlucky"
+      );
+
+      // lucky가 없으면 강화 완료로 처리
+      if (luckyItems.length === 0) {
+        setIsEnhanceSalCompleted(true);
+      }
+
+      // unlucky가 없으면 무력화 완료로 처리
+      if (unluckyItems.length === 0) {
+        setIsKiaSalCompleted(true);
+      }
+
+      // 강화/무력화 완료 상태 확인해서 데이터 로드
+      const enhanceCompleted = sessionStorage.getItem("enhanceSalCompleted");
+      const kiaCompleted = sessionStorage.getItem("kiaSalCompleted");
+      // 강화 완료되었으면 lucky 살들을 enhancedSals로 설정
+      if (enhanceCompleted === "true") {
+        setEnhancedSals(luckyItems);
+      }
+
+      // 무력화 완료되었으면 unlucky 살들을 weakenedSals로 설정
+      if (kiaCompleted === "true") {
+        setWeakenedSals(unluckyItems);
+      }
+    }
+  }, [apiData]);
+
   const handleItemClick = (sal) => {
     const updated = !readItems.includes(sal.key)
       ? [...readItems, sal.key]
       : readItems;
     setReadItems(updated);
-    localStorage.setItem("readItems", JSON.stringify(updated));
+    sessionStorage.setItem("readItems", JSON.stringify(updated));
 
-    // 선택된 살 정보를 localStorage에 저장하고 Aboutsal 페이지로 이동
-    localStorage.setItem("selectedSal", JSON.stringify(sal));
-    localStorage.setItem("apiData", JSON.stringify(apiData));
+    // 선택된 살 정보를 sessionStorage에 저장하고 Aboutsal 페이지로 이동
+    sessionStorage.setItem("selectedSal", JSON.stringify(sal));
+    sessionStorage.setItem("apiData", JSON.stringify(apiData));
     navigate("/about-sal");
   };
 
@@ -281,11 +343,21 @@ export default function ResultPage() {
               궁금한 살을 눌러 내용을 자세히 확인해보세요.
               <br />
               <br />
-              <div style={{ color: "red" }}>홍연 </div>으로 이어 좋은 살은 더욱
-              강하게 만들고, 청연으로 이어 나쁜 살을 무력화 시킬 수 있습니다!
+              홍연으로 이어 좋은 살은 더욱 강하게 만들고, 청연으로 이어 나쁜
+              살을 무력화시킬 수 있습니다!
             </>
           }
+          enhancedSals={enhancedSals}
+          weakenedSals={weakenedSals}
           onClose={() => setIsModalOpen(false)}
+        />
+      )}
+
+      {isResultModalOpen && (
+        <Result_PopupModal
+          enhancedSals={enhancedSals}
+          weakenedSals={weakenedSals}
+          onClose={() => setIsResultModalOpen(false)}
         />
       )}
 
@@ -361,7 +433,13 @@ export default function ResultPage() {
                 </ActionButton>
               </LeftButtonGroup>
 
-              <TipsButton onClick={() => setIsModalOpen(true)}>TIPS</TipsButton>
+              {!isEnhanceSalCompleted || !isKiaSalCompleted ? (
+                <TipsButton onClick={() => setIsModalOpen(true)}>
+                  TIPS
+                </TipsButton>
+              ) : (
+                <CheckResultBtn onClick={() => setIsResultModalOpen(true)} />
+              )}
             </ButtonArea>
           </ScrollableListBox>
         </Content>

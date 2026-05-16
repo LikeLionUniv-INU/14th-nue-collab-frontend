@@ -1,5 +1,8 @@
 // 결과 팝업모달
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
+import { useRef } from "react";
+import html2canvas from "html2canvas";
 
 // 화면 전체를 덮는 회색 배경
 const Overlay = styled.div`
@@ -47,23 +50,24 @@ const NextButton = styled.button`
   background-color: #dcb88e;
   border: none;
   border-radius: 10px;
-  padding: 8px 30px;
-  font-weight: bold;
-  font-size: 1rem;
+  padding: 6px 0;
+  width: 120px;
+  font-size: 14px;
   cursor: pointer;
   font-family: inherit;
 `;
+
 // 결과 저장 버튼
 const ResultSaveButton = styled.button`
   background-color: #dcb88e;
   border: none;
   border-radius: 10px;
-  padding: 4px 30px;
-  font-weight: bold;
-  font-size: 1rem;
+  padding: 6px 0;
+  width: 120px;
+  font-size: 14px;
   cursor: pointer;
   font-family: inherit;
-  margin-bottom: 10px;
+  margin-bottom: 2vh;
 `;
 
 // 메세지 구역
@@ -78,33 +82,60 @@ const Blue = styled.span`
   color: #0000ff;
 `;
 
-export default function Result_PopupModal({ message, onClose }) {
+export default function Result_PopupModal({
+  enhancedSals = [],
+  weakenedSals = [],
+  onClose,
+}) {
+  const navigate = useNavigate();
+  const modalRef = useRef(null);
+
+  // 이미지 다운로드 함수
+  const handleDownload = async () => {
+    if (!modalRef.current) return;
+
+    try {
+      const canvas = await html2canvas(modalRef.current, {
+        scale: 2, // 모바일 환경에서도 글씨가 깨지지 않도록 고해상도 캡처
+        backgroundColor: "#eaddcb", // 모달 배경색 유지
+      });
+      const link = document.createElement("a");
+      link.download = "나의_인연_결과.png"; // 저장될 파일 이름
+      link.href = canvas.toDataURL("image/png");
+      link.click();
+    } catch (error) {
+      console.error("이미지 저장 실패:", error);
+      alert("이미지 저장에 실패했습니다.");
+    }
+  };
+
   return (
     <Overlay>
-      <ModalBox>
+      <ModalBox ref={modalRef}>
         <Title>결과 확인</Title>
         <Description>
           <Red>홍연</Red>으로 강화된 인연
           <br />
-          00살
-          <br />
-          00살
+          <div style={{ fontWeight: "bold" }}>
+            {enhancedSals.length > 0
+              ? enhancedSals.map((sal) => sal.name).join(", ")
+              : "없음"}
+          </div>
         </Description>
         <Description>
           <Blue>청연</Blue>으로 풀어낸 인연
           <br />
-          00살
-          <br />
-          00살
+          <div style={{ fontWeight: "bold" }}>
+            {weakenedSals.length > 0
+              ? weakenedSals.map((sal) => sal.name).join(", ")
+              : "없음"}
+          </div>
         </Description>
-        <Message>
-          <Description>{message}</Description>
-        </Message>{" "}
-        {/*여기에는 버튼2개위에 있는 메세지 삽입하는 부분*/}
-        <ResultSaveButton /*여기에 결과화면 저장 기능 삽입*/>
-          결과 저장
-        </ResultSaveButton>
-        <NextButton onClick={onClose}>다음으로</NextButton>
+        <Description>
+          좋은 인연은 더욱 단단해지고, <br /> 얽힌 인연은 자연스럽게 풀렸습니다.
+        </Description>
+        <ResultSaveButton onClick={handleDownload}>결과 저장</ResultSaveButton>
+        <NextButton onClick={() => navigate("/ending")}>다음으로</NextButton>
       </ModalBox>
     </Overlay>
   );

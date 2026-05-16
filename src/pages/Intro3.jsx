@@ -2,6 +2,7 @@
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import GranpaAnimation from "../components/GranpaAnimation";
+import Typewriter from "../components/Typewriter.jsx";
 // ---------------------공통 레이아웃-----------------------------
 const Background = styled.div`
   background-color: #341d02;
@@ -93,7 +94,9 @@ export default function TemplatePage() {
         <ScrollImage src="/두루마리.png" />
 
         <Content>
-          <SpeechBubble>시작하기 버튼을 눌러 인연을 확인해보게나.</SpeechBubble>
+          <SpeechBubble>
+            <Typewriter>시작하기 버튼을 눌러 인연을 확인해보게나.</Typewriter>
+          </SpeechBubble>
           <GranpaAnimation />
           <StartButton onClick={() => navigate("/communication")}>
             시작하기
@@ -101,7 +104,7 @@ export default function TemplatePage() {
           <img
             src="/로고.png"
             alt="로고"
-            style={{ width: "63px", marginTop: "3vh" }}
+            style={{ width: "70px", marginTop: "3vh" }}
           />
         </Content>
       </ScrollArea>

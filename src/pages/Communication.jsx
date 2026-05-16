@@ -2,6 +2,7 @@ import { useState } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import GranpaAnimation from "../components/GranpaAnimation.jsx";
+import Typewriter from "../components/Typewriter.jsx";
 
 const Background = styled.div`
   background-color: #b6b6b6;
@@ -112,10 +113,11 @@ export default function Communication() {
     "나는 총 16가지의 실을 볼 수 있다네.",
     <>
       그 중에서 자신에게 힘이 되는 <Red>붉은 색의 홍연 살</Red>과, <br />
-      흐름을 방해하는 <Blue> 푸른색의 청연 살</Blue>도 있고 <br /> 간혹 2%
-      확률로 특별한 살도 나온단다.
+      흐름을 방해하는 <Blue> 푸른색의 청연 살</Blue>도 있고
+      <br />
+      간혹 2% 확률로 특별한 살도 나온단다.
     </>,
-    "너의 생년월일을 먼저 알려주렴.",
+    "자네의 생년월일을 먼저 알려주게나.",
   ];
 
   // 클릭 시 대사 넘기기 로직
@@ -137,7 +139,9 @@ export default function Communication() {
             </AnimationWrapper>
           </ImageBox>
           <SpeechBubble>
-            <div>{dialogs[step]}</div>
+            <div key={step}>
+              <Typewriter>{dialogs[step]}</Typewriter>
+            </div>
             <SpeechClick />
           </SpeechBubble>
         </Content>

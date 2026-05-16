@@ -2,6 +2,7 @@
 import styled from "styled-components";
 import Scroll from "../components/Scroll.jsx";
 import GranpaAnimation from "../components/GranpaAnimation";
+import Typewriter from "../components/Typewriter.jsx";
 
 import { useNavigate } from "react-router-dom";
 
@@ -135,13 +136,10 @@ export default function TemplatePage() {
           <SpeechBubble>어르신이 분석 중!</SpeechBubble>
           <br />
           <GranpaAnimation />
-          {/* <img
-            src="/임시할아버지.png"
-            alt="할아버지"
-            style={{ width: "150px" }}
-          /> */}
           <br />
-          <Message>{getMessage(percent)}</Message>
+          <Message key={percent}>
+            <Typewriter>{getMessage(percent)}</Typewriter>
+          </Message>
           {percent}%
           <BarWrapper>
             <Bar $percent={percent} />
