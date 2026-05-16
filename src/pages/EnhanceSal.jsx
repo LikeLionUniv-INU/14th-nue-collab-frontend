@@ -134,13 +134,13 @@ export default function EnhanceSal() {
       setIsModalOpen(true);
 
       const confettiConfig = {
-        particleCount: 100, 
-        spread: 80, 
-        startVelocity: 60, 
+        particleCount: 100,
+        spread: 80,
+        startVelocity: 60,
         gravity: 2,
-        ticks: 120, 
+        ticks: 120,
         zIndex: 1000,
-        colors: ["#ff0000", "#ff6b6b", "#ffc0cb", "#dcb98e", "#ffffff"], 
+        colors: ["#ff0000", "#ff6b6b", "#ffc0cb", "#dcb98e", "#ffffff"],
       };
 
       // 화면 왼쪽에서 중앙을 향해 발사
