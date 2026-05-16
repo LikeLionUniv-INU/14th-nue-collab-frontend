@@ -1,19 +1,35 @@
-// 인트로(2) 페이지
+// 결과 준비 페이지
 import styled from "styled-components";
 import Scroll from "../components/Scroll.jsx";
-import GranpaAnimation from "../components/GranpaAnimation.jsx";
+import GranpaAnimation from "../components/GranpaAnimation";
 import Typewriter from "../components/Typewriter.jsx";
 
 import { useNavigate } from "react-router-dom";
 
 // ---------------------공통 레이아웃-----------------------------
 const Background = styled.div`
-  background-color: #341d02;
+  background-color: #b6b6b6;
   width: 100vw;
   height: 100dvh;
   display: flex;
   justify-content: center;
   align-items: center;
+`;
+
+//할아버지 애니메이션 뒷배경 박스
+const ImageBox = styled.div`
+  width: 250px;
+  height: 300px;
+  overflow: hidden;
+  border-radius: 45px 45px 10px 10px;
+  background-color: #eedbc6;
+  display: flex;
+  justify-content: center;
+`;
+
+//할아버지 애니메이션 확대 및 위치 조정
+const AnimationWrapper = styled.div`
+  transform: scale(1.5) translateY(25%);
 `;
 
 const ScrollArea = styled.div`
@@ -23,11 +39,6 @@ const ScrollArea = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-`;
-
-const ScrollImage = styled.img`
-  width: 90%;
-  height: auto;
 `;
 
 const Content = styled.div`
@@ -53,7 +64,6 @@ const SpeechBubble = styled.div`
   font-size: 14px;
   display: flex;
   flex-direction: column;
-
   word-break: keep-all;
   overflow-wrap: break-word;
   line-height: 1.5;
@@ -85,24 +95,21 @@ const SpeechClick = styled.div`
 
 // -----------------------------------------------------------
 
-export default function Intro2() {
+export default function ResultReady() {
   const navigate = useNavigate();
 
   return (
-    <Background onClick={() => navigate("/Intro3")}>
+    <Background onClick={() => navigate("/result")}>
       <ScrollArea>
-        <ScrollImage src="/두루마리.png" />
-
         <Content>
-          <GranpaAnimation />
+          <ImageBox>
+            <AnimationWrapper>
+              <GranpaAnimation />
+            </AnimationWrapper>
+          </ImageBox>
           <SpeechBubble>
             <div>
-              <Typewriter>
-                "사주 살이란 인연의 시작점이라고 할 수 있지.
-                <br />
-                <br />
-                너의 인연은 어떤지 한번 들여다보자꾸나."
-              </Typewriter>
+              <Typewriter>"결과가 나왔네. 확인해 보겠나?"</Typewriter>
             </div>
             <SpeechClick />
           </SpeechBubble>

@@ -1,0 +1,142 @@
+// 결과 팝업모달
+import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
+import { useRef } from "react";
+import html2canvas from "html2canvas";
+
+// 화면 전체를 덮는 회색 배경
+const Overlay = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100dvh;
+  background-color: #b6b6b6;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+`;
+
+// 실제 모달 박스
+const ModalBox = styled.div`
+  background-color: #eaddcb;
+  width: 85%;
+  max-width: 320px;
+  border-radius: 10px;
+  padding: 30px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  box-sizing: border-box;
+`;
+
+const Title = styled.div`
+  font-weight: bold;
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+`;
+
+const Description = styled.div`
+  font-size: 0.9rem;
+  line-height: 1.6;
+  margin-bottom: 20px;
+  word-break: keep-all;
+`;
+
+// 다음으로 버튼
+const NextButton = styled.button`
+  background-color: #dcb88e;
+  border: none;
+  border-radius: 10px;
+  padding: 6px 0;
+  width: 120px;
+  font-size: 14px;
+  cursor: pointer;
+  font-family: inherit;
+`;
+
+// 결과 저장 버튼
+const ResultSaveButton = styled.button`
+  background-color: #dcb88e;
+  border: none;
+  border-radius: 10px;
+  padding: 6px 0;
+  width: 120px;
+  font-size: 14px;
+  cursor: pointer;
+  font-family: inherit;
+  margin-bottom: 2vh;
+`;
+
+// 메세지 구역
+const Message = styled.div`
+  margin-top: 10px;
+`;
+
+const Red = styled.span`
+  color: #ff0000;
+`;
+const Blue = styled.span`
+  color: #0000ff;
+`;
+
+export default function Result_PopupModal({
+  enhancedSals = [],
+  weakenedSals = [],
+  onClose,
+}) {
+  const navigate = useNavigate();
+  const modalRef = useRef(null);
+
+  // 이미지 다운로드 함수
+  const handleDownload = async () => {
+    if (!modalRef.current) return;
+
+    try {
+      const canvas = await html2canvas(modalRef.current, {
+        scale: 2, // 모바일 환경에서도 글씨가 깨지지 않도록 고해상도 캡처
+        backgroundColor: "#eaddcb", // 모달 배경색 유지
+      });
+      const link = document.createElement("a");
+      link.download = "나의_인연_결과.png"; // 저장될 파일 이름
+      link.href = canvas.toDataURL("image/png");
+      link.click();
+    } catch (error) {
+      console.error("이미지 저장 실패:", error);
+      alert("이미지 저장에 실패했습니다.");
+    }
+  };
+
+  return (
+    <Overlay>
+      <ModalBox ref={modalRef}>
+        <Title>결과 확인</Title>
+        <Description>
+          <Red>홍연</Red>으로 강화된 인연
+          <br />
+          <div style={{ fontWeight: "bold" }}>
+            {enhancedSals.length > 0
+              ? enhancedSals.map((sal) => sal.name).join(", ")
+              : "없음"}
+          </div>
+        </Description>
+        <Description>
+          <Blue>청연</Blue>으로 풀어낸 인연
+          <br />
+          <div style={{ fontWeight: "bold" }}>
+            {weakenedSals.length > 0
+              ? weakenedSals.map((sal) => sal.name).join(", ")
+              : "없음"}
+          </div>
+        </Description>
+        <Description>
+          좋은 인연은 더욱 단단해지고, <br /> 얽힌 인연은 자연스럽게 풀렸습니다.
+        </Description>
+        <ResultSaveButton onClick={handleDownload}>결과 저장</ResultSaveButton>
+        <NextButton onClick={() => navigate("/ending")}>다음으로</NextButton>
+      </ModalBox>
+    </Overlay>
+  );
+}

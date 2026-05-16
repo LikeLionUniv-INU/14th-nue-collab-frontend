@@ -1,11 +1,8 @@
-// 인트로(2) 페이지
+// 인트로(3) 페이지
 import styled from "styled-components";
-import Scroll from "../components/Scroll.jsx";
-import GranpaAnimation from "../components/GranpaAnimation.jsx";
-import Typewriter from "../components/Typewriter.jsx";
-
 import { useNavigate } from "react-router-dom";
-
+import GranpaAnimation from "../components/GranpaAnimation";
+import Typewriter from "../components/Typewriter.jsx";
 // ---------------------공통 레이아웃-----------------------------
 const Background = styled.div`
   background-color: #341d02;
@@ -41,18 +38,31 @@ const Content = styled.div`
   align-items: center;
 `;
 
-// 말풍선 (위쪽 꼬리)
+// 시작하기 버튼
+const StartButton = styled.button`
+  font-size: 20px;
+  font-weight: bold;
+  width: 220px;
+  height: 47px;
+  background-color: #eedbc6;
+  border: none;
+  padding: 10px;
+  border-radius: 8.75px;
+  margin-top: 5vh; // 위치에 따라 변경
+  text-align: center;
+`;
+
+// 말풍선 (아래쪽 꼬리)
 const SpeechBubble = styled.div`
   position: relative;
   background-color: #eedbc6;
   border-radius: 10px;
   padding: 15px;
-  margin-top: 5vh; // 말풍선 위치에 따라 변경
+  margin-bottom: 5vh; // 말풍선 위치에 따라 변경
   width: 90%;
   box-sizing: border-box;
+  text-align: center;
   font-size: 14px;
-  display: flex;
-  flex-direction: column;
 
   word-break: keep-all;
   overflow-wrap: break-word;
@@ -61,51 +71,41 @@ const SpeechBubble = styled.div`
   &::after {
     content: "";
     position: absolute;
-    bottom: 100%;
+    top: 100%;
 
     // 이 수치 바꿔서 꼬리 위치 조정
-    left: 15%;
+    left: 50%;
+    transform: translateX(-50%);
 
     border-width: 12px;
     border-style: solid;
-    border-color: transparent transparent #eedbc6 transparent;
+    border-color: #eedbc6 transparent transparent transparent;
   }
-`;
-
-const SpeechClick = styled.div`
-  position: relative;
-  width: 0;
-  height: 0;
-  border-left: 10px solid transparent;
-  border-right: 10px solid transparent;
-  border-top: 12px solid #dcb98e;
-  margin-top: 10px;
-  align-self: flex-end;
 `;
 
 // -----------------------------------------------------------
 
-export default function Intro2() {
+export default function TemplatePage() {
   const navigate = useNavigate();
 
   return (
-    <Background onClick={() => navigate("/Intro3")}>
+    <Background>
       <ScrollArea>
         <ScrollImage src="/두루마리.png" />
 
         <Content>
-          <GranpaAnimation />
           <SpeechBubble>
-            <div>
-              <Typewriter>
-                "사주 살이란 인연의 시작점이라고 할 수 있지.
-                <br />
-                <br />
-                너의 인연은 어떤지 한번 들여다보자꾸나."
-              </Typewriter>
-            </div>
-            <SpeechClick />
+            <Typewriter>시작하기 버튼을 눌러 인연을 확인해보게나.</Typewriter>
           </SpeechBubble>
+          <GranpaAnimation />
+          <StartButton onClick={() => navigate("/communication")}>
+            시작하기
+          </StartButton>
+          <img
+            src="/로고.png"
+            alt="로고"
+            style={{ width: "70px", marginTop: "3vh" }}
+          />
         </Content>
       </ScrollArea>
     </Background>

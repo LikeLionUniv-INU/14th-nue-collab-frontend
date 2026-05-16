@@ -1,19 +1,31 @@
-// 인트로(2) 페이지
+import { useState } from "react";
 import styled from "styled-components";
-import Scroll from "../components/Scroll.jsx";
+import { useNavigate } from "react-router-dom";
 import GranpaAnimation from "../components/GranpaAnimation.jsx";
 import Typewriter from "../components/Typewriter.jsx";
 
-import { useNavigate } from "react-router-dom";
-
-// ---------------------공통 레이아웃-----------------------------
 const Background = styled.div`
-  background-color: #341d02;
+  background-color: #b6b6b6;
   width: 100vw;
   height: 100dvh;
   display: flex;
   justify-content: center;
   align-items: center;
+`;
+
+const ImageBox = styled.div`
+  width: 250px;
+  height: 300px;
+  overflow: hidden;
+  border-radius: 45px 45px 10px 10px;
+  background-color: #eedbc6;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const AnimationWrapper = styled.div`
+  transform: scale(1.5) translateY(25%);
 `;
 
 const ScrollArea = styled.div`
@@ -23,11 +35,6 @@ const ScrollArea = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-`;
-
-const ScrollImage = styled.img`
-  width: 90%;
-  height: auto;
 `;
 
 const Content = styled.div`
@@ -76,33 +83,64 @@ const SpeechClick = styled.div`
   position: relative;
   width: 0;
   height: 0;
-  border-left: 10px solid transparent;
-  border-right: 10px solid transparent;
+  border-left: 12px solid transparent;
+  border-right: 12px solid transparent;
   border-top: 12px solid #dcb98e;
   margin-top: 10px;
   align-self: flex-end;
 `;
 
-// -----------------------------------------------------------
+const Description = styled.div`
+  font-size: 0.9rem;
+  line-height: 1.6;
+  margin-bottom: 20px;
+  word-break: keep-all;
+  overflow-wrap: break-word;
+`;
 
-export default function Intro2() {
+const Red = styled.span`
+  color: #ff0000;
+`;
+const Blue = styled.span`
+  color: #0000ff;
+`;
+
+export default function Communication() {
   const navigate = useNavigate();
+  const [step, setStep] = useState(0);
+
+  const dialogs = [
+    "나는 총 16가지의 실을 볼 수 있다네.",
+    <>
+      그 중에서 자신에게 힘이 되는 <Red>붉은 색의 홍연 살</Red>과, <br />
+      흐름을 방해하는 <Blue> 푸른색의 청연 살</Blue>도 있고
+      <br />
+      간혹 2% 확률로 특별한 살도 나온단다.
+    </>,
+    "자네의 생년월일을 먼저 알려주게나.",
+  ];
+
+  // 클릭 시 대사 넘기기 로직
+  const handleNext = () => {
+    if (step < dialogs.length - 1) {
+      setStep(step + 1);
+    } else {
+      navigate("/birth");
+    }
+  };
 
   return (
-    <Background onClick={() => navigate("/Intro3")}>
+    <Background onClick={handleNext}>
       <ScrollArea>
-        <ScrollImage src="/두루마리.png" />
-
         <Content>
-          <GranpaAnimation />
+          <ImageBox>
+            <AnimationWrapper>
+              <GranpaAnimation />
+            </AnimationWrapper>
+          </ImageBox>
           <SpeechBubble>
-            <div>
-              <Typewriter>
-                "사주 살이란 인연의 시작점이라고 할 수 있지.
-                <br />
-                <br />
-                너의 인연은 어떤지 한번 들여다보자꾸나."
-              </Typewriter>
+            <div key={step}>
+              <Typewriter>{dialogs[step]}</Typewriter>
             </div>
             <SpeechClick />
           </SpeechBubble>
