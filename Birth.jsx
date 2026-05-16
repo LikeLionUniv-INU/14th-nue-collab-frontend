@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import axios from "axios";
+
 // ---------------------공통 레이아웃-----------------------------
 const Background = styled.div`
   background-color: #341d02;
@@ -52,7 +53,6 @@ const StartButton = styled.button`
 const Selectstyle = styled.select`
   font-size: 12px;
   width: 90%;
-  height: 35px;
   background-color: #eedbc6;
   border: none;
   padding: 10px;
@@ -95,67 +95,6 @@ const StBtn = ({ OnClick, name }) => {
   return <StartButton onClick={OnClick}>{name}</StartButton>;
 };
 
-/* 
-// 시작하기 버튼
-
-`;
-*/
-
-/*
-// 말풍선 (위쪽 꼬리)
-const SpeechBubble = styled.div`
-  position: relative;
-  background-color: #eedbc6;
-  border-radius: 10px;
-  padding: 15px;
-  margin-top: 5vh; // 말풍선 위치에 따라 변경
-  width: 90%;
-  box-sizing: border-box;
-  font-size: 14px;
-
-  &::after {
-    content: "";
-    position: absolute;
-    bottom: 100%;
-
-    // 이 수치 바꿔서 꼬리 위치 조정
-    left: 15%;
-
-    border-width: 12px;
-    border-style: solid;
-    border-color: transparent transparent #eedbc6 transparent;
-  }
-`;
-*/
-
-/*
-// 말풍선 (아래쪽 꼬리)
-const SpeechBubble = styled.div`
-  position: relative;
-  background-color: #eedbc6;
-  border-radius: 10px;
-  padding: 15px;
-  margin-top: 5vh; // 말풍선 위치에 따라 변경
-  width: 90%;
-  box-sizing: border-box;
-  font-size: 14px;
-
-
-  &::after {
-    content: "";
-    position: absolute;
-    top: 100%;
-
-    // 이 수치 바꿔서 꼬리 위치 조정
-    left: 50%;
-
-    border-width: 12px;
-    border-style: solid;
-    border-color: #eedbc6 transparent transparent transparent;
-  }
-`;
-*/
-
 // -----------------------------------------------------------
 
 export default function Birth() {
@@ -165,12 +104,11 @@ export default function Birth() {
   const [day, setDay] = useState("");
   const [maxDay, setMaxDay] = useState(31);
 
-  // 년도나 월이 바뀔 때마다 해당 월의 마지막 날짜를 계산 (윤년 완벽 대응)
+  // 년도나 월이 바뀔 때마다 해당 월의 마지막 날짜를 계산
   useEffect(() => {
     if (year && month) {
       const daysInMonth = new Date(year, month, 0).getDate();
       setMaxDay(daysInMonth);
-      // 만약 이미 31일을 골랐는데 2월로 바꿨다면, 일(Day) 선택을 강제로 초기화
       if (Number(day) > daysInMonth) {
         setDay("");
       }
@@ -212,7 +150,6 @@ export default function Birth() {
       } else if (code === "SINSAL_500") {
         alert("서버 오류입니다. 잠시 후 다시 시도해주세요.");
       } else {
-        // 백엔드 서버가 닫혀있거나 인터넷이 끊겼을 때의 기본 방어
         alert("서버와 통신할 수 없습니다. 잠시 후 다시 시도해주세요.");
       }
     }

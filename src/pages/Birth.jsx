@@ -52,14 +52,13 @@ const StartButton = styled.button`
 const Selectstyle = styled.select`
   font-size: 12px;
   width: 90%;
-  height: 35px;
   background-color: #eedbc6;
   border: none;
   padding: 10px;
   border-radius: 8.75px;
   margin-top: 6vh; // 위치에 따라 변경
   text-align: left;
-  margin: 7px 7px 7px 0;
+  margin: 7px;
 `;
 
 const BackButton = styled.button`

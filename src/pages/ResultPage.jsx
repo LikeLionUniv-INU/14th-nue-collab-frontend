@@ -343,8 +343,9 @@ export default function ResultPage() {
               궁금한 살을 눌러 내용을 자세히 확인해보세요.
               <br />
               <br />
-              홍연으로 이어 좋은 살은 더욱 강하게 만들고, 청연으로 이어 나쁜
-              살을 무력화시킬 수 있습니다!
+              <span style={{ color: "#ff0000" }}>홍연</span>으로 이어 좋은 살은
+              더욱 강하게 만들고, <span style={{ color: "#0000ff" }}>청연</span>
+              으로 이어 나쁜 살을 무력화시킬 수 있습니다!
             </>
           }
           enhancedSals={enhancedSals}

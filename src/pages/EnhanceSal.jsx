@@ -210,7 +210,12 @@ export default function EnhanceSal() {
         <>
           <PopupModal
             title="살 강화 완료"
-            content="좋은 살이 홍연으로 이어져 더욱 강해졌습니다!"
+            content={
+              <>
+                좋은 살이 <span style={{ color: "#ff0000" }}>홍연</span>으로
+                이어져 더욱 강해졌습니다!
+              </>
+            }
             onClose={handleCloseModal}
           />
         </>
