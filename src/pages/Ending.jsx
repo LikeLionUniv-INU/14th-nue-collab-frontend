@@ -1,6 +1,18 @@
 // 마지막 누에고치 팀 홍보 페이지
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import Typewriter from "../components/Typewriter.jsx";
+
+// 실뭉치 애니메이션
+const float = keyframes`
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-13px); }
+  100% { transform: translateY(0px); }
+`;
+
+const FloatingImage = styled.img`
+  width: 100vw;
+  animation: ${float} 4s ease-in-out infinite;
+`;
 
 // 배경
 const Background = styled.div`
@@ -84,7 +96,7 @@ export default function Ending() {
   return (
     <Background>
       <Container>
-        <img src="/실뭉치.png" style={{ width: "100vw" }} />
+        <FloatingImage src="/실뭉치.png" alt="실뭉치" />
         {/*여기에 추후 누에고치팀에서 받은 이미지 삽입*/}
         <SpeechBubble>
           <Typewriter>
