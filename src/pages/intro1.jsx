@@ -1,6 +1,7 @@
 // 인트로(1) 페이지
 import styled from "styled-components";
 import Scroll from "../components/Scroll.jsx";
+import Title_Animation from "../components/Title_Animation";
 
 import { useNavigate } from "react-router-dom";
 
@@ -75,7 +76,7 @@ export default function Intro1() {
       <ScrollArea>
         <ScrollImage src="/두루마리.png" />
         <Content>
-          <img src="/대형로고_세로.png" style={{ width: "70px" }} />
+          <Title_Animation />
         </Content>
       </ScrollArea>
     </Background>

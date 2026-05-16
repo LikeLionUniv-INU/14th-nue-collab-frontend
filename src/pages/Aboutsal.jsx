@@ -47,6 +47,7 @@ const ProfileRow = styled.div`
   gap: 13px;
   width: 100%;
   margin-bottom: 2vh;
+  height: 8vh;
 `;
 
 // 상단 이미지
@@ -60,7 +61,7 @@ const ImageBox = styled.div`
   justify-content: center;
   overflow: hidden;
   img {
-    width: 90%;
+    width: 80%;
     height: auto;
     display: block;
   }
@@ -78,13 +79,14 @@ const TextBox = styled.div`
   box-sizing: border-box;
   font-size: 10px;
   text-align: left;
+  word-break: keep-all;
 `;
 
 // 스크롤 전용 리스트 박스 (흰부분, 내용 길어지면 스크롤 가능)
 const ScrollableListBox = styled.div`
   background-color: #eedbc6;
   width: 100%;
-  height: 50vh;
+  height: 60vh;
   overflow-y: auto;
   padding: 10px 10px;
   border-radius: 10px;
@@ -110,6 +112,9 @@ const SalDetailContainer = styled.div`
   padding: 5px;
   gap: 10px;
   text-align: left; /* 전체 왼쪽 정렬 */
+  word-break: keep-all;
+  overflow-wrap: break-word;
+  line-height: 1.5;
 `;
 
 // 제목 및 안내 문구
@@ -169,18 +174,19 @@ export default function Aboutsal() {
   const [apiData, setApiData] = useState(null);
 
   useEffect(() => {
-    // localStorage에서 선택된 살과 전체 데이터 읽어오기
-    const storedSal = localStorage.getItem("selectedSal");
-    const storedApiData = localStorage.getItem("apiData");
+    // sessionStorage에서 선택된 살과 전체 데이터 읽어오기
+    const storedSal = sessionStorage.getItem("selectedSal");
+    const storedApiData = sessionStorage.getItem("apiData");
 
-    if (storedSal) {
+    if (storedSal && storedApiData) {
       setSelectedSal(JSON.parse(storedSal));
-    }
-
-    if (storedApiData) {
       setApiData(JSON.parse(storedApiData));
+    } else {
+      // 비정상적인 접근 처리
+      alert("잘못된 접근입니다.");
+      navigate("/birth");
     }
-  }, []);
+  }, [navigate]);
 
   // 데이터가 로드될 때까지 로딩 표시
   if (!selectedSal || !apiData) {

@@ -1,18 +1,35 @@
-// 인트로(2) 페이지
+// 결과 준비 페이지
 import styled from "styled-components";
 import Scroll from "../components/Scroll.jsx";
 import GranpaAnimation from "../components/GranpaAnimation";
+import Typewriter from "../components/Typewriter.jsx";
 
 import { useNavigate } from "react-router-dom";
 
 // ---------------------공통 레이아웃-----------------------------
 const Background = styled.div`
-  background-color: #9c9c9c;
+  background-color: #b6b6b6;
   width: 100vw;
   height: 100dvh;
   display: flex;
   justify-content: center;
   align-items: center;
+`;
+
+//할아버지 애니메이션 뒷배경 박스
+const ImageBox = styled.div`
+  width: 250px;
+  height: 300px;
+  overflow: hidden;
+  border-radius: 45px 45px 10px 10px;
+  background-color: #eedbc6;
+  display: flex;
+  justify-content: center;
+`;
+
+//할아버지 애니메이션 확대 및 위치 조정
+const AnimationWrapper = styled.div`
+  transform: scale(1.5) translateY(25%);
 `;
 
 const ScrollArea = styled.div`
@@ -47,6 +64,9 @@ const SpeechBubble = styled.div`
   font-size: 14px;
   display: flex;
   flex-direction: column;
+  word-break: keep-all;
+  overflow-wrap: break-word;
+  line-height: 1.5;
 
   &::after {
     content: "";
@@ -66,26 +86,32 @@ const SpeechClick = styled.div`
   position: relative;
   width: 0;
   height: 0;
-  border-left: 12px solid transparent;
-  border-right: 12px solid transparent;
-  border-bottom: 12px solid #dcb98e;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-top: 12px solid #dcb98e;
   margin-top: 10px;
   align-self: flex-end;
 `;
 
 // -----------------------------------------------------------
 
-export default function Intro2() {
+export default function ResultReady() {
   const navigate = useNavigate();
 
   return (
-    <Background onClick={() => navigate("/ResultPage")}>
+    <Background onClick={() => navigate("/result")}>
       <ScrollArea>
         <Content>
-          <GranpaAnimation />
-
+          <ImageBox>
+            <AnimationWrapper>
+              <GranpaAnimation />
+            </AnimationWrapper>
+          </ImageBox>
           <SpeechBubble>
-            "결과가 나왔어 확인해 볼래?" <SpeechClick />
+            <div>
+              <Typewriter>"결과가 나왔네. 확인해 보겠나?"</Typewriter>
+            </div>
+            <SpeechClick />
           </SpeechBubble>
         </Content>
       </ScrollArea>

@@ -2,6 +2,7 @@
 import styled from "styled-components";
 import Scroll from "../components/Scroll.jsx";
 import GranpaAnimation from "../components/GranpaAnimation";
+import Typewriter from "../components/Typewriter.jsx";
 
 import { useNavigate } from "react-router-dom";
 
@@ -40,6 +41,7 @@ const Content = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  text-align: center;
 `;
 
 // 말풍선 (아래쪽 꼬리)
@@ -48,10 +50,10 @@ const SpeechBubble = styled.div`
   background-color: #eedbc6;
   border-radius: 10px;
   padding: 15px;
-  margin-top: 5vh; // 말풍선 위치에 따라 변경
   width: 90%;
   box-sizing: border-box;
   font-size: 14px;
+  font-weight: bold;
 
   &::after {
     content: "";
@@ -71,6 +73,10 @@ const Message = styled.div`
   color: #000000;
   font-size: 18px;
   margin-bottom: 20px;
+  text-align: center;
+  word-break: keep-all;
+  overflow-wrap: break-word;
+  line-height: 1.5;
 `;
 
 // 껍데기 - 항상 고정된 크기
@@ -79,6 +85,7 @@ const BarWrapper = styled.div`
   background-color: #eedbc6; // 갈색 배경
   overflow: hidden; // Bar가 밖으로 삐져나오지 않게
   border-radius: 10px;
+  margin-top: 20px;
 `;
 
 // 채워지는 부분 - percent에 따라 너비가 변함
@@ -129,13 +136,10 @@ export default function TemplatePage() {
           <SpeechBubble>어르신이 분석 중!</SpeechBubble>
           <br />
           <GranpaAnimation />
-          {/* <img
-            src="/임시할아버지.png"
-            alt="할아버지"
-            style={{ width: "150px" }}
-          /> */}
           <br />
-          <Message>{getMessage(percent)}</Message>
+          <Message key={percent}>
+            <Typewriter>{getMessage(percent)}</Typewriter>
+          </Message>
           {percent}%
           <BarWrapper>
             <Bar $percent={percent} />

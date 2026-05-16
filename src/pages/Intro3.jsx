@@ -2,6 +2,7 @@
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import GranpaAnimation from "../components/GranpaAnimation";
+import Typewriter from "../components/Typewriter.jsx";
 // ---------------------공통 레이아웃-----------------------------
 const Background = styled.div`
   background-color: #341d02;
@@ -40,13 +41,15 @@ const Content = styled.div`
 // 시작하기 버튼
 const StartButton = styled.button`
   font-size: 20px;
+  font-weight: bold;
   width: 220px;
   height: 47px;
   background-color: #eedbc6;
   border: none;
   padding: 10px;
   border-radius: 8.75px;
-  margin-top: 6vh; // 위치에 따라 변경
+  margin-top: 5vh; // 위치에 따라 변경
+  text-align: center;
 `;
 
 // 말풍선 (아래쪽 꼬리)
@@ -60,6 +63,10 @@ const SpeechBubble = styled.div`
   box-sizing: border-box;
   text-align: center;
   font-size: 14px;
+
+  word-break: keep-all;
+  overflow-wrap: break-word;
+  line-height: 1.5;
 
   &::after {
     content: "";
@@ -87,18 +94,17 @@ export default function TemplatePage() {
         <ScrollImage src="/두루마리.png" />
 
         <Content>
-          <SpeechBubble>어르신이 분석 중!</SpeechBubble>
+          <SpeechBubble>
+            <Typewriter>시작하기 버튼을 눌러 인연을 확인해보게나.</Typewriter>
+          </SpeechBubble>
           <GranpaAnimation />
-          {/* <img
-            src="/임시할아버지.png"
-            alt="할아버지"
-            style={{ width: "150px" }}
-          />*/}
-          <StartButton onClick={() => navigate("/birth")}>시작하기</StartButton>
+          <StartButton onClick={() => navigate("/communication")}>
+            시작하기
+          </StartButton>
           <img
             src="/로고.png"
             alt="로고"
-            style={{ width: "63px", marginTop: "8vh" }}
+            style={{ width: "70px", marginTop: "3vh" }}
           />
         </Content>
       </ScrollArea>
