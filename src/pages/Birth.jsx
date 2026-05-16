@@ -173,7 +173,7 @@ export default function Birth() {
     const formattedDate = `${year}-${String(month).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
 
     try {
-      const response = await axios.get("https://9su.site/api/sinsals", {
+      const response = await axios.get("https://api.9su.site/api/sinsals", {
         params: {
           birthDate: formattedDate,
         },

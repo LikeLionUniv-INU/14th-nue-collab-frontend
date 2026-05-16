@@ -1,4 +1,3 @@
-import { useState } from "react";
 import styled from "styled-components";
 
 const ListItem = styled.div`
@@ -11,7 +10,6 @@ const ListItem = styled.div`
   background-color: #eedbc6;
   border-radius: 8px;
   box-sizing: border-box;
-  cursor: pointer;
 `;
 
 const CheckBox = styled.div`
@@ -38,18 +36,13 @@ const CheckMark = styled.div`
 `;
 
 export default function CheckSalBox({ name, color }) {
-  const [checked, setChecked] = useState(false);
-
   return (
-    <ListItem
-      style={{ border: `2px solid ${color}` }}
-      onClick={() => setChecked(!checked)}
-    >
-      <CheckBox checked={checked}>
-        <CheckMark checked={checked} />
+    <ListItem style={{ border: `2px solid ${color}` }}>
+      {/* 항상 체크된(true) 상태로 고정 */}
+      <CheckBox checked={true}>
+        <CheckMark checked={true} />
       </CheckBox>
       {name}
-      <div style={{ marginLeft: "auto" }}>→</div>
     </ListItem>
   );
 }

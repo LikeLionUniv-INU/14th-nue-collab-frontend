@@ -244,7 +244,7 @@ export default function ResultPage() {
         }
 
         const response = await fetch(
-          `https://9su.site/api/sinsals?birthDate=${userBirthDate}`
+          `https://api.9su.site/api/sinsals?birthDate=${userBirthDate}`
         );
 
         if (!response.ok) {
