@@ -1,7 +1,9 @@
 import styled from "styled-components";
+import 흰색실 from "../img/흰색실.png";
 
 const ListItem = styled.div`
   // 리스트 아이템 스타일
+  position: relative;
   display: flex;
   align-items: center;
   width: 275px;
@@ -10,6 +12,15 @@ const ListItem = styled.div`
   background-color: #eedbc6;
   border-radius: 8px;
   box-sizing: border-box;
+`;
+
+const Sil = styled.img`
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%) scaleX(-1);
+  height: 160%;
+  pointer-events: none;
 `;
 
 const CheckBox = styled.div`
@@ -43,6 +54,8 @@ export default function CheckSalBox({ name, color }) {
         <CheckMark checked={true} />
       </CheckBox>
       {name}
+
+      <Sil src={흰색실} />
     </ListItem>
   );
 }
