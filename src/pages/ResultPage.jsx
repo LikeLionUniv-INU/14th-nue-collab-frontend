@@ -48,8 +48,8 @@ const ProfileRow = styled.div`
   align-items: stretch;
   gap: 13px;
   width: 100%;
-  margin-bottom: 2vh;
-  height: 8vh;
+  margin-bottom: 10px;
+  flex-shrink: 0;
 `;
 
 // 상단 이미지
@@ -76,10 +76,10 @@ const TextBox = styled.div`
   align-items: center;
   background-color: #eedbc6;
   border-radius: 10px;
-  padding: 20px 14px;
+  padding: 10px 14px; /* 위아래 여백 축소 */
   width: 90%;
   box-sizing: border-box;
-  font-size: 10px;
+  font-size: 11px;
   text-align: left;
   word-break: keep-all;
 `;
@@ -169,7 +169,7 @@ const TipsButton = styled(CircleButton)`
 const ScrollableListBox = styled.div`
   background-color: #eedbc6;
   width: 100%;
-  height: 70vh;
+  flex: 1; /* 남은 두루마리 안쪽 공간을 딱 맞게 꽉 채움 */
   min-height: 0;
   overflow-y: auto;
   padding: 10px 10px;
@@ -187,6 +187,18 @@ const ScrollableListBox = styled.div`
   }
   -ms-overflow-style: none;
   scrollbar-width: none;
+`;
+
+// 생년월일 전용 박스
+const DateBadge = styled.div`
+  background-color: #dcb98e;
+  width: 100%;
+  padding: 10px 0;
+  font-size: 14px;
+  border-radius: 8px;
+  text-align: center;
+  margin-bottom: 8px;
+  flex-shrink: 0;
 `;
 
 export default function ResultPage() {
@@ -378,20 +390,7 @@ export default function ResultPage() {
 
           {/* 하단 사주 결과 리스트 영역 */}
           <ScrollableListBox>
-            <TextBox
-              style={{
-                backgroundColor: "#DCB98E",
-                width: "100%",
-                padding: "8px 15px",
-                fontSize: "3vw",
-                marginBottom: "8px",
-                justifyContent: "center",
-                flex: "none",
-                height: "auto",
-              }}
-            >
-              {formattedDate}
-            </TextBox>
+            <DateBadge>{formattedDate}</DateBadge>
 
             {/* API 데이터 매핑 영역 */}
             {[...apiData.sinSals]
