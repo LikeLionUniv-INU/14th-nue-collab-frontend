@@ -64,6 +64,7 @@ const SpeechBubble = styled.div`
   word-break: keep-all;
   overflow-wrap: break-word;
   line-height: 1.5;
+  cursor: pointer; /* 클릭 가능한 영역임을 표시 */
 
   &::after {
     content: "";
@@ -130,7 +131,7 @@ export default function Communication() {
   };
 
   return (
-    <Background onClick={handleNext}>
+    <Background>
       <ScrollArea>
         <Content>
           <ImageBox>
@@ -138,7 +139,7 @@ export default function Communication() {
               <GranpaAnimation />
             </AnimationWrapper>
           </ImageBox>
-          <SpeechBubble>
+          <SpeechBubble onClick={handleNext}>
             <div key={step}>
               <Typewriter>{dialogs[step]}</Typewriter>
             </div>

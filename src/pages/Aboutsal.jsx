@@ -61,7 +61,7 @@ const ImageBox = styled.div`
   justify-content: center;
   overflow: hidden;
   img {
-    width: 90%;
+    width: 80%;
     height: auto;
     display: block;
   }
@@ -86,7 +86,7 @@ const TextBox = styled.div`
 const ScrollableListBox = styled.div`
   background-color: #eedbc6;
   width: 100%;
-  height: 50vh;
+  height: 60vh;
   overflow-y: auto;
   padding: 10px 10px;
   border-radius: 10px;

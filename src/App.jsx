@@ -6,7 +6,7 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Intro1 from "./pages/intro1";
 import Intro2 from "./pages/intro2";
-import Intro3 from "./pages/intro3";
+import Intro3 from "./pages/Intro3";
 import Loading from "./pages/Loading";
 import ResultReady from "./pages/ResultReady";
 import Birth from "./pages/Birth";
