@@ -5,6 +5,7 @@ import GranpaAnimation from "../components/GranpaAnimation";
 import Typewriter from "../components/Typewriter.jsx";
 
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 // ---------------------공통 레이아웃-----------------------------
 const Background = styled.div`
@@ -97,9 +98,18 @@ const SpeechClick = styled.div`
 
 export default function ResultReady() {
   const navigate = useNavigate();
+  const [isTyping, setIsTyping] = useState(true);
+
+  const handleNext = () => {
+    if (isTyping) {
+      setIsTyping(false);
+      return;
+    }
+    navigate("/result");
+  };
 
   return (
-    <Background onClick={() => navigate("/result")}>
+    <Background onClick={handleNext}>
       <ScrollArea>
         <Content>
           <ImageBox>
@@ -109,7 +119,12 @@ export default function ResultReady() {
           </ImageBox>
           <SpeechBubble>
             <div>
-              <Typewriter>"결과가 나왔네. 확인해 보겠나?"</Typewriter>
+              <Typewriter
+                skip={!isTyping}
+                onComplete={() => setIsTyping(false)}
+              >
+                "결과가 나왔네. 확인해 보겠나?"
+              </Typewriter>
             </div>
             <SpeechClick />
           </SpeechBubble>

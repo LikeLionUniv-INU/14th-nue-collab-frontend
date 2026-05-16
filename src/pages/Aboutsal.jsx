@@ -34,6 +34,7 @@ const Content = styled.div`
   left: 50%;
   transform: translate(-50%, -50%);
   width: 70%;
+  height: 78%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -46,8 +47,8 @@ const ProfileRow = styled.div`
   align-items: stretch;
   gap: 13px;
   width: 100%;
-  margin-bottom: 2vh;
-  height: 8vh;
+  margin-bottom: 10px;
+  flex-shrink: 0;
 `;
 
 // 상단 이미지
@@ -74,10 +75,10 @@ const TextBox = styled.div`
   align-items: center;
   background-color: #eedbc6;
   border-radius: 10px;
-  padding: 20px 14px;
+  padding: 10px 14px;
   width: 90%;
   box-sizing: border-box;
-  font-size: 10px;
+  font-size: 11px;
   text-align: left;
   word-break: keep-all;
 `;
@@ -86,7 +87,8 @@ const TextBox = styled.div`
 const ScrollableListBox = styled.div`
   background-color: #eedbc6;
   width: 100%;
-  height: 60vh;
+  flex: 1; /* 남은 영역 꽉 채우기 */
+  min-height: 0;
   overflow-y: auto;
   padding: 10px 10px;
   border-radius: 10px;
@@ -168,6 +170,18 @@ const ConfirmButton = styled.button`
   }
 `;
 
+// 생년월일 전용 박스
+const DateBadge = styled.div`
+  background-color: #dcb98e;
+  width: 100%;
+  padding: 10px 0;
+  font-size: 13px;
+  border-radius: 8px;
+  text-align: center;
+  margin-bottom: 8px;
+  flex-shrink: 0;
+`;
+
 export default function Aboutsal() {
   const navigate = useNavigate();
   const [selectedSal, setSelectedSal] = useState(null);
@@ -217,18 +231,7 @@ export default function Aboutsal() {
 
           {/* 하단 사주 결과 리스트 영역 */}
           <ScrollableListBox>
-            <TextBox
-              style={{
-                backgroundColor: "#DCB98E",
-                width: "100%",
-                padding: "12px 15px",
-                fontSize: "3vw",
-                marginBottom: "8px",
-                justifyContent: "center",
-              }}
-            >
-              {formattedDate}
-            </TextBox>
+            <DateBadge>{formattedDate}</DateBadge>
 
             {/* 선택된 살 상세 정보만 표시 */}
             <SalDetailContainer>

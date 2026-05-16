@@ -1,8 +1,9 @@
-import { useState } from "react";
 import styled from "styled-components";
+import 흰색실 from "../img/흰색실.png";
 
 const ListItem = styled.div`
   // 리스트 아이템 스타일
+  position: relative;
   display: flex;
   align-items: center;
   width: 275px;
@@ -11,7 +12,15 @@ const ListItem = styled.div`
   background-color: #eedbc6;
   border-radius: 8px;
   box-sizing: border-box;
-  cursor: pointer;
+`;
+
+const Sil = styled.img`
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%) scaleX(-1);
+  height: 160%;
+  pointer-events: none;
 `;
 
 const CheckBox = styled.div`
@@ -38,18 +47,15 @@ const CheckMark = styled.div`
 `;
 
 export default function CheckSalBox({ name, color }) {
-  const [checked, setChecked] = useState(false);
-
   return (
-    <ListItem
-      style={{ border: `2px solid ${color}` }}
-      onClick={() => setChecked(!checked)}
-    >
-      <CheckBox checked={checked}>
-        <CheckMark checked={checked} />
+    <ListItem style={{ border: `2px solid ${color}` }}>
+      {/* 항상 체크된(true) 상태로 고정 */}
+      <CheckBox checked={true}>
+        <CheckMark checked={true} />
       </CheckBox>
       {name}
-      <div style={{ marginLeft: "auto" }}>→</div>
+
+      <Sil src={흰색실} />
     </ListItem>
   );
 }
