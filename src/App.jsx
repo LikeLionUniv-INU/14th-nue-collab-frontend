@@ -1,9 +1,6 @@
 import { useEffect } from "react";
 import styled from "styled-components";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Layout from "./styles/Layout";
-import Header from "./components/Header";
-import Footer from "./components/Footer";
 import Intro1 from "./pages/intro1";
 import Intro2 from "./pages/intro2";
 import Intro3 from "./pages/Intro3";
@@ -15,7 +12,6 @@ import Aboutsal from "./pages/Aboutsal";
 import EnhanceSal from "./pages/EnhanceSal";
 import KiaSal from "./pages/KiaSal";
 import Nobirth from "./pages/Nobirth";
-import Test from "./pages/Test"; // 나중에 삭제
 import Communication from "./pages/Communication";
 import Ending from "./pages/Ending";
 
@@ -48,7 +44,6 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route element={<Layout />}>{/* 아래에 다른 페이지들 추가.. */}</Route>
         <Route path="/" element={<Intro1 />} />
         <Route path="/intro2" element={<Intro2 />} />
         <Route path="/intro3" element={<Intro3 />} />
