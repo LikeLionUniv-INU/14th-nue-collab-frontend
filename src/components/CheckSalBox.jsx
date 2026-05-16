@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import 흰색실 from "../img/흰색실.png"
+import 흰색실 from "../img/흰색실.png";
 
 const ListItem = styled.div`
   // 리스트 아이템 스타일
@@ -21,7 +21,7 @@ const Sil = styled.img`
   transform: translateY(-50%) scaleX(-1);
   height: 160%;
   pointer-events: none;
-`
+`;
 
 const CheckBox = styled.div`
   // 체크박스 스타일

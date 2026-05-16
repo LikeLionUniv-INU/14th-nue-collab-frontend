@@ -4,6 +4,9 @@ import styled from "styled-components";
 import PopupModal from "../components/PopupModal";
 import Result_PopupModal from "../components/Result_PopupModal";
 import CheckResultBtn from "../components/CheckResultBtn";
+import 흰색실 from "../img/흰색실.png";
+import 빨간색실 from "../img/빨강색실.png";
+import 파란색실 from "../img/파랑색실.png";
 
 // ---------------------공통 레이아웃-----------------------------
 const Background = styled.div`
@@ -48,8 +51,8 @@ const ProfileRow = styled.div`
   align-items: stretch;
   gap: 13px;
   width: 100%;
-  margin-bottom: 2vh;
-  height: 8vh;
+  margin-bottom: 10px;
+  flex-shrink: 0;
 `;
 
 // 상단 이미지
@@ -76,25 +79,30 @@ const TextBox = styled.div`
   align-items: center;
   background-color: #eedbc6;
   border-radius: 10px;
-  padding: 20px 14px;
+  padding: 10px 14px; /* 위아래 여백 축소 */
   width: 90%;
   box-sizing: border-box;
-  font-size: 10px;
+  font-size: 11px;
   text-align: left;
   word-break: keep-all;
 `;
 
 // --------------------- 리스트 아이템 스타일 -----------------------------
 const ListItem = styled.div`
+  position: relative; /* 실 이미지를 아이템 위에 띄우기 위해 필요 */
+  width: 100%;
+  cursor: pointer;
+`;
+
+const ItemContent = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  padding: 6px;
+  padding: 6px 30px 6px 10px;
   background-color: #eedbc6;
   border-radius: 8px;
   box-sizing: border-box;
-  cursor: pointer;
 
   border: 2px solid ${(props) => (props.$type === "lucky" ? "red" : "blue")};
 
@@ -119,6 +127,16 @@ const ItemName = styled.div`
   flex: 1;
   text-align: left;
   font-size: 12px;
+`;
+
+// 리스트 위에 얹어질 실 이미지 스타일
+const Sil = styled.img`
+  position: absolute;
+  right: 8px; 
+  top: 50%;
+  transform: translateY(-50%) scaleX(-1);
+  height: 160%;
+  pointer-events: none;
 `;
 
 // --------------------- 버튼 스타일 -----------------------------
@@ -169,7 +187,7 @@ const TipsButton = styled(CircleButton)`
 const ScrollableListBox = styled.div`
   background-color: #eedbc6;
   width: 100%;
-  height: 70vh;
+  flex: 1; /* 남은 두루마리 안쪽 공간을 딱 맞게 꽉 채움 */
   min-height: 0;
   overflow-y: auto;
   padding: 10px 10px;
@@ -178,7 +196,7 @@ const ScrollableListBox = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 5px;
+  gap: 10px;
   padding-bottom: 70px;
 
   /* 스크롤바 숨기기 (모바일 환경 깔끔하게) */
@@ -187,6 +205,18 @@ const ScrollableListBox = styled.div`
   }
   -ms-overflow-style: none;
   scrollbar-width: none;
+`;
+
+// 생년월일 전용 박스
+const DateBadge = styled.div`
+  background-color: #dcb98e;
+  width: 100%;
+  padding: 10px 0;
+  font-size: 13px;
+  border-radius: 8px;
+  text-align: center;
+  margin-bottom: 8px;
+  flex-shrink: 0;
 `;
 
 export default function ResultPage() {
@@ -378,20 +408,7 @@ export default function ResultPage() {
 
           {/* 하단 사주 결과 리스트 영역 */}
           <ScrollableListBox>
-            <TextBox
-              style={{
-                backgroundColor: "#DCB98E",
-                width: "100%",
-                padding: "8px 15px",
-                fontSize: "3vw",
-                marginBottom: "8px",
-                justifyContent: "center",
-                flex: "none",
-                height: "auto",
-              }}
-            >
-              {formattedDate}
-            </TextBox>
+            <DateBadge>{formattedDate}</DateBadge>
 
             {/* API 데이터 매핑 영역 */}
             {[...apiData.sinSals]
@@ -400,24 +417,43 @@ export default function ResultPage() {
                 if (a.type === "unlucky" && b.type === "lucky") return 1;
                 return 0; // 같으면 순서 유지
               })
-              .map((sal, index) => (
-                <ListItem
-                  key={sal.key}
-                  $type={sal.type}
-                  $isRead={readItems.includes(sal.key)}
-                  onClick={() => handleItemClick(sal)}
-                >
-                  <div
-                    style={{ display: "flex", alignItems: "center", flex: 1 }}
-                  >
-                    <NumberBadge>{index + 1}</NumberBadge>
-                    <ItemName>
-                      {sal.name} ({sal.hanja})
-                    </ItemName>
-                  </div>
-                  <div>→</div>
-                </ListItem>
-              ))}
+              .map((sal, index) => {
+                // 1. 기본값: 하얀실 이미지
+                let threadImg = 흰색실;
+
+                // 2. 홍연(lucky)이면서 '강화 완료' 상태일 때: 빨간실 이미지로 변경
+                if (sal.type === "lucky" && isEnhanceSalCompleted) {
+                  threadImg = 빨간색실;
+                }
+                // 3. 청연(unlucky)이면서 '무력화 완료' 상태일 때: 파란실 이미지로 변경
+                else if (sal.type === "unlucky" && isKiaSalCompleted) {
+                  threadImg = 파란색실;
+                }
+
+                return (
+                  <ListItem key={sal.key} onClick={() => handleItemClick(sal)}>
+                    <ItemContent
+                      $type={sal.type}
+                      $isRead={readItems.includes(sal.key)}
+                    >
+                      <div
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          flex: 1,
+                        }}
+                      >
+                        <NumberBadge>{index + 1}</NumberBadge>
+                        <ItemName>
+                          {sal.name} ({sal.hanja})
+                        </ItemName>
+                      </div>
+                      <div>→</div>
+                    </ItemContent>
+                    <Sil src={threadImg} alt="인연의 실" />
+                  </ListItem>
+                );
+              })}
 
             <ButtonArea>
               <LeftButtonGroup>

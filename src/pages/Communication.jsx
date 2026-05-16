@@ -109,22 +109,29 @@ const Blue = styled.span`
 export default function Communication() {
   const navigate = useNavigate();
   const [step, setStep] = useState(0);
+  const [isTyping, setIsTyping] = useState(true); // 타이핑 상태 관리
 
   const dialogs = [
     "나는 총 16가지의 실을 볼 수 있다네.",
     <>
       그 중에서 자신에게 힘이 되는 <Red>붉은 색의 홍연 살</Red>과, <br />
-      흐름을 방해하는 <Blue> 푸른색의 청연 살</Blue>도 있고
+      흐름을 방해하는 <Blue>푸른색의 청연 살</Blue>도 있고
       <br />
-      간혹 2% 확률로 특별한 살도 나온단다.
+      간혹 특별한 살도 나온단다.
     </>,
     "자네의 생년월일을 먼저 알려주게나.",
   ];
 
   // 클릭 시 대사 넘기기 로직
   const handleNext = () => {
+    if (isTyping) {
+      setIsTyping(false); // 타이핑 도중 클릭하면 즉시 전체 글자 표시 (스킵)
+      return;
+    }
+
     if (step < dialogs.length - 1) {
       setStep(step + 1);
+      setIsTyping(true); // 다음 대사로 넘어갈 때 다시 타이핑 상태로 변경
     } else {
       navigate("/birth");
     }
@@ -141,7 +148,12 @@ export default function Communication() {
           </ImageBox>
           <SpeechBubble onClick={handleNext}>
             <div key={step}>
-              <Typewriter>{dialogs[step]}</Typewriter>
+              <Typewriter
+                skip={!isTyping}
+                onComplete={() => setIsTyping(false)}
+              >
+                {dialogs[step]}
+              </Typewriter>
             </div>
             <SpeechClick />
           </SpeechBubble>
