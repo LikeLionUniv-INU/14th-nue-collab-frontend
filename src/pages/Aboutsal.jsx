@@ -175,7 +175,7 @@ const DateBadge = styled.div`
   background-color: #dcb98e;
   width: 100%;
   padding: 10px 0;
-  font-size: 14px;
+  font-size: 13px;
   border-radius: 8px;
   text-align: center;
   margin-bottom: 8px;

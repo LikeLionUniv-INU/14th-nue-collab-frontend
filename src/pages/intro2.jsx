@@ -5,6 +5,7 @@ import GranpaAnimation from "../components/GranpaAnimation.jsx";
 import Typewriter from "../components/Typewriter.jsx";
 
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 // ---------------------공통 레이아웃-----------------------------
 const Background = styled.div`
@@ -87,9 +88,18 @@ const SpeechClick = styled.div`
 
 export default function Intro2() {
   const navigate = useNavigate();
+  const [isTyping, setIsTyping] = useState(true);
+
+  const handleNext = () => {
+    if (isTyping) {
+      setIsTyping(false);
+      return;
+    }
+    navigate("/Intro3");
+  };
 
   return (
-    <Background onClick={() => navigate("/Intro3")}>
+    <Background onClick={handleNext}>
       <ScrollArea>
         <ScrollImage src="/두루마리.png" />
 
@@ -97,7 +107,10 @@ export default function Intro2() {
           <GranpaAnimation />
           <SpeechBubble>
             <div>
-              <Typewriter>
+              <Typewriter
+                skip={!isTyping}
+                onComplete={() => setIsTyping(false)}
+              >
                 "사주 살이란 인연의 시작점이라고 할 수 있지.
                 <br />
                 <br />
