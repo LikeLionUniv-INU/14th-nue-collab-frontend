@@ -212,8 +212,8 @@ export default function KiaSal() {
             title="살 무력화 완료"
             content={
               <>
-                좋은 살이 <span style={{ color: "#0000ff" }}>홍연</span>으로
-                이어져 더욱 강해졌습니다!
+                나쁜 살이 <span style={{ color: "#0000ff" }}>청연</span>으로
+                이어져 무력화되었습니다!
               </>
             }
             onClose={handleCloseModal}
