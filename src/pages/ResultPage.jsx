@@ -63,7 +63,7 @@ const ImageBox = styled.div`
   justify-content: center;
   overflow: hidden;
   img {
-    width: 90%;
+    width: 80%;
     height: auto;
     display: block;
   }
