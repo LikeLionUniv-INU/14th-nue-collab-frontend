@@ -17,6 +17,7 @@ import KiaSal from "./pages/KiaSal";
 import Nobirth from "./pages/Nobirth";
 import Test from "./pages/Test"; // 나중에 삭제
 import Communication from "./pages/Communication";
+import Ending from "./pages/Ending";
 
 function App() {
   // 화면 핀치 줌 방지
@@ -59,8 +60,8 @@ function App() {
         <Route path="/kia-sal" element={<KiaSal />} />
         <Route path="/about-sal" element={<Aboutsal />} />
         <Route path="/nobirth" element={<Nobirth />} />
-        <Route path="/test" element={<Test />} /> {/*나중에 삭제*/}
         <Route path="/communication" element={<Communication />} />
+        <Route path="/ending" element={<Ending />} />
       </Routes>
     </BrowserRouter>
   );

@@ -2,6 +2,7 @@
 import styled from "styled-components";
 import Scroll from "../components/Scroll.jsx";
 import GranpaAnimation from "../components/GranpaAnimation";
+import Typewriter from "../components/Typewriter.jsx";
 
 import { useNavigate } from "react-router-dom";
 
@@ -63,6 +64,9 @@ const SpeechBubble = styled.div`
   font-size: 14px;
   display: flex;
   flex-direction: column;
+  word-break: keep-all;
+  overflow-wrap: break-word;
+  line-height: 1.5;
 
   &::after {
     content: "";
@@ -104,7 +108,10 @@ export default function ResultReady() {
             </AnimationWrapper>
           </ImageBox>
           <SpeechBubble>
-            "결과가 나왔어 확인해 볼래?" <SpeechClick />
+            <div>
+              <Typewriter>"결과가 나왔네. 확인해 보겠나?"</Typewriter>
+            </div>
+            <SpeechClick />
           </SpeechBubble>
         </Content>
       </ScrollArea>

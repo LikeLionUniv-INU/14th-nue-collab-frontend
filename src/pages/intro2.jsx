@@ -2,6 +2,7 @@
 import styled from "styled-components";
 import Scroll from "../components/Scroll.jsx";
 import GranpaAnimation from "../components/GranpaAnimation.jsx";
+import Typewriter from "../components/Typewriter.jsx";
 
 import { useNavigate } from "react-router-dom";
 
@@ -95,10 +96,15 @@ export default function Intro2() {
         <Content>
           <GranpaAnimation />
           <SpeechBubble>
-            "사주 살이란 인연의 시작점이라고 할 수 있지
-            <br />
-            <br />
-            너의 인연은 어떤지 한번 들여다보자꾸나." <SpeechClick />
+            <div>
+              <Typewriter>
+                "사주 살이란 인연의 시작점이라고 할 수 있지.
+                <br />
+                <br />
+                너의 인연은 어떤지 한번 들여다보자꾸나."
+              </Typewriter>
+            </div>
+            <SpeechClick />
           </SpeechBubble>
         </Content>
       </ScrollArea>

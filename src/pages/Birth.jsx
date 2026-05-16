@@ -180,8 +180,11 @@ export default function Birth() {
       });
 
       if (response.status === 200) {
-        // 생년월일을 localStorage에 저장
-        localStorage.setItem("userBirthDate", formattedDate);
+        // 이전 분석 데이터 초기화 후 생년월일을 sessionStorage에 저장
+        sessionStorage.clear();
+        sessionStorage.setItem("userBirthDate", formattedDate);
+        // ResultPage에서 중복 호출하지 않도록 받아온 결과값 바로 캐싱
+        sessionStorage.setItem("apiData", JSON.stringify(response.data));
         navigate("/loading");
       }
     } catch (error) {
@@ -193,6 +196,9 @@ export default function Birth() {
         alert("생년월일이 올바르지 않습니다. 다시 입력해주세요.");
       } else if (code === "SINSAL_500") {
         alert("서버 오류입니다. 잠시 후 다시 시도해주세요.");
+      } else {
+        // 백엔드 서버가 닫혀있거나 인터넷이 끊겼을 때의 기본 방어
+        alert("서버와 통신할 수 없습니다. 잠시 후 다시 시도해주세요.");
       }
     }
   };
