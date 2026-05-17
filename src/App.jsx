@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { Analytics } from "@vercel/analytics/react";
 import styled from "styled-components";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Intro1 from "./pages/intro1";
@@ -42,23 +43,26 @@ function App() {
   }, []);
 
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Intro1 />} />
-        <Route path="/intro2" element={<Intro2 />} />
-        <Route path="/intro3" element={<Intro3 />} />
-        <Route path="/loading" element={<Loading />} />
-        <Route path="/result-ready" element={<ResultReady />} />
-        <Route path="/birth" element={<Birth />} />
-        <Route path="/result" element={<ResultPage />} />
-        <Route path="/enhance-sal" element={<EnhanceSal />} />
-        <Route path="/kia-sal" element={<KiaSal />} />
-        <Route path="/about-sal" element={<Aboutsal />} />
-        <Route path="/nobirth" element={<Nobirth />} />
-        <Route path="/communication" element={<Communication />} />
-        <Route path="/ending" element={<Ending />} />
-      </Routes>
-    </BrowserRouter>
+    <>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Intro1 />} />
+          <Route path="/intro2" element={<Intro2 />} />
+          <Route path="/intro3" element={<Intro3 />} />
+          <Route path="/loading" element={<Loading />} />
+          <Route path="/result-ready" element={<ResultReady />} />
+          <Route path="/birth" element={<Birth />} />
+          <Route path="/result" element={<ResultPage />} />
+          <Route path="/enhance-sal" element={<EnhanceSal />} />
+          <Route path="/kia-sal" element={<KiaSal />} />
+          <Route path="/about-sal" element={<Aboutsal />} />
+          <Route path="/nobirth" element={<Nobirth />} />
+          <Route path="/communication" element={<Communication />} />
+          <Route path="/ending" element={<Ending />} />
+        </Routes>
+      </BrowserRouter>
+      <Analytics />
+    </>
   );
 }
 
