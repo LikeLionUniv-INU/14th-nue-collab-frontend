@@ -65,7 +65,8 @@ const SpeechBubble = styled.div`
     bottom: 100%;
 
     // 이 수치 바꿔서 꼬리 위치 조정
-    left: 15%;
+    left: 50%;
+    transform: translateX(-50%);
 
     border-width: 12px;
     border-style: solid;
