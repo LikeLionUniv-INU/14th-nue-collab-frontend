@@ -219,6 +219,32 @@ const DateBadge = styled.div`
   flex-shrink: 0;
 `;
 
+// --------------------- 숨겨진 캡처 영역 스타일 -----------------------------
+const CaptureArea = styled.div`
+  position: absolute;
+  left: -9999px;
+  top: -9999px;
+  width: 400px;
+  background-color: #341d02;
+  padding: 20px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: -10;
+`;
+
+const CaptureScrollBox = styled.div`
+  background-color: #eedbc6;
+  width: 100%;
+  padding: 15px;
+  border-radius: 10px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+`;
+
 export default function ResultPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isResultModalOpen, setIsResultModalOpen] = useState(false);
@@ -362,8 +388,63 @@ export default function ResultPage() {
   const dateParts = apiData.birthDate.split("-");
   const formattedDate = `생년월일 ${dateParts[0]}년 ${dateParts[1]}월 ${dateParts[2]}일 (양력)`;
 
+  // 순서가 정렬된 살 목록 (캡처 영역과 화면 영역 모두에서 사용)
+  const sortedSals = [...apiData.sinSals].sort((a, b) => {
+    if (a.type === "lucky" && b.type === "unlucky") return -1;
+    if (a.type === "unlucky" && b.type === "lucky") return 1;
+    return 0; // 같으면 순서 유지
+  });
+
   return (
     <Background>
+      <CaptureArea id="capture-area">
+        <CaptureScrollBox>
+          <ProfileRow style={{ height: "80px", marginBottom: "3px" }}>
+            <ImageBox style={{ width: "30%", height: "100%" }}>
+              <img src="어깨_할아버지.png" alt="할아버지" />
+            </ImageBox>
+            <TextBox
+              style={{
+                flex: 1,
+                height: "100%",
+                padding: "15px 14px",
+                overflowY: "hidden",
+              }}
+            >
+              총 {apiData.totalCount}개의 살이 나왔구나. <br />
+              얽힌 인연을 잘 간직하길 바란다.
+            </TextBox>
+          </ProfileRow>
+
+          <DateBadge>{formattedDate}</DateBadge>
+
+          {sortedSals.map((sal, index) => {
+            let threadImg = 흰색실;
+            if (sal.type === "lucky" && isEnhanceSalCompleted)
+              threadImg = 빨간색실;
+            else if (sal.type === "unlucky" && isKiaSalCompleted)
+              threadImg = 파란색실;
+
+            return (
+              <ListItem key={`capture-${sal.key}`}>
+                <ItemContent $type={sal.type} $isRead={false}>
+                  <div
+                    style={{ display: "flex", alignItems: "center", flex: 1 }}
+                  >
+                    <NumberBadge>{index + 1}</NumberBadge>
+                    <ItemName>
+                      {sal.name} ({sal.hanja})
+                    </ItemName>
+                  </div>
+                  <div>→</div>
+                </ItemContent>
+                <Sil src={threadImg} alt="인연의 실" />
+              </ListItem>
+            );
+          })}
+        </CaptureScrollBox>
+      </CaptureArea>
+
       {/* 팝업 모달 */}
       {isModalOpen && (
         <PopupModal
@@ -411,49 +492,43 @@ export default function ResultPage() {
             <DateBadge>{formattedDate}</DateBadge>
 
             {/* API 데이터 매핑 영역 */}
-            {[...apiData.sinSals]
-              .sort((a, b) => {
-                if (a.type === "lucky" && b.type === "unlucky") return -1;
-                if (a.type === "unlucky" && b.type === "lucky") return 1;
-                return 0; // 같으면 순서 유지
-              })
-              .map((sal, index) => {
-                // 1. 기본값: 하얀실 이미지
-                let threadImg = 흰색실;
+            {sortedSals.map((sal, index) => {
+              // 1. 기본값: 하얀실 이미지
+              let threadImg = 흰색실;
 
-                // 2. 홍연(lucky)이면서 '강화 완료' 상태일 때: 빨간실 이미지로 변경
-                if (sal.type === "lucky" && isEnhanceSalCompleted) {
-                  threadImg = 빨간색실;
-                }
-                // 3. 청연(unlucky)이면서 '무력화 완료' 상태일 때: 파란실 이미지로 변경
-                else if (sal.type === "unlucky" && isKiaSalCompleted) {
-                  threadImg = 파란색실;
-                }
+              // 2. 홍연(lucky)이면서 '강화 완료' 상태일 때: 빨간실 이미지로 변경
+              if (sal.type === "lucky" && isEnhanceSalCompleted) {
+                threadImg = 빨간색실;
+              }
+              // 3. 청연(unlucky)이면서 '무력화 완료' 상태일 때: 파란실 이미지로 변경
+              else if (sal.type === "unlucky" && isKiaSalCompleted) {
+                threadImg = 파란색실;
+              }
 
-                return (
-                  <ListItem key={sal.key} onClick={() => handleItemClick(sal)}>
-                    <ItemContent
-                      $type={sal.type}
-                      $isRead={readItems.includes(sal.key)}
+              return (
+                <ListItem key={sal.key} onClick={() => handleItemClick(sal)}>
+                  <ItemContent
+                    $type={sal.type}
+                    $isRead={readItems.includes(sal.key)}
+                  >
+                    <div
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        flex: 1,
+                      }}
                     >
-                      <div
-                        style={{
-                          display: "flex",
-                          alignItems: "center",
-                          flex: 1,
-                        }}
-                      >
-                        <NumberBadge>{index + 1}</NumberBadge>
-                        <ItemName>
-                          {sal.name} ({sal.hanja})
-                        </ItemName>
-                      </div>
-                      <div>→</div>
-                    </ItemContent>
-                    <Sil src={threadImg} alt="인연의 실" />
-                  </ListItem>
-                );
-              })}
+                      <NumberBadge>{index + 1}</NumberBadge>
+                      <ItemName>
+                        {sal.name} ({sal.hanja})
+                      </ItemName>
+                    </div>
+                    <div>→</div>
+                  </ItemContent>
+                  <Sil src={threadImg} alt="인연의 실" />
+                </ListItem>
+              );
+            })}
 
             <ButtonArea>
               <LeftButtonGroup>

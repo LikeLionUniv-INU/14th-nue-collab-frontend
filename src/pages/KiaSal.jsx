@@ -250,7 +250,7 @@ export default function KiaSal() {
                 unluckyItems.some((sal) => sal.key === item)
               ).length
             }
-            / {unluckyItems.length} 확인)
+            /{unluckyItems.length} 확인)
           </WarningText>
         )}
       </Container>
