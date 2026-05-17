@@ -75,7 +75,7 @@ const TextBox = styled.div`
   align-items: center;
   background-color: #eedbc6;
   border-radius: 10px;
-  padding: 10px 14px;
+  padding: 10px 8px;
   width: 90%;
   box-sizing: border-box;
   font-size: 11px;
