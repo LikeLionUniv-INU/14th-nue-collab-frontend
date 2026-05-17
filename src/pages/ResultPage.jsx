@@ -132,10 +132,10 @@ const ItemName = styled.div`
 // 리스트 위에 얹어질 실 이미지 스타일
 const Sil = styled.img`
   position: absolute;
-  right: 8px; 
+  right: 8px;
   top: 50%;
   transform: translateY(-50%) scaleX(-1);
-  height: 160%;
+  height: 135%;
   pointer-events: none;
 `;
 
@@ -196,7 +196,7 @@ const ScrollableListBox = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 10px;
+  gap: 6px;
   padding-bottom: 70px;
 
   /* 스크롤바 숨기기 (모바일 환경 깔끔하게) */
