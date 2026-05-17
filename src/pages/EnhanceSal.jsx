@@ -250,7 +250,7 @@ export default function EnhanceSal() {
                 luckyItems.some((sal) => sal.key === item)
               ).length
             }
-            / {luckyItems.length} 확인)
+            /{luckyItems.length} 확인)
           </WarningText>
         )}
       </Container>

@@ -1,7 +1,6 @@
 // 결과 팝업모달
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import { useRef } from "react";
 import html2canvas from "html2canvas";
 
 // 화면 전체를 덮는 회색 배경
@@ -88,16 +87,17 @@ export default function Result_PopupModal({
   onClose,
 }) {
   const navigate = useNavigate();
-  const modalRef = useRef(null);
 
   // 이미지 다운로드 함수
   const handleDownload = async () => {
-    if (!modalRef.current) return;
+    // 화면 밖으로 몰래 빼둔 캡처 전용 레이아웃을 찾습니다.
+    const element = document.getElementById("capture-area");
+    if (!element) return;
 
     try {
-      const canvas = await html2canvas(modalRef.current, {
-        scale: 2, // 모바일 환경에서도 글씨가 깨지지 않도록 고해상도 캡처
-        backgroundColor: "#eaddcb", // 모달 배경색 유지
+      const canvas = await html2canvas(element, {
+        scale: 2,
+        backgroundColor: "#341d02", // 바깥쪽 여백 배경색
       });
       const link = document.createElement("a");
       link.download = "나의_인연_결과.png"; // 저장될 파일 이름
@@ -111,7 +111,7 @@ export default function Result_PopupModal({
 
   return (
     <Overlay>
-      <ModalBox ref={modalRef}>
+      <ModalBox>
         <Title>결과 확인</Title>
         <Description>
           <Red>홍연</Red>으로 강화된 인연
