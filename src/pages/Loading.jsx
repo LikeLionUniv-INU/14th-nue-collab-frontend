@@ -133,7 +133,7 @@ export default function TemplatePage() {
       <ScrollArea>
         <ScrollImage src="/두루마리.png" />
         <Content>
-          <SpeechBubble>어르신이 분석 중...</SpeechBubble>
+          <SpeechBubble>홍연과 청연이 얽혀있구먼..</SpeechBubble>
           <br />
           <GranpaAnimation />
           <br />

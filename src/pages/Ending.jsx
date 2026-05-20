@@ -1,4 +1,5 @@
 // 마지막 누에고치 팀 홍보 페이지
+import { useState } from "react";
 import styled, { keyframes } from "styled-components";
 import Typewriter from "../components/Typewriter.jsx";
 
@@ -92,12 +93,72 @@ const Blue = styled.span`
   color: #0000ff;
 `;
 
+// ----------------- 지도 모달 스타일 -----------------
+const MapOverlay = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100dvh;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+`;
+
+const MapBox = styled.div`
+  background-color: #eaddcb;
+  padding: 15px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 90%;
+  max-width: 350px;
+  box-sizing: border-box;
+`;
+
+const MapImage = styled.img`
+  width: 100%;
+  height: auto;
+  border-radius: 5px;
+  margin-bottom: 15px;
+`;
+
+const CloseMapButton = styled.button`
+  background-color: #dcb88e;
+  border: none;
+  border-radius: 10px;
+  padding: 8px 30px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  font-family: inherit;
+`;
+
 export default function Ending() {
+  const [isMapOpen, setIsMapOpen] = useState(false);
+
   return (
     <Background>
+      {/* 배치도 팝업 모달 */}
+      {isMapOpen && (
+        <MapOverlay onClick={() => setIsMapOpen(false)}>
+          <MapBox onClick={(e) => e.stopPropagation()}>
+            <MapImage src="/배치도.png" alt="부스 배치도" />
+            <div style={{ marginBottom: "15px" }}>
+              많은 관심 부탁드립니다 😊
+            </div>
+            <CloseMapButton onClick={() => setIsMapOpen(false)}>
+              닫기
+            </CloseMapButton>
+          </MapBox>
+        </MapOverlay>
+      )}
+
       <Container>
         <FloatingImage src="/실뭉치.png" alt="실뭉치" />
-        {/*여기에 추후 누에고치팀에서 받은 이미지 삽입*/}
         <SpeechBubble>
           <Typewriter>
             {`허허.. 살의 기운은 확인했으니...\n이제 그대를 기다리는 인연의 이야기로 함께 떠나보겠느냐?`}
@@ -113,12 +174,11 @@ export default function Ending() {
             </a>{" "}
             <br />
             <br />
-            {/*추후 링크들 삽입*/}
             <a
               href="#"
               onClick={(e) => {
                 e.preventDefault();
-                alert("준비 중입니다!");
+                setIsMapOpen(true);
               }}
               title="누에고치 부스 위치 보기!"
             >
