@@ -233,8 +233,8 @@ export default function Birth() {
 
           <Select
             name="생년"
-            lgh={51}
-            num={1970}
+            lgh={77}
+            num={1950}
             value={year}
             onChange={setYear}
           />
