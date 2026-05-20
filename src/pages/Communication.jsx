@@ -112,7 +112,7 @@ export default function Communication() {
   const [isTyping, setIsTyping] = useState(true); // 타이핑 상태 관리
 
   const dialogs = [
-    "나는 총 16가지의 실을 볼 수 있다네.",
+    "나는 총 16가지의 살을 볼 수 있다네.",
     <>
       그 중에서 자신에게 힘이 되는 <Red>붉은 색의 홍연 살</Red>과, <br />
       흐름을 방해하는 <Blue>푸른색의 청연 살</Blue>도 있고

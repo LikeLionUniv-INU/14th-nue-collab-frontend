@@ -578,7 +578,7 @@ export default function ResultPage() {
                     if (canEnhance) {
                       navigate("/enhance-sal");
                     } else if (isEnhanceSalCompleted) {
-                      alert("이미 좋은 살들의 강화가 모두 끝났단다.");
+                      alert("이미 홍연의 강화가 모두 끝났단다.");
                     } else {
                       alert("모든 살을 클릭하여 내용을 먼저 확인해야 한단다.");
                     }
@@ -594,7 +594,7 @@ export default function ResultPage() {
                     if (canWeaken) {
                       navigate("/kia-sal");
                     } else if (isKiaSalCompleted) {
-                      alert("이미 안 좋은 살들의 무력화가 모두 끝났단다.");
+                      alert("이미 청연의 무력화가 모두 끝났단다.");
                     } else {
                       alert("모든 살을 클릭하여 내용을 먼저 확인해야 한단다.");
                     }
