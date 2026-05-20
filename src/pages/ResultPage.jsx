@@ -79,7 +79,7 @@ const TextBox = styled.div`
   align-items: center;
   background-color: #eedbc6;
   border-radius: 10px;
-  padding: 10px 14px; /* 위아래 여백 축소 */
+  padding: 10px 8px; /* 위아래 여백 축소 */
   width: 90%;
   box-sizing: border-box;
   font-size: 11px;
@@ -100,15 +100,36 @@ const ItemContent = styled.div`
   justify-content: space-between;
   width: 100%;
   padding: 6px 30px 6px 10px;
-  background-color: #eedbc6;
   border-radius: 8px;
   box-sizing: border-box;
 
-  border: 2px solid ${(props) => (props.$type === "lucky" ? "red" : "blue")};
+  background-color: ${(props) => {
+    if (props.$isRead) {
+      if (props.$type === "lucky" && props.$isEnhanced) return "#eedbc6";
+      return "#bba690";
+    }
+    return "#eedbc6";
+  }};
+
+  border: 2px solid
+    ${(props) => {
+      if (props.$isRead) {
+        if (props.$type === "lucky" && props.$isEnhanced) return "red";
+        return "#dcb98e";
+      }
+      return props.$type === "lucky" ? "red" : "blue";
+    }};
 
   /* 읽었으면 회색 처리 */
-  filter: ${(props) =>
-    props.$isRead ? "grayscale(100%) opacity(60%)" : "none"};
+  /* filter: ${(props) => {
+    if (props.$isRead) {
+      if (props.$type === "lucky" && props.$isEnhanced) {
+        return "none";
+      }
+      return "grayscale(100%) opacity(60%)";
+    }
+    return "none";
+  }}; */
 `;
 
 const NumberBadge = styled.div`
@@ -169,17 +190,20 @@ const CircleButton = styled.button`
   cursor: pointer;
   text-align: center;
   word-break: keep-all;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 `;
 
 const ActionButton = styled(CircleButton)`
-  background-color: #dcb88e;
   color: ${(props) => props.color || "black"};
+  background-color: ${(props) => (props.$disabled ? "#dcb88e" : "#eedbc6")};
+  border: ${(props) => (props.$disabled ? "none" : "2px solid #a2392d")};
+  box-shadow: ${(props) =>
+    props.$disabled ? "none" : "0px 4px 6px rgba(0, 0, 0, 0.2)"};
 `;
 
 const TipsButton = styled(CircleButton)`
   background-color: #8c3636;
   color: white;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
 `;
 // -----------------------------------------------------------
 
@@ -200,11 +224,11 @@ const ScrollableListBox = styled.div`
   padding-bottom: 70px;
 
   /* 스크롤바 숨기기 (모바일 환경 깔끔하게) */
-  &::-webkit-scrollbar {
+  /* &::-webkit-scrollbar {
     display: none;
   }
   -ms-overflow-style: none;
-  scrollbar-width: none;
+  scrollbar-width: none;*/
 `;
 
 // 생년월일 전용 박스
@@ -395,6 +419,16 @@ export default function ResultPage() {
     return 0; // 같으면 순서 유지
   });
 
+  const canEnhance =
+    apiData.sinSals
+      .filter((sal) => sal.type === "lucky")
+      .every((sal) => readItems.includes(sal.key)) && !isEnhanceSalCompleted;
+
+  const canWeaken =
+    apiData.sinSals
+      .filter((sal) => sal.type === "unlucky")
+      .every((sal) => readItems.includes(sal.key)) && !isKiaSalCompleted;
+
   return (
     <Background>
       <CaptureArea id="capture-area">
@@ -427,7 +461,11 @@ export default function ResultPage() {
 
             return (
               <ListItem key={`capture-${sal.key}`}>
-                <ItemContent $type={sal.type} $isRead={false}>
+                <ItemContent
+                  $type={sal.type}
+                  $isRead={false}
+                  $isEnhanced={sal.type === "lucky" && isEnhanceSalCompleted}
+                >
                   <div
                     style={{ display: "flex", alignItems: "center", flex: 1 }}
                   >
@@ -510,6 +548,7 @@ export default function ResultPage() {
                   <ItemContent
                     $type={sal.type}
                     $isRead={readItems.includes(sal.key)}
+                    $isEnhanced={sal.type === "lucky" && isEnhanceSalCompleted}
                   >
                     <div
                       style={{
@@ -534,12 +573,33 @@ export default function ResultPage() {
               <LeftButtonGroup>
                 <ActionButton
                   color="red"
-                  onClick={() => navigate("/enhance-sal")}
+                  $disabled={!canEnhance}
+                  onClick={() => {
+                    if (canEnhance) {
+                      navigate("/enhance-sal");
+                    } else if (isEnhanceSalCompleted) {
+                      alert("이미 좋은 살들의 강화가 모두 끝났단다.");
+                    } else {
+                      alert("모든 살을 클릭하여 내용을 먼저 확인해야 한단다.");
+                    }
+                  }}
                 >
                   살<br />
                   강화
                 </ActionButton>
-                <ActionButton color="blue" onClick={() => navigate("/kia-sal")}>
+                <ActionButton
+                  color="blue"
+                  $disabled={!canWeaken}
+                  onClick={() => {
+                    if (canWeaken) {
+                      navigate("/kia-sal");
+                    } else if (isKiaSalCompleted) {
+                      alert("이미 안 좋은 살들의 무력화가 모두 끝났단다.");
+                    } else {
+                      alert("모든 살을 클릭하여 내용을 먼저 확인해야 한단다.");
+                    }
+                  }}
+                >
                   살<br />
                   무력화
                 </ActionButton>
