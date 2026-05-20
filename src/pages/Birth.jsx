@@ -94,69 +94,6 @@ const StBtn = ({ OnClick, name }) => {
   return <StartButton onClick={OnClick}>{name}</StartButton>;
 };
 
-/* 
-// 시작하기 버튼
-
-`;
-*/
-
-/*
-// 말풍선 (위쪽 꼬리)
-const SpeechBubble = styled.div`
-  position: relative;
-  background-color: #eedbc6;
-  border-radius: 10px;
-  padding: 15px;
-  margin-top: 5vh; // 말풍선 위치에 따라 변경
-  width: 90%;
-  box-sizing: border-box;
-  font-size: 14px;
-
-  &::after {
-    content: "";
-    position: absolute;
-    bottom: 100%;
-
-    // 이 수치 바꿔서 꼬리 위치 조정
-    left: 15%;
-
-    border-width: 12px;
-    border-style: solid;
-    border-color: transparent transparent #eedbc6 transparent;
-  }
-`;
-*/
-
-/*
-// 말풍선 (아래쪽 꼬리)
-const SpeechBubble = styled.div`
-  position: relative;
-  background-color: #eedbc6;
-  border-radius: 10px;
-  padding: 15px;
-  margin-top: 5vh; // 말풍선 위치에 따라 변경
-  width: 90%;
-  box-sizing: border-box;
-  font-size: 14px;
-
-
-  &::after {
-    content: "";
-    position: absolute;
-    top: 100%;
-
-    // 이 수치 바꿔서 꼬리 위치 조정
-    left: 50%;
-
-    border-width: 12px;
-    border-style: solid;
-    border-color: #eedbc6 transparent transparent transparent;
-  }
-`;
-*/
-
-// -----------------------------------------------------------
-
 export default function Birth() {
   const navigate = useNavigate();
   const [year, setYear] = useState("");
@@ -217,7 +154,7 @@ export default function Birth() {
               marginTop: "10%",
             }}
           >
-            <BackButton onClick={() => navigate("/Communication")}>
+            <BackButton onClick={() => navigate("/intro3")}>
               ← 뒤로가기
             </BackButton>
 
@@ -233,7 +170,7 @@ export default function Birth() {
 
           <Select
             name="생년"
-            lgh={77}
+            lgh={76}
             num={1950}
             value={year}
             onChange={setYear}

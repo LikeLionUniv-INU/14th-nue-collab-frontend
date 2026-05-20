@@ -101,11 +101,22 @@ export default function TemplatePage() {
           <StartButton onClick={() => navigate("/communication")}>
             시작하기
           </StartButton>
-          <img
-            src="/로고.png"
-            alt="로고"
-            style={{ width: "70px", marginTop: "3vh" }}
-          />
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "10px",
+              marginTop: "3vh",
+            }}
+          >
+            <img src="/로고.png" alt="로고" style={{ width: "70px" }} />
+            <div>×</div>
+            <img
+              src="/멋사로고블랙.png"
+              alt="멋사로고"
+              style={{ width: "80px" }}
+            />
+          </div>
         </Content>
       </ScrollArea>
     </Background>

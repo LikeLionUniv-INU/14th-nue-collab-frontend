@@ -167,7 +167,7 @@ export default function Ending() {
         <ModalBox>
           <Description>
             <a
-              href="https://www.game-ping.kr/games/ninth-rebirth-demo"
+              href="https://store.onstove.com/ko/games/103099"
               title="아홉수 환생 게임하러 가기"
             >
               [게임하러 가기]
